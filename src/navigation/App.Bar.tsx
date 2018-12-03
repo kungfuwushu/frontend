@@ -155,7 +155,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
 }
 
 const mapStateToProps = (state: any) => ({
-  utility: {drawerOpen: true},
+    utility: state.utility,
   authentication: 'MyUser',//state.authentication,
 });
 

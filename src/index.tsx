@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { createStore } from 'redux';
+//import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { IStoreState } from './common/types/index';
+//import { IStoreState } from './common/types/index';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import {someAttribute} from "./common/reducers";
-import {SomeAttributeAction} from "./common/actions";
+//import {someAttribute} from "./common/reducers";
+//import {SomeAttributeAction} from "./common/actions";
 import AppNavBar from './navigation/App.Bar';
-
+import { store } from './store/Store';
 
 import blue from '@material-ui/core/colors/blue';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
@@ -23,9 +23,9 @@ const theme = createMuiTheme({
     }
 })
 
-const store = createStore<IStoreState, SomeAttributeAction, any, any>(someAttribute, {
+/*const store = createStore<IStoreState, SomeAttributeAction, any, any>(someAttribute, {
     someAttribute: 1
-});
+});*/
 
 ReactDOM.render(
 
