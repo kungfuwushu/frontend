@@ -1,6 +1,7 @@
 # frontend
-This project is created with the “TypeScript React Starter” (see  https://github.com/Microsoft/TypeScript-React-Starter)
-It uses Typescript, ReactJS, Redux, Material UI, React-Intl (the complete dependency list is in the package.json file)
+This project is created with the “TypeScript React Starter” (see  https://github.com/Microsoft/TypeScript-React-Starter).
+
+It uses Typescript, ReactJS, Redux, Material UI, React-Intl (the complete dependency list is in the package.json file).
 If you need to learn more about them, you can start here :
 •	Typescript : https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
 Installation
