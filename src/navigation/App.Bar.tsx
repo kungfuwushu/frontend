@@ -23,6 +23,7 @@ import AppDrawer from './App.Drawer';
 import Home from "../pages/Home";
 import {TrainingsList} from "../trainings";
 import {MemberDetails} from "../members";
+import { FormattedMessage } from 'react-intl';
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -94,7 +95,9 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
               <MenuIcon />
             </IconButton>
             <Typography className={classes.fillSpace} variant="title" color="inherit" noWrap={true}>
-              KUNG FU APP
+                <FormattedMessage id="app.welcome"
+                                  defaultMessage="Welcome to your kung fu APP"
+                                  description="Welcome Message" />
             </Typography>
             <div>
               <Menu

@@ -1,19 +1,21 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-//import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-//import { IStoreState } from './common/types/index';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-//import {someAttribute} from "./common/reducers";
-//import {SomeAttributeAction} from "./common/actions";
 import AppNavBar from './navigation/App.Bar';
 import { store } from './store/Store';
-
 import blue from '@material-ui/core/colors/blue';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core';
 import { pink } from '@material-ui/core/colors';
+import { IntlProvider, addLocaleData } from 'react-intl';
+
+const locale = 'fr';
+// load our messages
+const messages = require('./translations/locales/fr.json');
+import * as fr from 'react-intl/locale-data/fr';
+addLocaleData(fr);
 
 
 const theme = createMuiTheme({
@@ -21,20 +23,19 @@ const theme = createMuiTheme({
         primary: blue,
         secondary: pink
     }
-})
+});
 
-/*const store = createStore<IStoreState, SomeAttributeAction, any, any>(someAttribute, {
-    someAttribute: 1
-});*/
 
 ReactDOM.render(
 
     <Provider store={store}>
+        <IntlProvider messages={messages} locale={locale}>
         <Router>
             <MuiThemeProvider theme={theme}>
                 <AppNavBar />
             </MuiThemeProvider>
         </Router>
+        </IntlProvider>
     </Provider>,
     document.getElementById('root') as HTMLElement
 );

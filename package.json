@@ -7,12 +7,14 @@
     "@material-ui/icons": "^3.0.1",
     "@types/immutable": "^3.8.7",
     "@types/lodash": "^4.14.118",
+    "@types/react-intl": "^2.3.14",
     "@types/react-redux": "^6.0.10",
     "add": "^2.0.6",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
+    "react-intl": "^2.7.2",
     "react-redux": "^5.1.1",
     "react-router-dom": "^4.3.1",
     "react-scripts-ts": "3.1.0",
@@ -23,7 +25,10 @@
     "start": "set PORT=3005 &&  react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
-    "eject": "react-scripts-ts eject"
+    "eject": "react-scripts-ts eject",
+    "trans:compile": "tsc -p .  --target ES6 --module es6 --jsx preserve --outDir extracted",
+    "trans:extract": "babel  \"extracted/**/*.jsx\"",
+    "trans:manage": "node scripts/translationRunner.js"
   },
   "devDependencies": {
     "@types/jest": "^23.3.10",
@@ -31,6 +36,11 @@
     "@types/react": "^16.7.8",
     "@types/react-dom": "^16.0.11",
     "@types/react-router-dom": "^4.3.1",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-react-intl": "^3.0.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "react-intl-translations-manager": "^5.0.3",
     "typescript": "^3.1.6"
   }
 }
