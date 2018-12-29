@@ -24,9 +24,15 @@ If you need to learn more about them, you can start here :
 
 # Internationalization
 You have three scripts for translation:
+
  $ npm run trans:compile 
+    
     ==> It compiles the tsx files to ES2015 in a temporary directory called extracted.
+
  $ npm run trans:extract
+    
     ==> It extracts all the default strings into the src/translations/extracted directory.
+
  $ npm run trans:manage
+    
     ==> It creates two .json files per language. One for the translations, and one for whitelisting messages that are causing invalid warnings.
