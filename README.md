@@ -2,13 +2,13 @@
 This project is created with the “TypeScript React Starter” (see  https://github.com/Microsoft/TypeScript-React-Starter).
 
 It uses Typescript, ReactJS, Redux, Material UI, React-Intl (the complete dependency list is in the package.json file).
+
 If you need to learn more about them, you can start here :
-•	Typescript : https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
-Installation
-•	ReactJs : https://reactjs.org/docs/hello-world.html
-•	Redux : https://redux.js.org/basics/basic-tutorial
-•	Material UI : https://material-ui.com/getting-started/usage/
-•	React-intl : https://github.com/yahoo/react-intl/wiki
+ •	Typescript : https://www.typescriptlang.org/docs/handbook/typescript-in-5-minutes.html
+ •	ReactJs : https://reactjs.org/docs/hello-world.html
+ •	Redux : https://redux.js.org/basics/basic-tutorial
+ •	Material UI : https://material-ui.com/getting-started/usage/
+ •	React-intl : https://github.com/yahoo/react-intl/wiki
 
 # Installation / Running
 1.	git clone <repository-url> this repository
