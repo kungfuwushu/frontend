@@ -1,6 +1,6 @@
 ---
 name: 💥 Regression
-about: Quelque chose fonctionnait mais ne fonctionne plus 😳
+about: Something was working before and it's broken now 😳
 ---
 <!-- Help us manage issues by specifying the following information. -->
 
@@ -8,35 +8,33 @@ about: Quelque chose fonctionnait mais ne fonctionne plus 😳
 
 <!-- Check one of the following options with "x" -->
 
-* [ ] Reproduis tu le problème à chaque fois ?
-* [ ] As tu regardé la documentation ?
-* [ ] Reportes tu ce bug sur le bon repository ?
-* [ ] As tu vérifié que ce bug n'existait pas déjà ?
+* [ ] Can you reproduce the problem all the time?
+* [ ] Did you check the documentation?
+* [ ] Are you reporting this issue to the correct repository?
+* [ ] Did you perform a search to check if the issue does not exist already?
 
-## Comportement précédent
+## Previous behavior
 
-<!-- Décrit le comportement de l'application avant la régression. -->
+<!-- Describe how the application used to work. -->
 
-## Nouveau comportement
+## New behavior
 
-<!-- Décrit le comportement actuel de l'application. -->
+<!-- Describe how things are working now -->
 
-## Etapes de reproductions
+## Steps to reproduce
 
-<!-- Description des étapes pour reproduire le bug :
-   1. Aller à '...'
-   2. Cliquer sur '....'
-   3. Faire défiler jusqu'à '....'
-   4. Voir l'erreur '...'
+<!--
+For bug reports please provide the *STEPS TO REPRODUCE* and if possible a *MINIMAL DEMO* of the problem.-
+If you have link to a codepen showing the issue or a standalone repo please link that!
 -->
 
-## Comportement attendu
+## Expected behavior
 
-<!-- Décrit le comportement que tu t'attends à avoir. -->
+<!-- Describe what the desired behavior would be -->
 
 ## Environment
 
-Navigateur dans lequel le bug se reproduit : <!-- (remplace XX par la version du navigateur) -->
+Browser in which the issue has been reproduced:
 
 * [ ] Chrome (desktop) version XX
 * [ ] Chrome (Android) version XX
@@ -47,10 +45,10 @@ Navigateur dans lequel le bug se reproduit : <!-- (remplace XX par la version du
 * [ ] IE version XX
 * [ ] Edge version XX
 
-Pour le bug lié au tooling: <!-- (remplace XX par la version de l'outil) -->
+For Tooling issues:
 
-* [ ] Node version: XX
-* [ ] Yarn version: XX
+* Yarn version: XX
+* Node version: XX
 
-Autres:
-<!-- Tous ce qui pourrait être utile pour cerner le bug, Système d'exploitation, IDE, ... -->
+Others:
+<!-- Anything else relevant?  Operating system version, IDE, package manager, HTTP server, ... -->

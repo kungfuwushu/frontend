@@ -1,21 +1,22 @@
 ---
 name: 🚀 Feature Request
-about: J'ai une idée géniale 🙂
+about: I have a great idea 🙂
 ---
+<!-- Help us manage issues by specifying the following information. -->
 
 ## 🚀 Feature Request
 
-<!-- Selectionne une ou plusieurs options avec un "x" -->
+<!-- Check one of the following options with "x" -->
 
-* [ ] As tu regardé la documentation ?
-* [ ] Reportes tu ce bug sur le bon repository ?
-* [ ] As tu vérifié que ce bug n'existait pas déjà ?
+* [ ] Did you check the documentation?
+* [ ] Are you reporting this issue to the correct repository?
+* [ ] Did you perform a search to check if this feature has not been requested before?
 
-## Comportement attendu
+## Expected behavior
 
-<!-- Décrit le comportement que tu t'attends à avoir. -->
+<!-- Describe what the desired behavior would be -->
 
 ## Environment
 
-Autres:
-Tous ce qui pourrait être utile pour nous aider à comprendre ton idée.
+Others:
+<!-- Anything else relevant?  Operating system version, IDE, package manager, HTTP server, ... -->

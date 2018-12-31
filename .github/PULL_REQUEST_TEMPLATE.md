@@ -1,14 +1,13 @@
-## Types de changements
+## Types of changes
+<!-- What types of changes does your code introduce? Put an `x` in all the boxes that apply: -->
 
-<!-- Quel sont les types de changements apportés par ton code ? Met un `x` dans chaque option qui convient. -->
-
-* [ ] Bug fix (Changement qui ne casse rien et qui corrige un bug)
-* [ ] New feature (Changement qui ne casse rien et qui ajoute une fonctionnalité)
-* [ ] Breaking change (correction ou nouvelle fonctionnalité qui changerait le comportement d'une fonctionnalité existante)
-* [ ] J'ai lu le document **CONTRIBUTING**.
-* [ ] Mon code suis le "code style" de ce projet.
-* [ ] Mon changement nécessite un changement dans la documentation.
-* [ ] J'ai mis à jour la documentation en conséquence.
-* [ ] J'ai ajouté des tests pour couvrir mes changements.
-* [ ] Tous les nouveaux et anciens tests passent.
-* [ ] Amélioration de l'intégration continue.
+* [ ] Bug fix (non*breaking change which fixes an issue)
+* [ ] New feature (non*breaking change which adds functionality)
+* [ ] Breaking change (fix or feature that would cause existing functionality to change)
+* [ ] I have read the **CONTRIBUTING** document.
+* [ ] My code follows the code style of this project.
+* [ ] My change requires a change to the documentation.
+* [ ] I have updated the documentation accordingly.
+* [ ] I have added tests to cover my changes.
+* [ ] All new and existing tests passed.
+* [ ] Continuous integration improvement
