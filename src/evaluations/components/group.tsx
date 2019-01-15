@@ -1,6 +1,7 @@
 import { Layout, Menu } from 'antd';
-import { Row, Col } from 'antd';
+import { Col } from 'antd';
 import * as React from 'react';
+import './style.css';
 
 const {
     Content
@@ -24,9 +25,9 @@ export const GroupEvaluation: React.StatelessComponent<{}> = () => {
     return (
         <div className="GroupEvaluation">
             <h1>Evaluation en cours : Petit Panda, Groupe2</h1>
-            <Row gutter={8}>
+            <div className="content">
                 <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-                    <Menu theme="light" mode="inline" defaultSelectedKeys={['4']} style={{backgroundColor: '#d9d9d9' ,overflowY:"scroll",overflowX:"hidden", height:screen.height}}>
+                    <Menu theme="light" mode="inline" defaultSelectedKeys={['4']}>
                         {students.map((student, index) => {
                             return (
                                 <Menu.Item key={index}>
@@ -37,7 +38,7 @@ export const GroupEvaluation: React.StatelessComponent<{}> = () => {
                     </Menu>
                 </Col>
                 <Col xs={6} sm={6} md={6} lg={6} xl={6}>
-                <Menu theme="light" mode="inline" defaultSelectedKeys={['4']} style={{backgroundColor: '#d9d9d9' }}>
+                    <Menu theme="light" mode="inline" defaultSelectedKeys={['4']}>
                         {exercises.map((exercice, index) => {
                             return (
                                 <Menu.Item key={index}>
@@ -66,7 +67,7 @@ export const GroupEvaluation: React.StatelessComponent<{}> = () => {
                         </div>
                     </Content>
                 </Col>
-            </Row>
+            </div>
         </div>
     );
 }
