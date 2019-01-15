@@ -48,7 +48,7 @@ export const GroupEvaluation: React.StatelessComponent<{}> = () => {
                         })}
                     </Menu>
                 </Col>
-                <Col xs={12} sm={12} md={12} lg={12} xl={12}>
+                <Col xs={12} sm={12} md={12} lg={12} xl={12} className="current-evaluation">
                     <Content style={{overflow: 'initial' }}>
                         <div style={{ padding: 24, background: '#fff', textAlign: 'center' }}>
                         ...
