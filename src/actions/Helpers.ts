@@ -9,6 +9,7 @@ export enum ActionType {
     NEXT,
     SAVE_EXERCISE_RESULT,
     SAVE_CRITERIA_RESULT,
+    SAVE_NEW_EVALUATION
 }
 
 export interface IAppAction extends Action<ActionType> {
