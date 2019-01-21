@@ -11,6 +11,7 @@
     "@types/react-redux": "^6.0.10",
     "add": "^2.0.6",
     "antd": "^3.11.6",
+    "axios": "^0.18.0",
     "immutable": "^4.0.0-rc.12",
     "lodash": "^4.17.11",
     "react": "^16.6.3",
