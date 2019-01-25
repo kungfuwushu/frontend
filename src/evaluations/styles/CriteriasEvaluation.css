@@ -1,0 +1,14 @@
+.CriteriasEvaluation{
+    display: flex;
+    flex-direction: column
+}
+
+.CriteriasEvaluation .criteria{
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.CriteriasEvaluation .option{
+    margin-left: 20%
+}
