@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../styles/ExerciseEvaluation.css';
 import CriteriasEvaluation from './CriteriasEvaluation';
-//import * as api from '../../api';
+import * as api from '../../api';
 
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
@@ -24,21 +24,25 @@ class ExerciseEvaluation extends React.Component<ExerciseEvaluationProps, Exerci
     this.state = {
       rankExercise: {
         id:1,
-        name: 'Ti Tui',
-        type: 'Taolu',
-        image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeAgs19U6GP04mttvxSAKmc_631I2zOjCHkGmtUnYsXt0Ze582hA',
-        description:'descriptions...',
         coefficient: 3.0,
-        exerciseId: 0,
         rankId: 4,
-        categoryId: 5,
+        exercise:{
+          id: 0,
+          name: 'Ti Tui',
+          type: 'Taolu',
+          image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeAgs19U6GP04mttvxSAKmc_631I2zOjCHkGmtUnYsXt0Ze582hA',
+          description:'descriptions...',
+          categoryId: 5,
+        }
       },
       rankCriterias: [
         {
           id: 0,
           maximumScore: 3,
-          name: 'critere 1',
-          criteriaId: 0,
+          criteria: {
+            id: 0,
+            name: 'critere 1',
+          },
           rankExerciseId: 1,
         },
         {
@@ -54,9 +58,9 @@ class ExerciseEvaluation extends React.Component<ExerciseEvaluationProps, Exerci
   }
 
   componentWillMount() {
-    /*this.setState({
-      exercise: {} // call api de recuperation des donnees
-    });*/
+    this.setState({
+      rankExercise: api.RankExercises.byRankId
+    });
   }
 
   componentDidMount() {
@@ -64,23 +68,24 @@ class ExerciseEvaluation extends React.Component<ExerciseEvaluationProps, Exerci
   }
 
   public save() {
-    /*api.ExerciseResults.create({
+    api.ExerciseResults.create({
       exerciseId: this.state.rankExercise.exerciseId,
       
-    })*/
+    })
     console.log('save exercise result, student:' + this.props.idStudent + ', exercise:' + this.props.idExercise)
     this.criteriasComponent.save();
   }
 
   render() {
+    const {exercise} = this.state.rankExercise;
     return (
       <div className="ExerciseEvaluation">  
         <div className="title">
-          <h3 className="exercisename">{this.state.rankExercise.name}</h3>
-          <p className="exercisetype">{this.state.rankExercise.type}</p>
+          <h3 className="exercisename">{exercise.name}</h3>
+          <p className="exercisetype">{exercise.type}</p>
         </div>
           <p>{this.state.rankExercise.description}</p>
-          <img className="image" src={this.state.rankExercise.image}></img>
+          <img className="image" src={exercise.image}></img>
           <CriteriasEvaluation rankCriterias={this.state.rankCriterias} ref={el=>{this.criteriasComponent=el}}  /> 
       </div>
     );

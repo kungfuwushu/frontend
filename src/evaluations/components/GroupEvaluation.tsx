@@ -10,7 +10,8 @@ import * as GroupEvaluationActionCreators from '../../actions/GroupEvaluation.Ac
 import { connect } from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
 import * as _ from 'lodash';
-import ExerciseEvaluation from './ExerciseEvaluation' ;
+//import CombatEvaluation from './CombatEvaluation';
+import ExerciseEvaluation from './ExerciseEvaluation';
 
 interface GroupEvaluationState {
     students: any[],
@@ -85,8 +86,10 @@ class GroupEvaluation extends React.Component<IGroupEvaluationProps,GroupEvaluat
                         </Menu>
                     </Col>
                     <Col className="col" xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <ExerciseEvaluation setSave={save => this.exerciseSave = save}/>
-                        <Button type="primary" onClick={this.nextExercise.bind(this)}>PRATIQUANT SUIVANT</Button>
+                    <ExerciseEvaluation setSave={save => this.exerciseSave = save}/>
+                         <div className="ButtomLow">
+                         <Button type="primary" onClick={this.nextExercise.bind(this)}>PRATIQUANT SUIVANT</Button>
+                         </div>
                     </Col>
                 </div>
             </div>

@@ -25,15 +25,15 @@ class CriteriasEvaluation extends React.Component<CriteriasEvaluationProps,{}> {
     }
   }
  
-  public renderCriteria = (criteria: any, index: number) => {
+  public renderCriteria = (rankCriteria: any, index: number) => {
     var indexes= new Array();
-    for(let i = 0; i <= criteria.maximumScore; i++)
+    for(let i = 0; i <= rankCriteria.maximumScore; i++)
       indexes.push(i)
     this.scores.push(undefined)
     return (
-      <div className="Criterias" key={criteria.id}>
+      <div className="Criterias" key={rankCriteria.id}>
         <div className="criteria">
-          <p>{criteria.name}</p>
+          <p>{rankCriteria.criteria.name}</p>
           <Select defaultValue={'Note'} onSelect={score => this.scores[index] = score}>
             {indexes.map((i) =>
               <Option  value={i} key={i}>{i}</Option>

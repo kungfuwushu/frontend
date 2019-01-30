@@ -34,9 +34,8 @@
     text-align: center;
 }
 
-.GroupEvaluation button{
-    width: 20%;
-    position: fixed;
-    bottom:5%; 
-    right:5%;
+.GroupEvaluation .ButtomLow {
+    position:fixed;
+     bottom:10%;
+      right:5%;
 }
