@@ -29,13 +29,8 @@
     position: relative;
 }
 
-.GroupEvaluation .item,
-.GroupEvaluation h3 {
-    text-align: center;
-}
-
 .GroupEvaluation .ButtomLow {
     position:fixed;
-     bottom:10%;
-      right:5%;
+    bottom:10%;
+    right:5%;
 }

@@ -1,100 +1,64 @@
 import * as React from 'react';
 import '../styles/ExerciseEvaluation.css';
 import CriteriasEvaluation from './CriteriasEvaluation';
-import * as api from '../../api';
-
-import { connect } from 'react-redux';
+import { IExerciseEvaluationProps } from '../../actions/ExerciseEvaluation.Actions';
+import * as ExerciseEvaluationActionCreators from '../../actions/ExerciseEvaluation.Actions';
+import {bindActionCreators, Dispatch} from 'redux';
 import * as _ from 'lodash';
+import { connect } from 'react-redux';
 
-interface ExerciseEvaluationState {
-  rankExercise: any,
-  rankCriterias: any
+interface ExerciseEvaluationProps extends IExerciseEvaluationProps {
+	setSave: (save:()=>void) => void
 }
 
-interface ExerciseEvaluationProps {
-  idStudent: any,
-  idExercise: any,
-  setSave: (save:()=>void) => void
-}
+class ExerciseEvaluation extends React.Component<ExerciseEvaluationProps> {
+    //private saveCriterias: () => void;
 
-class ExerciseEvaluation extends React.Component<ExerciseEvaluationProps, ExerciseEvaluationState> {
-  private criteriasComponent: any;//ExerciseEvaluation
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      rankExercise: {
-        id:1,
-        coefficient: 3.0,
-        rankId: 4,
-        exercise:{
-          id: 0,
-          name: 'Ti Tui',
-          type: 'Taolu',
-          image:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeAgs19U6GP04mttvxSAKmc_631I2zOjCHkGmtUnYsXt0Ze582hA',
-          description:'descriptions...',
-          categoryId: 5,
-        }
-      },
-      rankCriterias: [
-        {
-          id: 0,
-          maximumScore: 3,
-          criteria: {
-            id: 0,
-            name: 'critere 1',
-          },
-          rankExerciseId: 1,
-        },
-        {
-          id: 1,
-          maximumScore: 7,
-          name: 'critere 2',
-          criteriaId: 1,
-          rankExerciseId: 1,
-        }
-      ],
+	componentDidMount() {
+		this.props.setSave(this.save);
+	}
+
+	public save() {
+		//TODO save exercise
+		//this.saveCriterias();
+	}
+	
+    private findRankExercise() {
+		const { performer, exercise, rankExercises } = this.props;
+        if (!performer || !exercise)
+            return undefined;
+        return rankExercises.find((rankExercise:any) =>
+            rankExercise.exercise.id == exercise.id && rankExercise.rankId == performer.rankId
+        );
     }
-    this.save = this.save.bind(this);
-  }
 
-  componentWillMount() {
-    this.setState({
-      rankExercise: api.RankExercises.byRankId
-    });
-  }
+	render() {
+		const rankExercise = this.findRankExercise();
+		if (!rankExercise)
+			return (<div>Select an exercise and a person.</div>);
 
-  componentDidMount() {
-    this.props.setSave(this.save)
-  }
-
-  public save() {
-    api.ExerciseResults.create({
-      exerciseId: this.state.rankExercise.exerciseId,
-      
-    })
-    console.log('save exercise result, student:' + this.props.idStudent + ', exercise:' + this.props.idExercise)
-    this.criteriasComponent.save();
-  }
-
-  render() {
-    const {exercise} = this.state.rankExercise;
-    return (
-      <div className="ExerciseEvaluation">  
-        <div className="title">
-          <h3 className="exercisename">{exercise.name}</h3>
-          <p className="exercisetype">{exercise.type}</p>
-        </div>
-          <p>{this.state.rankExercise.description}</p>
-          <img className="image" src={exercise.image}></img>
-          <CriteriasEvaluation rankCriterias={this.state.rankCriterias} ref={el=>{this.criteriasComponent=el}}  /> 
-      </div>
-    );
-  }
+		const { exercise } = rankExercise;
+		return (
+			<div className="ExerciseEvaluation">
+				<div className="title">
+					<h3 className="exercisename">{exercise.name}</h3>
+					<p className="exercisetype">{exercise.type}</p>
+				</div>
+				<p>{exercise.description}</p>
+				<img className="image" src={exercise.image}/>
+				<CriteriasEvaluation rankExercise={rankExercise} /*setSave={save => this.saveCriterias = save}*//> 
+			</div>
+		);
+	}
 }
 
 const mapStateToProps = (state: any) => ({
-  idStudent: state.groupEvaluation.idStudent,
-  idExercise: state.groupEvaluation.idExercise
+	exercise: state.groupEvaluation.selectedExercise,
+	performer: state.groupEvaluation.selectedPerformer,
+	rankExercises: state.groupEvaluation.rankExercises,
 });
 
-export default connect(mapStateToProps, {})(ExerciseEvaluation);
+const mapDispatchtoProps = (dispatch: Dispatch) =>
+	bindActionCreators(_.assign({}, ExerciseEvaluationActionCreators), dispatch);
+
+export default connect(mapStateToProps, mapDispatchtoProps)(ExerciseEvaluation);

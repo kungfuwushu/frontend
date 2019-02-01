@@ -48,16 +48,19 @@ export const Ranks = {
 };
 
 export const RankExercises = {
+  byEvaluationId: (id: number) => get(`/evaluations/${id}/rank-exercises`),
   byRankId: (id: number) => get(`/ranks/${id}/rank-exercises`),
   create: (rankExercise: any) => post(`/rank-exercises`, rankExercise),
 };
 
 export const RankCriterias = {
+  byEvaluationId: (id: number) => get(`/evaluations/${id}/rank-criterias`),
   byRankExerciseId: (id: number) => get(`/rank-exercises/${id}/rank-criterias`),
   create: (item: any) => post(`/rank-criterias`, item),
 };
 
 export const Evaluations = {
+  byId: (id: number) => get(`/evaluations/${id}`),
   upcomingByGroupId: (id: number) => get(`/groups/${id}/upcoming-evaluations`),
   pastByGroupId: (id: number) => get(`/groups/${id}/past-evaluations`),
   create: (evaluation: any) => post(`/evaluations`, evaluation),

@@ -2,26 +2,41 @@ import {IAppAction,ActionType} from './Helpers';
 import { match } from 'react-router';
 
 export interface IGroupEvaluationProps{
-    selectStudent: (id : number) => IAppAction;
-    selectExercise: (id : number) => IAppAction;
-    idStudent: number;
-    idExercise: number;
-    idEvaluation: number;
+    selectPerformer: (performer : any) => IAppAction;
+    selectExercise: (exercise : any) => IAppAction;
+    onLoad: (data : any) => IAppAction;
+    next: () => IAppAction;
+    
+    selectedPerformer: any;
+    selectedExercise: any;
+    performers: any[];
+    evaluation: any;
     match: match<any>;
 }
 
-export const selectStudent = (id : number) : IAppAction => {
+export const selectPerformer = (performer : any) : IAppAction => {
     return {
-        type: ActionType.SELECTION_STUDENT,
-        payload: id
+        type: ActionType.PERFORMER_SELECTED,
+        payload: performer
     };
 };
 
-export const selectExercise = (id : number) : IAppAction => {
+export const selectExercise = (exercise : any) : IAppAction => {
     return {
-        type: ActionType.SELECTION_EXERCISE,
-        payload: id
+        type: ActionType.EXERCISE_SELECTED,
+        payload: exercise
     };
 };
 
+export const onLoad = (data : any) : IAppAction => {
+    return {
+        type: ActionType.GROUP_EVALUATION_ON_LOAD,
+        payload: data
+    };
+};
 
+export const next = () : IAppAction => {
+    return {
+        type: ActionType.NEXT
+    };
+};
