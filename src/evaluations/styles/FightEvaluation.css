@@ -1,18 +1,18 @@
-.CombatEvaluation .ant-table-title
+.FightEvaluation .ant-table-title
 {
   text-align: center;
 }
 
-.CombatEvaluation .Score td
+.FightEvaluation .Score td
 {
     display: flex;
 }
 
-.CombatEvaluation .ant-input{
+.FightEvaluation .ant-input{
     width: 20px;
 }
 
-.CombatEvaluation .Buttons{
+.FightEvaluation .Buttons{
     display: flex;
     justify-content : space-around;
     bottom:20%; 

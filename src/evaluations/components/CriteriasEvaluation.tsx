@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 const Option = Select.Option;
 
 interface CriteriasEvaluationProps extends ICriteriasEvaluationProps {
-	//setSave: (save:()=>void) => void
+	setSave?: (save:()=>void) => void
 }
 
 class CriteriasEvaluation extends React.Component<CriteriasEvaluationProps> {
@@ -49,17 +49,8 @@ class CriteriasEvaluation extends React.Component<CriteriasEvaluationProps> {
 		)
 	};
 
-    private filterRankCriterias() {
-		const { rankExercise, rankCriterias } = this.props;
-        if (!rankExercise || rankExercise.exercise.type != 'TAOLU')
-            return [];
-        return rankCriterias.filter((rankCriteria: any) =>
-            rankCriteria.rankExerciseId == rankExercise.id
-        );
-    }
-
 	render() {
-		const rankCriterias = this.filterRankCriterias();
+		const { rankCriterias } = this.props;
 		return (
 			<div className="CriteriasEvaluation" >
 				{rankCriterias.map(criteria => 
@@ -71,7 +62,6 @@ class CriteriasEvaluation extends React.Component<CriteriasEvaluationProps> {
 }
 
 const mapStateToProps = (state: any) => ({
-	rankCriterias: state.groupEvaluation.rankCriterias,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>

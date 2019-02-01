@@ -6,6 +6,7 @@ export interface IExerciseEvaluationProps{
     performer: any;
     exercise: any;
     rankExercises: any;
+    rankCriterias: any[];
 }
 
 export const saveExerciseResult = (exerciseResult : any) : IAppAction => {
