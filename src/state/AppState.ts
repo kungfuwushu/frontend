@@ -14,8 +14,6 @@ export const AppStateModel = Model<IAppState>({
 
 export class AppState extends AppStateModel {
     public static UTILITY = 'utility';
-
-    public utility: Utility;
 }
 
 /*export const isAuthenticated = connectedRouterRedirect({

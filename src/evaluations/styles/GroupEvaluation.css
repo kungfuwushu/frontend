@@ -1,0 +1,36 @@
+.GroupEvaluation,
+.MiniDrawer-content-9 {
+    display: flex;
+    flex-direction: column;
+}
+
+.GroupEvaluation .content {
+    flex-grow: 2;
+    display: flex;
+}
+
+.GroupEvaluation .content > div {
+    display: flex;
+}
+
+.GroupEvaluation .ant-menu {
+    background-color: transparent;
+}
+
+.GroupEvaluation .ant-menu,
+.GroupEvaluation .current-evaluation {
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.GroupEvaluation .col {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.GroupEvaluation .ButtomLow {
+    position:fixed;
+    bottom:10%;
+    right:5%;
+}

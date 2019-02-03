@@ -10,6 +10,4 @@ export const UtilityModel = Model<IUtility>({
 
 export class Utility extends UtilityModel {
     public static DRAWER_OPEN = 'drawerOpen';
-
-    public drawerOpen: boolean;
 }

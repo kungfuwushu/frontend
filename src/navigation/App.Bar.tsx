@@ -1,5 +1,6 @@
 //#region 
 import * as React from 'react';
+import { hot } from 'react-hot-loader';
 const classNames = require('classnames');
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -24,6 +25,7 @@ import Home from "../pages/Home";
 import {TrainingsList} from "../trainings";
 import {MemberDetails} from "../members";
 import { FormattedMessage } from 'react-intl';
+import GroupEvaluation from "../evaluations/components/GroupEvaluation";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -112,7 +114,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                   horizontal: 'right',
                 }}
                 open={open}
-                onClose={this.handleMenuClose.bind(this, null)}
+                onClose={this.handleMenuClose.bind(this, undefined)}
               >
                 <MenuItem onClick={this.handleMenuClose.bind(this, '/account')}>{"MyName"}</MenuItem>
 
@@ -151,6 +153,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
           <Route path='/' exact={true} component={Home} />
           <Route path='/profile' component={MemberDetails} />
           <Route path='/trainings' component={TrainingsList} />
+          <Route path='/evaluations/:id' component={GroupEvaluation} />
         </main>
       </div>
     );
@@ -165,4 +168,4 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchtoProps = (dispatch: Dispatch) =>
   bindActionCreators(_.assign({}, AppActionCreators), dispatch);
 
-export default withRouter(connect(mapStateToProps, mapDispatchtoProps)(withStyles(styles as any, { withTheme: true })(MiniDrawer as any)) as any);
+export default hot(module)(withRouter(connect(mapStateToProps, mapDispatchtoProps)(withStyles(styles as any, { withTheme: true })(MiniDrawer as any)) as any));
