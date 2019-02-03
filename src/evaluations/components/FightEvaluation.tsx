@@ -1,20 +1,25 @@
 import * as React from 'react';
-import '../styles/FightEvaluation.css';
-import { Button } from 'antd';
-import Timer from './Timer';
-import { IFightEvaluationProps } from 'src/actions/FightEvaluation.Actions';
-import * as CriteriasEvaluationActionCreators from '../../actions/CriteriasEvaluation.Actions';
 import { bindActionCreators, Dispatch } from 'redux';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
 
+import { IFightEvaluationProps } from '../../actions/FightEvaluation.Actions';
+import * as FightEvaluationActionCreators from '../../actions/FightEvaluation.Actions';
+
+import { Button } from 'antd';
+
+import '../styles/FightEvaluation.css';
+
 import CriteriasEvaluation from './CriteriasEvaluation';
+import Timer from './Timer';
 
 interface FightEvaluationState {
 	currentRoundIndex: number;
 }
 
 class FightEvaluation extends React.Component<IFightEvaluationProps, FightEvaluationState>{
+	private criteriasEvaluationRef = React.createRef<CriteriasEvaluation>();
+	
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -22,12 +27,12 @@ class FightEvaluation extends React.Component<IFightEvaluationProps, FightEvalua
 		}
 	}
 
-    private filterRankCriterias(rankRound: any) {
+    private filterRankCriterias(rankExercise: any) {
 		const { rankCriterias } = this.props;
-        if (!rankRound)
+        if (!rankExercise)
             return [];
         return rankCriterias.filter((rankCriteria: any) =>
-            rankCriteria.rankExerciseId == rankRound.id
+            rankCriteria.rankExerciseId == rankExercise.id
         );
 	}
 	
@@ -43,10 +48,24 @@ class FightEvaluation extends React.Component<IFightEvaluationProps, FightEvalua
 		});
 	}
 
+    private saveResult() {
+        this.criteriasEvaluationRef.current!.getScores();
+        console.log("saving fight result");
+    }
+
+    componentWillUnmount() {
+        this.saveResult();
+    }
+
+    componentWillUpdate() {
+        this.saveResult();
+        this.criteriasEvaluationRef.current!.resetScores();
+    }
+
 	render() {
 		const { rankExercise } = this.props;
 		const { currentRoundIndex } = this.state;
-		const rankCriterias= this.filterRankCriterias(rankExercise.rounds[currentRoundIndex]);
+		const rankCriterias= this.filterRankCriterias(rankExercise);
 		return (
 			<div className="FightEvaluation">
 				<h1>Reprise {currentRoundIndex + 1}</h1>
@@ -62,10 +81,12 @@ class FightEvaluation extends React.Component<IFightEvaluationProps, FightEvalua
 }
 
 const mapStateToProps = (state: any) => ({
-	rankCriterias: state.groupEvaluation.rankCriterias
+	exercise: state.groupEvaluation.selectedExercise,
+	performer: state.groupEvaluation.selectedPerformer,
+	rankCriterias: state.groupEvaluation.rankCriterias,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>
-	bindActionCreators(_.assign({}, CriteriasEvaluationActionCreators), dispatch);
+	bindActionCreators(_.assign({}, FightEvaluationActionCreators), dispatch);
 
 export default connect(mapStateToProps, mapDispatchtoProps)(FightEvaluation);

@@ -1,21 +1,20 @@
-import { Menu } from 'antd';
-import { Col } from 'antd';
 import * as React from 'react';
-import { Button } from 'antd';
 import { withRouter } from 'react-router';
-import '../styles/GroupEvaluation.css';
-
-import { IGroupEvaluationProps } from '../../actions/GroupEvaluation.Actions';
-import * as GroupEvaluationActionCreators from '../../actions/GroupEvaluation.Actions';
 import { connect } from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
 import * as _ from 'lodash';
-import * as api from '../../api';
+
+import { IGroupEvaluationProps } from '../../actions/GroupEvaluation.Actions';
+import * as GroupEvaluationActionCreators from '../../actions/GroupEvaluation.Actions';
+
+import { Menu, Col, Button, Icon } from 'antd';
+
+import '../styles/GroupEvaluation.css';
+
 import ExerciseEvaluation from './ExerciseEvaluation';
+import * as api from '../../api';
 
 class GroupEvaluation extends React.Component<IGroupEvaluationProps> {
-    private saveExercise: () => void;
-
     public componentWillMount() {
         const evaluationId = this.props.match.params.id;
         Promise.all([
@@ -27,58 +26,53 @@ class GroupEvaluation extends React.Component<IGroupEvaluationProps> {
             this.props.onLoad(data)
         );
     }
-
-    private selectPerformer(performer: any){
-        this.props.selectPerformer(performer);
-    }
-
-    private selectExercise(exercise: any){
-        this.props.selectExercise(exercise);
-    }
-
-    private next() {
-        this.saveExercise();
-        this.props.next();
-    }
+	
+    private findRankExercise() {
+		const { selectedPerformer, selectedExercise, rankExercises } = this.props;
+        if (!selectedPerformer || !selectedExercise)
+            return undefined;
+        return rankExercises.find((rankExercise:any) =>
+            rankExercise.exercise.id == selectedExercise.id 
+            && rankExercise.rankId == selectedPerformer.rankId
+        );
+	}
 
     public render() {
         const { evaluation, performers, selectedExercise, selectedPerformer } = this.props;
+        const { selectExercise, selectPerformer, next } = this.props
         if (!evaluation)
             return(<div>Loading...</div>);
-        console.log(selectedPerformer);
-
         return (
             <div className="GroupEvaluation">
-                <h1>Evaluation en cours : {evaluation.name}</h1>
-                <div className="content">
-                    <Col className="col" xs={6} sm={6} md={6} lg={6} xl={6}>
-                        <h3 className="title">EXERCISES</h3>
-                        <Menu selectedKeys={[selectedExercise.id+'']}>
-                            {evaluation.exercises.map((exercise:any) => 
-                                <Menu.Item key={exercise.id} onClick={() => this.selectExercise(exercise)}>
-                                    <span className="nav-text">{exercise.name}</span>
-                                </Menu.Item>
-                            )}
-                        </Menu>
-                    </Col>
-                    <Col className="col" xs={6} sm={6} md={6} lg={6} xl={6}>
-                        <h3>PRATIQUANTS</h3>
-                        <Menu selectedKeys={[selectedPerformer.id+'']}>
-                            {performers.map((performer) =>
-                                <Menu.Item key={performer.id} onClick={() => this.selectPerformer(performer)}>
-                                    <span className="nav-text">{performer.firstName + " " + performer.lastName}</span>
-                                </Menu.Item>
-                            )}
-                        </Menu>
-                    </Col>
-                    <Col className="col" xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <ExerciseEvaluation setSave={save => this.saveExercise = save}/>
-                        <Button className="ButtomLow" onClick={() => this.next()}>SUIVANT</Button>
-                    </Col>
-                </div>
+                <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
+                    <div className="list-header">Exercices</div>
+                    <Menu selectedKeys={[selectedExercise.id+'']}>
+                        {evaluation.exercises.map((exercise:any) => 
+                            <Menu.Item key={exercise.id} onClick={() => selectExercise(exercise)}>
+                                <span>{exercise.name}</span>
+                            </Menu.Item>
+                        )}
+                    </Menu>
+                </Col>
+                <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
+                    <div className="list-header">Pratiquants</div>
+                    <Menu selectedKeys={[selectedPerformer.id+'']}>
+                        {performers.map((performer) =>
+                            <Menu.Item key={performer.id} onClick={() => selectPerformer(performer)}>
+                                <span>{performer.firstName + " " + performer.lastName}</span>
+                            </Menu.Item>
+                        )}
+                    </Menu>
+                </Col>
+                <Col xs={14} sm={14} md={14} lg={14} xl={14} className="exercise-panel">
+                    <ExerciseEvaluation rankExercise={this.findRankExercise()}/>
+                    <div className="next">
+                        <Button onClick={() => next()} type="primary">SUIVANT <Icon type="right"/></Button>
+                    </div>
+                </Col>
             </div>
         );
-    }  
+    }
 }
 
 const mapStateToProps = (state: any) => ({
@@ -86,6 +80,7 @@ const mapStateToProps = (state: any) => ({
     performers: state.groupEvaluation.performers,
     selectedPerformer: state.groupEvaluation.selectedPerformer,
     selectedExercise: state.groupEvaluation.selectedExercise,
+	rankExercises: state.groupEvaluation.rankExercises,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>

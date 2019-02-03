@@ -1,14 +1,13 @@
-.CriteriasEvaluation{
-    display: flex;
-    flex-direction: column
-}
-
-.CriteriasEvaluation .criteria{
+.CriteriasEvaluation .criteria {
     display: flex;
     align-items: center;
-    margin-bottom: 5px;
+    margin: 16px 32px;
 }
 
-.CriteriasEvaluation .option{
-    margin-left: 20%
+.CriteriasEvaluation .criteria-name {
+    margin-left: 24px;
+}
+
+.CriteriasEvaluation .ant-select {
+    width: 64px;
 }

@@ -1,90 +1,51 @@
 import * as React from 'react';
-import '../styles/ExerciseEvaluation.css';
-import { IExerciseEvaluationProps } from '../../actions/ExerciseEvaluation.Actions';
-import * as ExerciseEvaluationActionCreators from '../../actions/ExerciseEvaluation.Actions';
-import {bindActionCreators, Dispatch} from 'redux';
-import * as _ from 'lodash';
-import { connect } from 'react-redux';
-import PhysicalEvaluation from './PhysicalEvaluation';
-import CriteriasEvaluation from './CriteriasEvaluation';
-import FightEvaluation from './FightEvaluation';
 
-interface ExerciseEvaluationProps extends IExerciseEvaluationProps {
-	setSave: (save:()=>void) => void
+import '../styles/ExerciseEvaluation.css';
+
+import PhysicalEvaluation from './PhysicalEvaluation';
+import FightEvaluation from './FightEvaluation';
+import TaoluEvaluation from './TaoluEvaluation';
+
+interface ExerciseEvaluationProps{
+    rankExercise: any;
 }
 
-class ExerciseEvaluation extends React.Component<ExerciseEvaluationProps> {
-    //private saveCriterias: () => void;
+const ExerciseEvaluation: React.StatelessComponent<ExerciseEvaluationProps> = (props) => {
+	const { rankExercise } = props;
+	if (!rankExercise)
+		return (<div>Exercise not available.</div>);
 
-	componentDidMount() {
-		this.props.setSave(this.save);
-	}
-
-	public save() {
-		//TODO save exercise
-		//this.saveCriterias();
-	}
-	
-    private findRankExercise() {
-		const { performer, exercise, rankExercises } = this.props;
-        if (!performer || !exercise)
-            return undefined;
-        return rankExercises.find((rankExercise:any) =>
-            rankExercise.exercise.id == exercise.id && rankExercise.rankId == performer.rankId
-        );
-	}
-
-    private filterRankCriterias(rankExercise:any) {
-		const { rankCriterias } = this.props;
-        if (!rankExercise || rankExercise.exercise.type != 'TAOLU')
-            return [];
-        return rankCriterias.filter((rankCriteria: any) =>
-            rankCriteria.rankExerciseId == rankExercise.id
-        );
-    }
-	
-	private renderRankExercise(rankExercise:any) {
-		const { exercise } = this.props;
-		switch(exercise.type) {
+	const renderRankExercise = (rankExercise: any) => {
+		const { type } = rankExercise.exercise;
+		switch(type) {
 			case 'TAOLU':
-				return <CriteriasEvaluation rankCriterias={this.filterRankCriterias(rankExercise)}/>
+				return <TaoluEvaluation rankExercise={rankExercise}/>
 			case 'PHYSICAL':
 				return <PhysicalEvaluation rankExercise={rankExercise}/>
 			case 'FIGHT':
 				return <FightEvaluation rankExercise={rankExercise}/>
-			default:
-				return null;
 		}
+		return type + 'is not a supported type of exercise.';
 	}
-
-	render() {
-		const rankExercise = this.findRankExercise();
-		if (!rankExercise)
-			return (<div>Select an exercise and a person.</div>);
-
-		const { exercise } = rankExercise;
-		return (
-			<div className="ExerciseEvaluation">
-				<div className="title">
-					<h3 className="exercisename">{exercise.name}</h3>
-					<p className="exercisetype">{exercise.type}</p>
-				</div>
-				<p>{exercise.description}</p>
-				<img className="image" src={exercise.image}/>
-        		{this.renderRankExercise(rankExercise)}
+	
+	const { exercise } = rankExercise;
+	return (
+		<div className="ExerciseEvaluation">
+			<div className="header">
+				<span className="name">{exercise.name}</span>
+				<span className="type">{exercise.type}</span>
 			</div>
-		);
-	}
+			<div className="body">
+				{exercise.description?
+					<p className="description">{exercise.description}</p> : ''
+				}
+				{exercise.image?
+					<img className="image" src={exercise.image}/> : ''
+				}
+				{renderRankExercise(rankExercise)}
+			</div>
+		</div>
+	);
 }
 
-const mapStateToProps = (state: any) => ({
-	exercise: state.groupEvaluation.selectedExercise,
-	performer: state.groupEvaluation.selectedPerformer,
-	rankExercises: state.groupEvaluation.rankExercises,
-	rankCriterias: state.groupEvaluation.rankCriterias,
-});
-
-const mapDispatchtoProps = (dispatch: Dispatch) =>
-	bindActionCreators(_.assign({}, ExerciseEvaluationActionCreators), dispatch);
-
-export default connect(mapStateToProps, mapDispatchtoProps)(ExerciseEvaluation);
+export default ExerciseEvaluation;

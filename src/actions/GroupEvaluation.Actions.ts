@@ -11,6 +11,7 @@ export interface IGroupEvaluationProps{
     selectedExercise: any;
     performers: any[];
     evaluation: any;
+    rankExercises: any[];
     match: match<any>;
 }
 
