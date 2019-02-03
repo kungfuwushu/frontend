@@ -1,5 +1,4 @@
-import { IAppAction, ActionType } from '../actions/Helpers';
-import { Utility } from '../state/Utility';
+import { ActionType } from '../actions/Helpers';
 
 const initialState = {
     performers: [],
@@ -38,7 +37,7 @@ export const GroupEvaluationReducer = (state = initialState, action) => {
         case ActionType.NEXT: {
             const { performers, evaluation, selectedPerformer, selectedExercise } = state;
             const { exercises } = evaluation;
-            if (performers.indexOf(selectedPerformer) != performers.length - 1)
+            if (performers.indexOf(selectedPerformer) !== performers.length - 1)
                 return {
                     ...state,
                     selectedPerformer: performers[performers.indexOf(selectedPerformer) + 1],

@@ -7,3 +7,7 @@ body {
 p {
   margin: 0
 }
+
+.ant-menu {
+  border-right: none;
+}

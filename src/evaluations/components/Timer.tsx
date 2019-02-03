@@ -7,8 +7,8 @@ class Clock extends React.Component<ClockProps,{}> {
     format(time:any) {
         let seconds = time % 60;
         let minutes = Math.floor(time / 60);
-        let minutesString = minutes.toString().length === 1 ? "0" + minutes : minutes;
-        let secondsString = seconds.toString().length === 1 ? 0 + seconds : seconds;
+        let minutesString = minutes.toString().length === 1 ? '0' + minutes : minutes;
+        let secondsString = seconds.toString().length === 1 ? '0' + seconds : seconds;
         return minutesString + ':' + secondsString;
       }
     render () {
@@ -27,6 +27,7 @@ class Clock extends React.Component<ClockProps,{}> {
   }
 
   class Timer extends React.Component<{},TimeState>{
+    private timer?: NodeJS.Timeout;
     constructor(props:any) {
       super(props);
       this.state = {
@@ -43,7 +44,7 @@ class Clock extends React.Component<ClockProps,{}> {
         }
       }
     }
-     timer = require('react-native-timer');
+
     handleStart() {
         console.log(this.timer+"start");
       this.timer = setInterval(() => {
