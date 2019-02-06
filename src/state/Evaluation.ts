@@ -1,6 +1,7 @@
 export interface IEvaluation {
     groupe : any;
     date : any; 
-    time : any;
-    grade : any;
+    adresse :any;
+    ville : any;
+    codePostal : any;
 }

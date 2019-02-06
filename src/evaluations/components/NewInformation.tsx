@@ -1,95 +1,119 @@
 
 import { DatePicker } from 'antd';
-import { Cascader } from 'antd';
 import * as React from 'react';
-import * as moment from 'moment';
-import { TimePicker } from 'antd';
+import {Input, Col} from 'antd';
 import { Select} from 'antd';
 import { Button } from 'antd';
+
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
 import {bindActionCreators, Dispatch} from 'redux';
 import { IEvaluationsProps } from '../../actions/Evaluation.Actions';
 import * as EvaluationActionCreators from '../../actions/Evaluation.Actions';
-const Option = Select.Option;
+import { IEvaluation } from 'src/state/Evaluation';
 
-class NewInformation extends React.Component<IEvaluationsProps> {
-  private choixGrade: any;
+import * as moment from 'moment';
+
+
+const Option = Select.Option;
+const InputGroup = Input.Group;
+  
+interface StateNewInformation {
+  defaultGroups: any[];
+  optionsGrade: any[];
+  evaluation : IEvaluation;
+}
+
+class NewInformation extends React.Component<IEvaluationsProps, StateNewInformation> {
   private choixGroupe: any;
   private choixDate: any;
-  private choixTime: any;
+  private choixVille : any;
+  private choixCP : any;
+  private choixadresse : any;
 
-  onSubmit() {
-    this.props.save({
-      grade: this.choixGrade.value,
-      groupe: this.choixGroupe.value,
-      date: this.choixDate.value,
-      time: this.choixTime.value
+  
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      defaultGroups: [],
+      optionsGrade: [],
+      evaluation : {groupe:'',date:'',adresse:'', ville:'',codePostal:''}
+    }
+  }
+
+  componentWillMount () {
+    this.setState({
+      defaultGroups : [],//prendre dans l'API
+      optionsGrade : [],
+      evaluation : {groupe:'',date:'',adresse:'', ville:'',codePostal:''},
     });
   }
 
-  render() {
-
-    const defaultGroups =['groupe 1', 'groupe 2'];
-    const defaultGrades = ['Panda', 'Petit']; 
+  onSubmit() {//Evaluation.create 
+    this.setState({ 
+      evaluation: {groupe :this.choixGroupe,date:this.choixDate,adresse:this.choixadresse, ville:this.choixVille,codePostal:this.choixCP}
+    });
+    console.log(this.state);
+  }
   
-    const optionsGrade = [{
-      value: 'Panda',
-      label: 'Panda',
-      children: [{
-        value: 'Petit',
-        label: 'Petit',
-      }, {
-        value: 'Moyen',
-        label: 'Moyen',
-      }, {
-        value: 'Grand',
-        label: 'Grand',
-      }],
-    }, {
-      value: 'Aigle',
-      label: 'Aigle',
-      children: [{
-        value: 'Petit',
-        label: 'Petit',
-      }, {
-          value: 'Moyen',
-          label: 'Moyen',
-      }, {
-          value: 'Grand',
-          label: 'Grand',
-      }],
-    }];
+  onChange=(date: moment.Moment, dateString: string)=>{
+      this.choixDate = dateString;
+  }
+
+  onChangeAdresse=(e:any)=>{
+    this.choixadresse = e.target.value;
+  }
+  onChangeVille=(e:any)=>{
+    this.choixVille = e.target.value;
+  }
+  onChangeCP=(e:any)=>{
+    this.choixCP = e.target.value;
+  }
+  onChangeGroupe=(value:any, option:any)=>{
+    this.choixGroupe = option;
+  }
+  render() {
     return (
       <div className="row">
-        <h2>Sélection du grade</h2>
-        <Cascader defaultValue={defaultGrades} options={optionsGrade} 
-          ref={el => this.choixGrade = el}/>,
+
+        <h2>Date et heure de l'évaluation</h2>
+        <DatePicker
+          showTime
+          format="YYYY-MM-DD HH:mm:ss"
+          placeholder="Select Time"
+          onChange={this.onChange}
+        />
         <br />
       
-        <h2>Date de l'évaluation</h2>
-        <DatePicker ref={el => this.choixDate = el}/>
-        <br />
-  
-        <h2>Horaire de l'évaluation</h2>
-        <TimePicker defaultValue={moment('01:00', 'HH:mm')} 
-          ref={el => this.choixTime = el}/>
-        <br />
-  
+        <h2>Adresse de l'évaluation</h2>
+          <InputGroup 
+            size="default" >
+              <Col span={12}>
+                <Input placeholder="Adresse" onChange={this.onChangeAdresse}/>
+              </Col>
+              <Col span={2}>
+                <Input placeholder="CP" onChange={this.onChangeCP}  />
+              </Col>
+              <Col span={4}>
+                <Input placeholder="Ville" onChange={this.onChangeVille}/>
+              </Col>
+          </InputGroup>
+
         <h2>Sélection des groupes évalués</h2>
         <Select
             mode="multiple"
             size= "large"
             placeholder="Please select"
-            defaultValue={defaultGroups}
+            defaultValue={this.state.defaultGroups}
             style={{ width: '40%' }}
-            ref={el => this.choixGroupe = el}
+            onChange={this.onChangeGroupe}
           >
             <Option value="Groupe 1">Groupe 1</Option>
             <Option value="Groupe 2">Groupe 2</Option>
             <Option value="Groupe 3">Groupe 3</Option>
             {this.props.children}
           </Select>
+          <br />
           <br />
           <Button type="primary" onClick={this.onSubmit.bind(this)}>Enregistrer</Button> 
           <Button type="primary">Retour</Button>
