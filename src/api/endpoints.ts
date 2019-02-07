@@ -60,6 +60,7 @@ export const RankCriterias = {
 };
 
 export const Evaluations = {
+  all: () => get(`/evaluations`),
   byId: (id: number) => get(`/evaluations/${id}`),
   upcomingByGroupId: (id: number) => get(`/groups/${id}/upcoming-evaluations`),
   pastByGroupId: (id: number) => get(`/groups/${id}/past-evaluations`),

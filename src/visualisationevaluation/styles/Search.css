@@ -1,0 +1,7 @@
+.Search {
+	display: inline-block;
+}
+
+.Search .ant-input-affix-wrapper .ant-input-suffix {
+	right: 0;
+}

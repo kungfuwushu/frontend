@@ -26,6 +26,7 @@ import {TrainingsList} from "../trainings";
 import {MemberDetails} from "../members";
 import { FormattedMessage } from 'react-intl';
 import GroupEvaluation from "../evaluations/components/GroupEvaluation";
+import VisualisationEvaluation from "../visualisationevaluation/components/VisualisationEvaluation";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -154,6 +155,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
           <Route path='/profile' component={MemberDetails} />
           <Route path='/trainings' component={TrainingsList} />
           <Route path='/evaluations/:id' component={GroupEvaluation} />
+          <Route path='/evaluations' component={VisualisationEvaluation}/>
         </main>
       </div>
     );

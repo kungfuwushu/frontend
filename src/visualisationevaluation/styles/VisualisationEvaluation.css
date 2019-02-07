@@ -1,0 +1,94 @@
+.VisualisationEvaluation {
+    display: flex;
+    flex-grow: 2;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 8px;
+    background-color: white;
+    flex-direction: column;
+}
+
+.VisualisationEvaluation .header {
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    padding: 16px;
+}
+
+.VisualisationEvaluation .top{
+    display: flex;
+}
+
+.VisualisationEvaluation .top button {
+    margin-left: auto;
+}
+
+.VisualisationEvaluation .evaluations {
+    overflow-y: auto;
+}
+
+.VisualisationEvaluation .evaluation  {
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 8px;
+    background-color: white;
+    flex-shrink: 0;
+    margin: 16px;
+    width: auto;
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.VisualisationEvaluation .evaluation button{
+    display: flex;
+    margin-left: inherit;
+}
+
+.VisualisationEvaluation .Search {
+    width: 400px;
+    margin-left: 16px;
+}
+
+.VisualisationEvaluation .select {
+    width: 200px;
+}
+
+.VisualisationEvaluation .evaluation-header {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.VisualisationEvaluation .title-type {
+    display: flex;
+    flex-direction: column;
+}
+
+.VisualisationEvaluation .title {
+    font-size: 130%;
+    font-weight: 700;
+}
+
+.VisualisationEvaluation .type {
+    font-size: 80%;
+}
+
+.VisualisationEvaluation .actions,
+.VisualisationEvaluation .date {
+    margin-left: auto;
+}
+
+.VisualisationEvaluation .body,
+.VisualisationEvaluation .actions {
+    display: flex;
+    align-items: flex-end;
+}
+
+.VisualisationEvaluation .descriptions {
+    display: flex;
+    flex-direction: column;
+}
+
+.VisualisationEvaluation .actions button {
+    margin-left: 16px;
+}

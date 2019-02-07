@@ -9,6 +9,9 @@ export enum ActionType {
     NEXT,
     SAVE_EXERCISE_RESULT,
     SAVE_CRITERIA_RESULT,
+    VISUALISATION_EVALUATIONS_ON_LOAD,
+    SET_FILTER_EVALUATIONS_TYPE,
+    SET_FILTER_EVALUATIONS_CONTAINING,
 }
 
 export interface IAppAction extends Action<ActionType> {
