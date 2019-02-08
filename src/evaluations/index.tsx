@@ -1,1 +1,1 @@
-export * from './components/GroupEvaluation';
+export {default as EvaluationsList} from './components/EvaluationsList';

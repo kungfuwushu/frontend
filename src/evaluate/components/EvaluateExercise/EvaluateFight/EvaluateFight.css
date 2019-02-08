@@ -1,0 +1,19 @@
+.EvaluateFight .ant-table-title
+{
+  text-align: center;
+}
+
+.EvaluateFight .Score td
+{
+    display: flex;
+}
+
+.EvaluateFight .ant-input{
+    width: 20px;
+}
+
+.EvaluateFight .Buttons{
+    display: flex;
+    justify-content : space-around;
+    bottom:20%; 
+}

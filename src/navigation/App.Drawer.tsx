@@ -24,7 +24,7 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
         { path: '/', title: 'Dashboard', icon: () => <DashboardIcon /> },
         { path: '/profile', title: 'Profile', icon: () => <FaceIcon /> },
         { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
-        { path: '/evaluations/1', title: 'Group Evaluation', icon: () => <BusinessIcon /> },
+        { path: '/evaluate-group/1', title: 'Group Evaluation', icon: () => <BusinessIcon /> },
         { path: '/evaluations', title: 'Evaluations', icon: () => <BusinessIcon /> }
     ]
 
