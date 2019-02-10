@@ -46,9 +46,9 @@ class TaoluEvaluation extends React.Component<IEvaluateTaoluProps>{
 }
 
 const mapStateToProps = (state: any) => ({
-	exercise: state.groupEvaluation.selectedExercise,
-	performer: state.groupEvaluation.selectedPerformer,
-	rankCriterias: state.groupEvaluation.rankCriterias,
+	exercise: state.evaluateGroup.selectedExercise,
+	performer: state.evaluateGroup.selectedPerformer,
+	rankCriterias: state.evaluateGroup.rankCriterias,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>

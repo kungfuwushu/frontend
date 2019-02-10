@@ -1,9 +1,11 @@
 import {IAppAction,ActionType} from '../Helpers';
+import { Dispatch } from 'redux';
+import { Evaluations } from '../../api';
 
 export interface IEvaluationsListProps {
-    onLoad: (data : any) => IAppAction;
+    fetchEvaluations: () => void;
     setTypeFilter: (date: any) => IAppAction;
-    setContainingFilter:(date:any)=>IAppAction;
+    setContainingFilter: (date:any) => IAppAction;
 
     history: any;
     evaluations: any[];
@@ -11,9 +13,16 @@ export interface IEvaluationsListProps {
     typeFilter: any;
 }
 
-export const onLoad = (data : any) : IAppAction => {
+export const fetchEvaluations = () => (dispatch: Dispatch) => {
+    Evaluations.all()
+        .then(data =>
+            dispatch(fetchEvaluationsSuccess(data))
+        );
+};
+
+const fetchEvaluationsSuccess = (data : any) : IAppAction => {
     return {
-        type: ActionType.VISUALISATION_EVALUATIONS_ON_LOAD,
+        type: ActionType.FETCH_EVALUATIONS_SUCCESS,
         payload: data
     };
 };

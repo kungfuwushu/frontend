@@ -8,7 +8,7 @@ const initialState = {
 
 export const VisualisationEvaluationReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ActionType.VISUALISATION_EVALUATIONS_ON_LOAD:
+        case ActionType.FETCH_EVALUATIONS_SUCCESS:
             return {
                 ...state,
                 evaluations: action.payload

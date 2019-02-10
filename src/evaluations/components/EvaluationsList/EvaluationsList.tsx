@@ -13,14 +13,10 @@ import { Select, Button } from 'antd';
 const Option = Select.Option;
 
 import { SearchInput } from '../../../custom';
-import * as api from '../../../api';
 
 class EvaluationsList extends React.Component<IEvaluationsListProps> {
 	public componentWillMount(){
-		api.Evaluations.all()
-		.then(data =>
-			this.props.onLoad(data)
-		);
+		this.props.fetchEvaluations();
 	}
 
 	private changeRoute(e: any, route: string) {
@@ -31,7 +27,7 @@ class EvaluationsList extends React.Component<IEvaluationsListProps> {
 	private renderEvaluation(evaluation: any){
 		const { groups, address, city, postalCode, date } = evaluation;
         return(
-			<div className="evaluation" key={evaluation.id} onClick={() => this.props.history.push('/trainings')}>
+			<div className="evaluation" key={evaluation.id} onClick={() => this.props.history.push(`/evaluations/${evaluation.id}/details`)}>
 				<div className="evaluation-header">
 					<div className="title-type">
 						<span className="title">Nom de l'evaluation</span>
@@ -47,8 +43,8 @@ class EvaluationsList extends React.Component<IEvaluationsListProps> {
 						)}
 					</div>
 					<div className="actions">
-						<Button onClick={(e: any) => this.changeRoute(e, `/profile`)} type="primary">Résultats</Button>
-						<Button onClick={(e: any) => this.changeRoute(e, `/evaluate-group/${evaluation.id}`)} type="primary">Evaluer</Button>
+						<Button onClick={(e: any) => this.changeRoute(e, `/evaluations/${evaluation.id}/results`)} type="primary">Résultats</Button>
+						<Button onClick={(e: any) => this.changeRoute(e, `/evaluations/${evaluation.id}/evaluate-group`)} type="primary">Evaluer</Button>
 					</div>
 				</div>
 			</div>
@@ -67,8 +63,8 @@ class EvaluationsList extends React.Component<IEvaluationsListProps> {
 			<div className="EvaluationsList">
 				<div className="header">
 					<div className="top">
-						<h2> Evaluations et statistiques</h2>
-						<Button onClick={() => this.props.history.push('/trainings')} type="primary">Planifier une nouvelle evaluation</Button>
+						<h2>Evaluations et statistiques</h2>
+						<Button onClick={() => this.props.history.push('/new-evaluation')} type="primary">Planifier une nouvelle evaluation</Button>
 					</div>
 					<div className="filters">
 						<Select defaultValue="Type" className="select" onChange={val => this.props.setTypeFilter(val)}>

@@ -12,20 +12,12 @@ import { Menu, Col, Button, Icon } from 'antd';
 import './EvaluateGroup.css';
 
 import ExerciseEvaluation from '../EvaluateExercise/EvaluateExercise';
-import * as api from '../../../api';
 
 class EvaluateGroup extends React.Component<IEvaluateGroupProps> {
     public componentWillMount() {
         document.title = 'Kung Fu Club | Evaluation'
         const evaluationId = this.props.match.params.id;
-        Promise.all([
-            api.Evaluations.byId(evaluationId),
-            api.Members.byEvaluationId(evaluationId),
-            api.RankExercises.byEvaluationId(evaluationId),
-            api.RankCriterias.byEvaluationId(evaluationId),
-        ]).then(data =>
-            this.props.onLoad(data)
-        );
+        this.props.fetchAllByEvaluationId(evaluationId);
     }
 	
     private findRankExercise() {
@@ -77,11 +69,11 @@ class EvaluateGroup extends React.Component<IEvaluateGroupProps> {
 }
 
 const mapStateToProps = (state: any) => ({
-    evaluation: state.groupEvaluation.evaluation,
-    performers: state.groupEvaluation.performers,
-    selectedPerformer: state.groupEvaluation.selectedPerformer,
-    selectedExercise: state.groupEvaluation.selectedExercise,
-	rankExercises: state.groupEvaluation.rankExercises,
+    evaluation: state.evaluateGroup.evaluation,
+    performers: state.evaluateGroup.performers,
+    selectedPerformer: state.evaluateGroup.selectedPerformer,
+    selectedExercise: state.evaluateGroup.selectedExercise,
+	rankExercises: state.evaluateGroup.rankExercises,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>

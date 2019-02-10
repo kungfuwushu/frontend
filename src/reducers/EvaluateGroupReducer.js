@@ -9,7 +9,7 @@ const initialState = {
     selectedExercise: undefined,
 };
 
-export const GroupEvaluationReducer = (state = initialState, action) => {
+export const EvaluateGroupReducer = (state = initialState, action) => {
     switch (action.type) {
         case ActionType.PERFORMER_SELECTED:
             return {
@@ -21,7 +21,7 @@ export const GroupEvaluationReducer = (state = initialState, action) => {
                 ...state,
                 selectedExercise: action.payload
             };
-        case ActionType.GROUP_EVALUATION_ON_LOAD: {
+        case ActionType.EVALUATE_GROUP_FETCH_ALL_BY_EVALUATION_ID_SUCCESS: {
             const evaluation = action.payload[0];
             const performers = action.payload[1];
             return {

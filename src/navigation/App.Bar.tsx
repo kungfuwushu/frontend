@@ -154,8 +154,8 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
           <Route path='/' exact={true} component={Home} />
           <Route path='/profile' component={MemberDetails} />
           <Route path='/trainings' component={TrainingsList} />
-          <Route path='/evaluate-group/:id' component={EvaluateGroup} />
-          <Route path='/evaluations' component={EvaluationsList}/>
+          <Route exact path='/evaluations' component={EvaluationsList}/>
+          <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup}/>
         </main>
       </div>
     );
