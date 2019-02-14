@@ -4,27 +4,20 @@ import { connect } from 'react-redux';
 import {bindActionCreators, Dispatch} from 'redux';
 import * as _ from 'lodash';
 
-import { IGroupEvaluationProps } from '../../actions/GroupEvaluation.Actions';
-import * as GroupEvaluationActionCreators from '../../actions/GroupEvaluation.Actions';
+import { IEvaluateGroupProps } from '../../../actions/evaluate/EvaluateGroup.Actions';
+import * as EvaluateGroupActionCreators from '../../../actions/evaluate/EvaluateGroup.Actions';
 
 import { Menu, Col, Button, Icon } from 'antd';
 
-import '../styles/GroupEvaluation.css';
+import './EvaluateGroup.css';
 
-import ExerciseEvaluation from './ExerciseEvaluation';
-import * as api from '../../api';
+import ExerciseEvaluation from '../EvaluateExercise/EvaluateExercise';
 
-class GroupEvaluation extends React.Component<IGroupEvaluationProps> {
+class EvaluateGroup extends React.Component<IEvaluateGroupProps> {
     public componentWillMount() {
+        document.title = 'Kung Fu Club | Evaluation'
         const evaluationId = this.props.match.params.id;
-        Promise.all([
-            api.Evaluations.byId(evaluationId),
-            api.Members.byEvaluationId(evaluationId),
-            api.RankExercises.byEvaluationId(evaluationId),
-            api.RankCriterias.byEvaluationId(evaluationId),
-        ]).then(data =>
-            this.props.onLoad(data)
-        );
+        this.props.fetchAllByEvaluationId(evaluationId);
     }
 	
     private findRankExercise() {
@@ -43,7 +36,7 @@ class GroupEvaluation extends React.Component<IGroupEvaluationProps> {
         if (!evaluation)
             return(<div>Loading...</div>);
         return (
-            <div className="GroupEvaluation">
+            <div className="EvaluateGroup">
                 <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
                     <div className="list-header">Exercices</div>
                     <Menu selectedKeys={[selectedExercise.id+'']}>
@@ -76,14 +69,14 @@ class GroupEvaluation extends React.Component<IGroupEvaluationProps> {
 }
 
 const mapStateToProps = (state: any) => ({
-    evaluation: state.groupEvaluation.evaluation,
-    performers: state.groupEvaluation.performers,
-    selectedPerformer: state.groupEvaluation.selectedPerformer,
-    selectedExercise: state.groupEvaluation.selectedExercise,
-	rankExercises: state.groupEvaluation.rankExercises,
+    evaluation: state.evaluateGroup.evaluation,
+    performers: state.evaluateGroup.performers,
+    selectedPerformer: state.evaluateGroup.selectedPerformer,
+    selectedExercise: state.evaluateGroup.selectedExercise,
+	rankExercises: state.evaluateGroup.rankExercises,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>
-    bindActionCreators(_.assign({}, GroupEvaluationActionCreators), dispatch);
+    bindActionCreators(_.assign({}, EvaluateGroupActionCreators), dispatch);
 
-export default withRouter(connect(mapStateToProps, mapDispatchtoProps)(GroupEvaluation) as any);
+export default withRouter(connect(mapStateToProps, mapDispatchtoProps)(EvaluateGroup) as any);

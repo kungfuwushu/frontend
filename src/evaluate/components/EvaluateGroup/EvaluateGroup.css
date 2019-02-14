@@ -1,4 +1,4 @@
-.GroupEvaluation {
+.EvaluateGroup {
     display: flex;
     flex-grow: 2;
     -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
@@ -7,38 +7,38 @@
     background-color: white;
 }
 
-.GroupEvaluation > div {
+.EvaluateGroup > div {
     display: flex;
     flex-direction: column;
     position: relative;
 }
 
-.GroupEvaluation .ant-menu {
+.EvaluateGroup .ant-menu {
     overflow-y: auto;
     overflow-x: hidden;
     background-color: transparent;
 }
 
-.GroupEvaluation .list-header {
+.EvaluateGroup .list-header {
     padding: 16px;
     font-weight: 600;
     border-bottom: 1px solid rgba(0,0,0,.12);
 }
 
-.GroupEvaluation .list {
+.EvaluateGroup .list {
     border-right: 1px solid rgba(0,0,0,.12);
 }
 
-.GroupEvaluation .exercise-panel {
+.EvaluateGroup .exercise-panel {
     display: flex;
     flex-direction: column;
 }
 
-.GroupEvaluation .next {
+.EvaluateGroup .next {
     border-top: 1px solid rgba(0,0,0,.12);
     padding: 16px;
 }
 
-.GroupEvaluation .next button {
+.EvaluateGroup .next button {
     float: right;
 }

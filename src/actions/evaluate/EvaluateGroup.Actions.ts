@@ -1,10 +1,12 @@
-import {IAppAction,ActionType} from './Helpers';
+import {IAppAction,ActionType} from '../Helpers';
+import { Dispatch } from 'redux';
 import { match } from 'react-router';
+import { Evaluations, Members, RankExercises, RankCriterias } from '../../api';
 
-export interface IGroupEvaluationProps{
+export interface IEvaluateGroupProps{
     selectPerformer: (performer : any) => IAppAction;
     selectExercise: (exercise : any) => IAppAction;
-    onLoad: (data : any) => IAppAction;
+    fetchAllByEvaluationId: (evaluationId: number) => void;
     next: () => IAppAction;
     
     selectedPerformer: any;
@@ -29,9 +31,20 @@ export const selectExercise = (exercise : any) : IAppAction => {
     };
 };
 
-export const onLoad = (data : any) : IAppAction => {
+export const fetchAllByEvaluationId = (evaluationId: number) => (dispatch: Dispatch) => {
+    Promise.all([
+        Evaluations.byId(evaluationId),
+        Members.byEvaluationId(evaluationId),
+        RankExercises.byEvaluationId(evaluationId),
+        RankCriterias.byEvaluationId(evaluationId),
+    ]).then(data =>
+        dispatch(fetchAllByEvaluationIdSuccess(data))
+    );
+};
+
+const fetchAllByEvaluationIdSuccess = (data : any) : IAppAction => {
     return {
-        type: ActionType.GROUP_EVALUATION_ON_LOAD,
+        type: ActionType.EVALUATE_GROUP_FETCH_ALL_BY_EVALUATION_ID_SUCCESS,
         payload: data
     };
 };

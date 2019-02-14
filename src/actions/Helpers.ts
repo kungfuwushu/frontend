@@ -3,7 +3,7 @@ import { Action } from "redux";
 export enum ActionType {
     OPEN_DRAWER,
     CLOSE_DRAWER,
-    GROUP_EVALUATION_ON_LOAD,
+    EVALUATE_GROUP_FETCH_ALL_BY_EVALUATION_ID_SUCCESS,
     PERFORMER_SELECTED,
     EXERCISE_SELECTED,
     NEXT,
@@ -11,6 +11,9 @@ export enum ActionType {
     SAVE_CRITERIA_RESULT,
     SAVE_NEW_EVALUATION,
     SAVE_NEW_RANK,
+    FETCH_EVALUATIONS_SUCCESS,
+    SET_FILTER_EVALUATIONS_TYPE,
+    SET_FILTER_EVALUATIONS_CONTAINING,
 }
 
 export interface IAppAction extends Action<ActionType> {

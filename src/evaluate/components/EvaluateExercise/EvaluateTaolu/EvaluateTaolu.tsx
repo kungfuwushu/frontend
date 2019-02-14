@@ -3,13 +3,13 @@ import { bindActionCreators, Dispatch } from 'redux';
 import * as _ from 'lodash';
 import { connect } from 'react-redux';
 
-import { ITaoluEvaluationProps } from '../../actions/TaoluEvaluation.Actions';
-import * as TaoluEvaluationActionCreators from '../../actions/TaoluEvaluation.Actions';
+import { IEvaluateTaoluProps } from '../../../../actions/evaluate/EvaluateTaolu.Actions';
+import * as EvaluateTaoluActionCreators from '../../../../actions/evaluate/EvaluateTaolu.Actions';
 
-import CriteriasEvaluation from './CriteriasEvaluation';
+import EvaluateCriterias from '../EvaluateCriterias';
 
-class TaoluEvaluation extends React.Component<ITaoluEvaluationProps>{
-    private criteriasEvaluationRef = React.createRef<CriteriasEvaluation>();
+class TaoluEvaluation extends React.Component<IEvaluateTaoluProps>{
+    private evaluateCriteriasRef = React.createRef<EvaluateCriterias>();
 
     private filterRankCriterias(rankExercise:any) {
 		const { rankCriterias } = this.props;
@@ -21,7 +21,7 @@ class TaoluEvaluation extends React.Component<ITaoluEvaluationProps>{
     }
 
     private saveResult() {
-        this.criteriasEvaluationRef.current!.getScores();
+        this.evaluateCriteriasRef.current!.getScores();
         console.log("saving taolu result");
     }
 
@@ -31,27 +31,27 @@ class TaoluEvaluation extends React.Component<ITaoluEvaluationProps>{
 
     componentWillUpdate() {
         this.saveResult();
-        this.criteriasEvaluationRef.current!.resetScores();
+        this.evaluateCriteriasRef.current!.resetScores();
     }
 
     render(){
         const { rankExercise } = this.props;
         return (
-            <CriteriasEvaluation
+            <EvaluateCriterias
                 rankCriterias={this.filterRankCriterias(rankExercise)}
-                ref={this.criteriasEvaluationRef}
+                ref={this.evaluateCriteriasRef}
             />
         );
     }
 }
 
 const mapStateToProps = (state: any) => ({
-	exercise: state.groupEvaluation.selectedExercise,
-	performer: state.groupEvaluation.selectedPerformer,
-	rankCriterias: state.groupEvaluation.rankCriterias,
+	exercise: state.evaluateGroup.selectedExercise,
+	performer: state.evaluateGroup.selectedPerformer,
+	rankCriterias: state.evaluateGroup.rankCriterias,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>
-	bindActionCreators(_.assign({}, TaoluEvaluationActionCreators), dispatch);
+	bindActionCreators(_.assign({}, EvaluateTaoluActionCreators), dispatch);
 
 export default connect(mapStateToProps, mapDispatchtoProps)(TaoluEvaluation);

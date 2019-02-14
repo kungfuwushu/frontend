@@ -1,16 +1,16 @@
 import * as React from 'react';
 
-import '../styles/ExerciseEvaluation.css';
+import './EvaluateExercise.css';
 
-import PhysicalEvaluation from './PhysicalEvaluation';
-import FightEvaluation from './FightEvaluation';
-import TaoluEvaluation from './TaoluEvaluation';
+import EvaluatePhysical from './EvaluatePhysical/EvaluatePhysical';
+import EvaluateFight from './EvaluateFight';
+import EvaluateTaolu from './EvaluateTaolu/EvaluateTaolu';
 
-interface ExerciseEvaluationProps{
+interface EvaluateExerciseProps{
     rankExercise: any;
 }
 
-const ExerciseEvaluation: React.StatelessComponent<ExerciseEvaluationProps> = (props) => {
+const EvaluateExercise: React.StatelessComponent<EvaluateExerciseProps> = (props) => {
 	const { rankExercise } = props;
 	if (!rankExercise)
 		return (<div>Exercise not available.</div>);
@@ -19,18 +19,18 @@ const ExerciseEvaluation: React.StatelessComponent<ExerciseEvaluationProps> = (p
 		const { type } = rankExercise.exercise;
 		switch(type) {
 			case 'TAOLU':
-				return <TaoluEvaluation rankExercise={rankExercise}/>
+				return <EvaluateTaolu rankExercise={rankExercise}/>
 			case 'PHYSICAL':
-				return <PhysicalEvaluation rankExercise={rankExercise}/>
+				return <EvaluatePhysical rankExercise={rankExercise}/>
 			case 'FIGHT':
-				return <FightEvaluation rankExercise={rankExercise}/>
+				return <EvaluateFight rankExercise={rankExercise}/>
 		}
 		return type + 'is not a supported type of exercise.';
 	}
 	
 	const { exercise } = rankExercise;
 	return (
-		<div className="ExerciseEvaluation">
+		<div className="EvaluateExercise">
 			<div className="header">
 				<span className="name">{exercise.name}</span>
 				<span className="type">{exercise.type}</span>
@@ -48,4 +48,4 @@ const ExerciseEvaluation: React.StatelessComponent<ExerciseEvaluationProps> = (p
 	);
 }
 
-export default ExerciseEvaluation;
+export default EvaluateExercise;

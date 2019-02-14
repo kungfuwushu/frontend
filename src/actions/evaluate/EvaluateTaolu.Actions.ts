@@ -1,4 +1,4 @@
-export interface ITaoluEvaluationProps{
+export interface IEvaluateTaoluProps{
     rankExercise: any;
     rankCriterias: any[];
     performer: any;

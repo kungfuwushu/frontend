@@ -4,17 +4,17 @@ import { isMobile } from "react-device-detect";
 import { Select, InputNumber } from 'antd';
 const Option = Select.Option;
 
-import '../styles/CriteriasEvaluation.css';
+import './EvaluateCriterias.css';
 
-interface CriteriasEvaluationProps {
+interface EvaluateCriteriasProps {
 	rankCriterias: any[];
 }
 
-interface CriteriasEvaluationState {
+interface EvaluateCriteriasState {
 	criteriaScores: any[];
 }
 
-class CriteriasEvaluation extends React.Component<CriteriasEvaluationProps, CriteriasEvaluationState> {
+class EvaluateCriterias extends React.Component<EvaluateCriteriasProps, EvaluateCriteriasState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -72,7 +72,7 @@ class CriteriasEvaluation extends React.Component<CriteriasEvaluationProps, Crit
 	render() {
 		const { rankCriterias } = this.props;
 		return (
-			<div className="CriteriasEvaluation" >
+			<div className="EvaluateCriterias" >
 				{rankCriterias.map((criteria, index) => 
 					this.renderCriteria(criteria, index)
 				)}
@@ -81,4 +81,4 @@ class CriteriasEvaluation extends React.Component<CriteriasEvaluationProps, Crit
 	}
 }
 
-export default CriteriasEvaluation;
+export default EvaluateCriterias;

@@ -1,4 +1,4 @@
-export interface IFightEvaluationProps{
+export interface IEvaluateFightProps{
 	rankExercise: any;
 	rankCriterias: any[];
     performer: any;
