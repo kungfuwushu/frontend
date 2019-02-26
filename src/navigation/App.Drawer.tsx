@@ -3,6 +3,7 @@ import * as React from 'react';
 import FaceIcon from '@material-ui/icons/Face';
 import BusinessIcon from '@material-ui/icons/BusinessCenter';
 import DashboardIcon from '@material-ui/icons/Dashboard';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import { Drawer, IconButton, Divider, Theme, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
@@ -10,9 +11,11 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { NavLink } from 'react-router-dom';
 import { styles } from './styles';
 import {Utility} from "../state/Utility";
+import {User} from "../state/User";
 const classNames = require('classnames');
 
 interface IAppDrawer {
+    authentication?: User;
     utility: Utility;
     classes?: any;
     theme?: Theme;
@@ -22,15 +25,16 @@ interface IAppDrawer {
 class AppDrawer extends React.Component<IAppDrawer, {}> {
     public routes = [
         { path: '/', title: 'Dashboard', icon: () => <DashboardIcon /> },
-        { path: '/profile', title: 'Profile', icon: () => <FaceIcon /> },
-        { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> }
+        { path: '/members', title: 'Members', icon: () => <FaceIcon /> },
+        { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
+        { path: '/account', title: 'Profile', icon: () => <AccountCircleIcon /> }
     ]
 
     public render(): JSX.Element {
-        const { classes, utility } = this.props;
+        const { authentication, classes, utility } = this.props;
         return (
             <Drawer
-                hidden={false}
+                hidden={!authentication}
                 variant="permanent"
                 classes={{
                     paper: classNames(classes.drawerPaper, !utility.drawerOpen && classes.drawerPaperClose),
