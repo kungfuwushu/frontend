@@ -1,6 +1,6 @@
 export interface IEvaluateTaoluProps{
     rankExercise: any;
-    rankCriterias: any[];
+    rankCriterion: any[];
     performer: any;
     exercise: any;
 }

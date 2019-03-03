@@ -10,7 +10,7 @@ import { Button } from 'antd';
 
 import './EvaluateFight.css';
 
-import EvaluateCriterias from '../EvaluateCriterias';
+import EvaluateCriterion from '../EvaluateCriterion';
 import Timer from './Timer';
 
 interface EvaluateFightState {
@@ -18,38 +18,10 @@ interface EvaluateFightState {
 }
 
 class EvaluateFight extends React.Component<IEvaluateFightProps, EvaluateFightState>{
-	private evaluateCriteriasRef = React.createRef<EvaluateCriterias>();
-	
-	constructor(props: any) {
-		super(props);
-		this.state = {
-			currentRoundIndex: 0
-		}
-	}
-
-    private filterRankCriterias(rankExercise: any) {
-		const { rankCriterias } = this.props;
-        if (!rankExercise)
-            return [];
-        return rankCriterias.filter((rankCriteria: any) =>
-            rankCriteria.rankExerciseId == rankExercise.id
-        );
-	}
-	
-	private previousRound() {
-		this.setState({
-			currentRoundIndex: this.state.currentRoundIndex - 1
-		});
-	}
-
-	private nextRound() {
-		this.setState({
-			currentRoundIndex: this.state.currentRoundIndex + 1
-		});
-	}
+	private evaluateCriterionRef = React.createRef<EvaluateCriterion>();
 
     private saveResult() {
-        this.evaluateCriteriasRef.current!.getScores();
+        this.evaluateCriterionRef.current!.getScores();
         console.log("saving fight result");
     }
 
@@ -59,21 +31,20 @@ class EvaluateFight extends React.Component<IEvaluateFightProps, EvaluateFightSt
 
     componentWillUpdate() {
         this.saveResult();
-        this.evaluateCriteriasRef.current!.resetScores();
+		this.evaluateCriterionRef.current!.resetScores();
     }
 
 	render() {
-		const { rankExercise } = this.props;
-		const { currentRoundIndex } = this.state;
-		const rankCriterias= this.filterRankCriterias(rankExercise);
+		const { rankExercise, currentRoundIndex } = this.props;
+		const rankCriterion= rankExercise.rankRounds[currentRoundIndex].rankCriterion;
 		return (
 			<div className="EvaluateFight">
 				<h1>Reprise {currentRoundIndex + 1}</h1>
 				<Timer />
-				<EvaluateCriterias rankCriterias={rankCriterias}/>
-				<div className="Buttons">
-					{currentRoundIndex > 0 ? <Button onClick={() => this.previousRound()}>Reprise Précédente</Button> : ''}
-					{currentRoundIndex < rankExercise.rounds.length ? <Button onClick={() => this.nextRound()}>Reprise suivante</Button> : ''}
+				<EvaluateCriterion ref={this.evaluateCriterionRef} rankCriterion={rankCriterion}/>
+				<div className="roundsNavigation">
+					{currentRoundIndex > 0 ? <Button onClick={() => this.props.previousRound()} type="primary">Reprise Précédente</Button> : ''}
+					{currentRoundIndex < rankExercise.rankRounds.length - 1 ? <Button onClick={() => this.props.nextRound()} type="primary" className="nextRound">Reprise suivante</Button> : ''}
 				</div>
 			</div>
 		);
@@ -83,7 +54,8 @@ class EvaluateFight extends React.Component<IEvaluateFightProps, EvaluateFightSt
 const mapStateToProps = (state: any) => ({
 	exercise: state.evaluateGroup.selectedExercise,
 	performer: state.evaluateGroup.selectedPerformer,
-	rankCriterias: state.evaluateGroup.rankCriterias,
+	rankCriterion: state.evaluateGroup.rankCriterion,
+	currentRoundIndex: state.evaluateFight.currentRoundIndex,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>

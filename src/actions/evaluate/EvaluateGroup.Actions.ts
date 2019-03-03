@@ -1,7 +1,7 @@
 import {IAppAction,ActionType} from '../Helpers';
 import { Dispatch } from 'redux';
 import { match } from 'react-router';
-import { Evaluations, Members, RankExercises, RankCriterias } from '../../api';
+import { Evaluations, Members, RankExercises } from '../../api';
 
 export interface IEvaluateGroupProps{
     selectPerformer: (performer : any) => IAppAction;
@@ -36,7 +36,6 @@ export const fetchAllByEvaluationId = (evaluationId: number) => (dispatch: Dispa
         Evaluations.byId(evaluationId),
         Members.byEvaluationId(evaluationId),
         RankExercises.byEvaluationId(evaluationId),
-        RankCriterias.byEvaluationId(evaluationId),
     ]).then(data =>
         dispatch(fetchAllByEvaluationIdSuccess(data))
     );
@@ -51,6 +50,6 @@ const fetchAllByEvaluationIdSuccess = (data : any) : IAppAction => {
 
 export const next = () : IAppAction => {
     return {
-        type: ActionType.NEXT
+        type: ActionType.NEXT_PERFOMER_OR_EXERCISE
     };
 };

@@ -4,54 +4,54 @@ import { isMobile } from "react-device-detect";
 import { Select, InputNumber } from 'antd';
 const Option = Select.Option;
 
-import './EvaluateCriterias.css';
+import './EvaluateCriterion.css';
 
-interface EvaluateCriteriasProps {
-	rankCriterias: any[];
+interface EvaluateCriterionProps {
+	rankCriterion: any[];
 }
 
-interface EvaluateCriteriasState {
-	criteriaScores: any[];
+interface EvaluateCriterionState {
+	criterioncores: any[];
 }
 
-class EvaluateCriterias extends React.Component<EvaluateCriteriasProps, EvaluateCriteriasState> {
+class EvaluateCriterion extends React.Component<EvaluateCriterionProps, EvaluateCriterionState> {
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			criteriaScores: Array(this.props.rankCriterias.length)
+			criterioncores: Array(this.props.rankCriterion.length)
 		}
 	}
 
 	public getScores() {
-		const { rankCriterias } = this.props;
+		const { rankCriterion } = this.props;
 		const criteriaResults = new Array();
-		for (var i = 0; i < rankCriterias.length; i++) {
-			const score = this.state.criteriaScores[i];
+		for (var i = 0; i < rankCriterion.length; i++) {
+			const score = this.state.criterioncores[i];
 			if (score)
 				criteriaResults.push({
 					score,
-					rankCriteriaId: rankCriterias[i].id,
+					rankCriteriaId: rankCriterion[i].id,
 				})
 		}
 	}
 
 	public resetScores() {
 		this.setState({
-			criteriaScores : Array(this.props.rankCriterias.length)
+			criterioncores : Array(this.props.rankCriterion.length)
 		});
 	}
 
 	private renderCriteria(rankCriteria: any, criteriaIndex: number) {
 		const onSelect = (score: any) => {
-			const criteriaScores = [...this.state.criteriaScores];
-			criteriaScores[criteriaIndex] = score;
+			const criterioncores = [...this.state.criterioncores];
+			criterioncores[criteriaIndex] = score;
 			this.setState({
-				criteriaScores
+				criterioncores
 			});
 		}
 
 		const scores = Array.from(Array(rankCriteria.maximumScore).keys());
-		const selectedScore = this.state.criteriaScores[criteriaIndex];
+		const selectedScore = this.state.criterioncores[criteriaIndex];
 		return (
 			<div className="criteria" key={rankCriteria.id}>
 				{isMobile?
@@ -70,10 +70,10 @@ class EvaluateCriterias extends React.Component<EvaluateCriteriasProps, Evaluate
 	};
 
 	render() {
-		const { rankCriterias } = this.props;
+		const { rankCriterion } = this.props;
 		return (
-			<div className="EvaluateCriterias" >
-				{rankCriterias.map((criteria, index) => 
+			<div className="EvaluateCriterion" >
+				{rankCriterion.map((criteria, index) => 
 					this.renderCriteria(criteria, index)
 				)}
 			</div>
@@ -81,4 +81,4 @@ class EvaluateCriterias extends React.Component<EvaluateCriteriasProps, Evaluate
 	}
 }
 
-export default EvaluateCriterias;
+export default EvaluateCriterion;

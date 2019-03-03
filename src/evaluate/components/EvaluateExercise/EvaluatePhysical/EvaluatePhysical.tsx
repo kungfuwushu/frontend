@@ -49,7 +49,7 @@ class EvaluatePhysical extends React.Component<IEvaluatePhysicalProps>{
 const mapStateToProps = (state: any) => ({
 	exercise: state.evaluateGroup.selectedExercise,
 	performer: state.evaluateGroup.selectedPerformer,
-	rankCriterias: state.evaluateGroup.rankCriterias,
+	rankCriterion: state.evaluateGroup.rankCriterion,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>

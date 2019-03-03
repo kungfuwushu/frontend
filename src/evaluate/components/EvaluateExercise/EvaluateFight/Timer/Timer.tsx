@@ -30,6 +30,7 @@ interface TimeState {
 
 class Timer extends React.Component<{}, TimeState>{
 	private timer?: NodeJS.Timeout;
+	
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -48,33 +49,29 @@ class Timer extends React.Component<{}, TimeState>{
 	}
 
 	handleStart() {
-		console.log(this.timer + "start");
 		this.timer = setInterval(() => {
 			const newCount = this.state.count - 1;
-			this.setState(
-				{ count: newCount >= 0 ? newCount : 0 }
-			);
+			this.setState({
+				count: newCount >= 0 ? newCount : 0
+			});
 		}, 1000);
 	}
 
 	handleStop() {
-		console.log(this.timer + "stop");
 		if (this.timer) {
 			clearInterval(this.timer);
-			this.setState(
-				{ running: false }
-			);
+			this.setState({
+				running: false
+			});
 		}
 	}
 
 	handleReset() {
-		console.log(this.timer + "reset");
-		this.setState(
-			{ count: 100 }
-		);
+		this.handleStop();
+		this.setState({
+			count: 100
+		});
 	}
-
-
 
 	render() {
 

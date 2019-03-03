@@ -6,22 +6,13 @@ import { connect } from 'react-redux';
 import { IEvaluateTaoluProps } from '../../../../actions/evaluate/EvaluateTaolu.Actions';
 import * as EvaluateTaoluActionCreators from '../../../../actions/evaluate/EvaluateTaolu.Actions';
 
-import EvaluateCriterias from '../EvaluateCriterias';
+import EvaluateCriterion from '../EvaluateCriterion';
 
 class TaoluEvaluation extends React.Component<IEvaluateTaoluProps>{
-    private evaluateCriteriasRef = React.createRef<EvaluateCriterias>();
-
-    private filterRankCriterias(rankExercise:any) {
-		const { rankCriterias } = this.props;
-        if (!rankExercise || rankExercise.exercise.type != 'TAOLU')
-            return [];
-        return rankCriterias.filter((rankCriteria: any) =>
-            rankCriteria.rankExerciseId == rankExercise.id
-        );
-    }
+    private evaluateCriterionRef = React.createRef<EvaluateCriterion>();
 
     private saveResult() {
-        this.evaluateCriteriasRef.current!.getScores();
+        this.evaluateCriterionRef.current!.getScores();
         console.log("saving taolu result");
     }
 
@@ -31,15 +22,15 @@ class TaoluEvaluation extends React.Component<IEvaluateTaoluProps>{
 
     componentWillUpdate() {
         this.saveResult();
-        this.evaluateCriteriasRef.current!.resetScores();
+        this.evaluateCriterionRef.current!.resetScores();
     }
 
     render(){
         const { rankExercise } = this.props;
         return (
-            <EvaluateCriterias
-                rankCriterias={this.filterRankCriterias(rankExercise)}
-                ref={this.evaluateCriteriasRef}
+            <EvaluateCriterion
+                rankCriterion={rankExercise.rankCriterion}
+                ref={this.evaluateCriterionRef}
             />
         );
     }
@@ -48,7 +39,7 @@ class TaoluEvaluation extends React.Component<IEvaluateTaoluProps>{
 const mapStateToProps = (state: any) => ({
 	exercise: state.evaluateGroup.selectedExercise,
 	performer: state.evaluateGroup.selectedPerformer,
-	rankCriterias: state.evaluateGroup.rankCriterias,
+	rankCriterion: state.evaluateGroup.rankCriterion,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>
