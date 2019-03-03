@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as _ from 'lodash';
 
 import { Input } from 'antd';
-import { IExercise } from 'src/state/Exercise';
+import { IExercise } from '../../../state/Exercise';
 
 interface StateExercise {
     exercise : IExercise;
@@ -28,6 +28,7 @@ class Exercise extends React.Component<{},StateExercise> {
         
         return (
             <div>
+                
                  {this.state.exercise.criteria.map(criteron => <p> <Checkbox>{criteron.value}</Checkbox>;
                 barème : <Input placeholder="Barème" /></p>)}          
             </div>
