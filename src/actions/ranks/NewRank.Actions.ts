@@ -1,12 +1,12 @@
-import { IAppAction, ActionType } from './Helpers';
-import { IRank } from '../state/Rank';
+import { IAppAction, ActionType } from '../Helpers';
+import { IRank } from '../../state/Rank';
 import { Dispatch } from 'redux';
-import { Ranks ,Exercises, Criterias } from '../api';
+import { Ranks ,Exercises } from '../../api';
 
-export interface IRankProps {
+export interface INewRankProps {
     exercisesAJour: (type : any) => void;
     save: (rank: IRank) => void;
-    setTypeFilter: (type : any) => void;
+    setExercisesTypeFilter: (type : any) => void;
 
     ranks: [];
     typeFilter : any;
@@ -17,13 +17,13 @@ export interface IRankProps {
 export const save = (rank : any) =>(dispatch: Dispatch) => {
     Ranks.create(rank)
         .then(data => 
-            dispatch(createRank(data))
+            dispatch(saveSuccess(data))
         );
 }
-//Sauvegarde du nouveau grade
-const createRank = (rank: any): IAppAction => {
+
+const saveSuccess = (rank: any): IAppAction => {
     return {
-        type: ActionType.SAVE_NEW_RANK,
+        type: ActionType.NEW_RANK_SAVE_SUCCESS,
         payload: rank
     };
 };
@@ -44,24 +44,9 @@ const listeExoAJour = (typeExo : any) : IAppAction => {
 };
 
 //Changement du type des exercices
-export const setTypeFilter = (type : any) : IAppAction => {
+export const setExercisesTypeFilter = (type : any) : IAppAction => {
     return {
         type: ActionType.TYPE_EXERCISES,
         payload: type
     };
-};
-
-export const CriteresExercice = (idExo : any) => (dispatch: Dispatch) => {
-    Criterias.byExerciseId(idExo)
-        .then(data => 
-            dispatch(CritExercice(data))
-        );
-};
-
-//Trouve tous les critères pour un exercice.
-const CritExercice = (idExo : any) : IAppAction => {
-    return {
-        type: ActionType.CRITERES_EXERCICE,
-        payload: idExo
-    }
 };

@@ -13,12 +13,12 @@ export interface IEvaluateFightProps{
 
 export const previousRound = () : IAppAction => {
     return {
-        type: ActionType.PREVIOUS_ROUND
+        type: ActionType.EVALUATE_FIGHT_PREVIOUS_ROUND
     };
 };
 
 export const nextRound = () : IAppAction => {
     return {
-        type: ActionType.NEXT_ROUND
+        type: ActionType.EVALUATE_FIGHT_NEXT_ROUND
     };
 };

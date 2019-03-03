@@ -6,19 +6,19 @@ const initialState = {
 
 export const EvaluateFightReducer = (state = initialState, action) => {
     switch (action.type) {
-        case ActionType.NEXT_PERFOMER_OR_EXERCISE:
-        case ActionType.PERFORMER_SELECTED:
-        case ActionType.EXERCISE_SELECTED:
+        case ActionType.EVALUATE_GROUP_NEXT:
+        case ActionType.EVALUATE_GROUP_PERFORMER_SELECTED:
+        case ActionType.EVALUATE_GROUP_EXERCISE_SELECTED:
             return {
                 ...state,
                 currentRoundIndex: 0
             };
-        case ActionType.PREVIOUS_ROUND:
+        case ActionType.EVALUATE_FIGHT_PREVIOUS_ROUND:
             return {
                 ...state,
                 currentRoundIndex: state.currentRoundIndex - 1
             };
-        case ActionType.NEXT_ROUND:
+        case ActionType.EVALUATE_FIGHT_NEXT_ROUND:
             return {
                 ...state,
                 currentRoundIndex: state.currentRoundIndex + 1

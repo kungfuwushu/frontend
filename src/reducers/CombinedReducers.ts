@@ -2,15 +2,17 @@ import { combineReducers } from "redux";
 import { UtilityReducer } from './UtilityReducer';
 import { EvaluateGroupReducer } from './EvaluateGroupReducer';
 import { EvaluateFightReducer } from './EvaluateFightReducer';
-import { VisualisationEvaluationReducer } from './VisualisationEvaluationReducer';
-import { EvaluationsReducer } from './EvaluationsReducer';
-import { CreationRankReducer } from './CreationRankReducer';
+import { EvaluationsListReducer } from './EvaluationsListReducer';
+import { NewEvaluationReducer } from './NewEvaluationReducer';
+import { RanksListReducer } from './RanksListReducer';
+import { NewRankReducer } from './NewRankReducer';
 
 export const reducers = combineReducers({
     utility: UtilityReducer,
     evaluateGroup: EvaluateGroupReducer,
     evaluateFight: EvaluateFightReducer,
-    visualisationEvaluation: VisualisationEvaluationReducer,
-    evaluations : EvaluationsReducer,
-    creationRank: CreationRankReducer,
+    evaluationsList : EvaluationsListReducer,
+    newEvaluation: NewEvaluationReducer,
+    ranksList: RanksListReducer,
+    newRankList: NewRankReducer,
 });

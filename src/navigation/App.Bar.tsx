@@ -25,12 +25,12 @@ import Home from "../pages/Home";
 import {TrainingsList} from "../trainings";
 import {MemberDetails} from "../members";
 
-import {NewEvaluation} from "../evaluations";
-import {NewRank} from "../evaluateRank";
-
 import { FormattedMessage } from 'react-intl';
 import { EvaluateGroup } from "../evaluate";
 import { EvaluationsList } from "../evaluations";
+import { NewEvaluation } from "../evaluations";
+import { RanksList } from "../ranks";
+import { NewRank } from "../ranks";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -158,10 +158,11 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
           <Route path='/' exact={true} component={Home} />
           <Route path='/profile' component={MemberDetails} />
           <Route path='/trainings' component={TrainingsList} />
-          <Route path='/new-evaluation' component={NewEvaluation} />
+          <Route exact path='/ranks' component={RanksList} />
           <Route path='/new-rank' component={NewRank} />
-          <Route exact path='/evaluations' component={EvaluationsList}/>
-          <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup}/>
+          <Route exact path='/evaluations' component={EvaluationsList} />
+          <Route path='/new-evaluation' component={NewEvaluation} />
+          <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup} />
         </main>
       </div>
     );

@@ -4,6 +4,7 @@ import FaceIcon from '@material-ui/icons/Face';
 import BusinessIcon from '@material-ui/icons/BusinessCenter';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import Assignment from '@material-ui/icons/Assignment';
+import Grade from '@material-ui/icons/Grade';
 import { Drawer, IconButton, Divider, Theme, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 
@@ -25,8 +26,7 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
         { path: '/', title: 'Dashboard', icon: () => <DashboardIcon /> },
         { path: '/profile', title: 'Profile', icon: () => <FaceIcon /> },
         { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
-        { path: '/new-evaluation', title: 'New evaluation', icon: () => <BusinessIcon /> },
-        { path: '/new-rank', title: 'New Rank', icon: () => <BusinessIcon /> },
+        { path: '/ranks', title: 'Ranks', icon: () => <Grade /> },
         { path: '/evaluations', title: 'Evaluations', icon: () => <Assignment /> }
     ]
 

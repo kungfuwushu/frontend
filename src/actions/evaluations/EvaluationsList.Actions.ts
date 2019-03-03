@@ -3,7 +3,7 @@ import { Dispatch } from 'redux';
 import { Evaluations } from '../../api';
 
 export interface IEvaluationsListProps {
-    fetchEvaluations: () => void;
+    onLoad: () => void;
     setTypeFilter: (date: any) => IAppAction;
     setContainingFilter: (date:any) => IAppAction;
 
@@ -13,30 +13,30 @@ export interface IEvaluationsListProps {
     typeFilter: any;
 }
 
-export const fetchEvaluations = () => (dispatch: Dispatch) => {
+export const onLoad = () => (dispatch: Dispatch) => {
     Evaluations.all()
         .then(data =>
-            dispatch(fetchEvaluationsSuccess(data))
+            dispatch(onLoadSuccess(data))
         );
 };
 
-const fetchEvaluationsSuccess = (data : any) : IAppAction => {
+const onLoadSuccess = (data : any) : IAppAction => {
     return {
-        type: ActionType.FETCH_EVALUATIONS_SUCCESS,
+        type: ActionType.EVALUATIONS_LIST_ON_LOAD_SUCCESS,
         payload: data
     };
 };
 
 export const setTypeFilter = (data : any) : IAppAction => {
     return {
-        type: ActionType.SET_FILTER_EVALUATIONS_TYPE,
+        type: ActionType.EVALUATIONS_LIST_SET_FILTER_TYPE,
         payload: data
     };
 };
 
 export const setContainingFilter = (data : any) : IAppAction => {
     return {
-        type: ActionType.SET_FILTER_EVALUATIONS_CONTAINING,
+        type: ActionType.EVALUATIONS_LIST_SET_FILTER_CONTAINING,
         payload: data
     };
 };

@@ -17,7 +17,7 @@ class EvaluateGroup extends React.Component<IEvaluateGroupProps> {
     public componentWillMount() {
         document.title = 'Kung Fu Club | Evaluation'
         const evaluationId = this.props.match.params.id;
-        this.props.fetchAllByEvaluationId(evaluationId);
+        this.props.onLoad(evaluationId);
     }
 	
     private findRankExercise() {

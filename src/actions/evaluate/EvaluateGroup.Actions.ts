@@ -6,7 +6,7 @@ import { Evaluations, Members, RankExercises } from '../../api';
 export interface IEvaluateGroupProps{
     selectPerformer: (performer : any) => IAppAction;
     selectExercise: (exercise : any) => IAppAction;
-    fetchAllByEvaluationId: (evaluationId: number) => void;
+    onLoad: (evaluationId: number) => void;
     next: () => IAppAction;
     
     selectedPerformer: any;
@@ -19,37 +19,37 @@ export interface IEvaluateGroupProps{
 
 export const selectPerformer = (performer : any) : IAppAction => {
     return {
-        type: ActionType.PERFORMER_SELECTED,
+        type: ActionType.EVALUATE_GROUP_PERFORMER_SELECTED,
         payload: performer
     };
 };
 
 export const selectExercise = (exercise : any) : IAppAction => {
     return {
-        type: ActionType.EXERCISE_SELECTED,
+        type: ActionType.EVALUATE_GROUP_EXERCISE_SELECTED,
         payload: exercise
     };
 };
 
-export const fetchAllByEvaluationId = (evaluationId: number) => (dispatch: Dispatch) => {
+export const onLoad = (evaluationId: number) => (dispatch: Dispatch) => {
     Promise.all([
         Evaluations.byId(evaluationId),
         Members.byEvaluationId(evaluationId),
         RankExercises.byEvaluationId(evaluationId),
     ]).then(data =>
-        dispatch(fetchAllByEvaluationIdSuccess(data))
+        dispatch(onLoadSuccess(data))
     );
 };
 
-const fetchAllByEvaluationIdSuccess = (data : any) : IAppAction => {
+const onLoadSuccess = (data : any) : IAppAction => {
     return {
-        type: ActionType.EVALUATE_GROUP_FETCH_ALL_BY_EVALUATION_ID_SUCCESS,
+        type: ActionType.EVALUATE_GROUP_ON_LOAD_SUCCESS,
         payload: data
     };
 };
 
 export const next = () : IAppAction => {
     return {
-        type: ActionType.NEXT_PERFOMER_OR_EXERCISE
+        type: ActionType.EVALUATE_GROUP_NEXT
     };
 };

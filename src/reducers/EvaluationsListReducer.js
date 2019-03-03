@@ -6,19 +6,24 @@ const initialState = {
 	typeFilter: undefined,
 };
 
-export const VisualisationEvaluationReducer = (state = initialState, action) => {
+export const EvaluationsListReducer =(state = initialState, action)=>{
     switch (action.type) {
-        case ActionType.FETCH_EVALUATIONS_SUCCESS:
+        case ActionType.NEW_EVALUATION_SAVE_SUCCESS:
+            return {
+                ...state,
+                evaluations: state.evaluations.concat({...action.payload})
+            };
+        case ActionType.EVALUATIONS_LIST_ON_LOAD_SUCCESS:
             return {
                 ...state,
                 evaluations: action.payload
             };
-		case ActionType.SET_FILTER_EVALUATIONS_CONTAINING:
+		case ActionType.EVALUATIONS_LIST_SET_FILTER_CONTAINING:
 			return {
 				...state,
 				containingFilter: action.payload
 			};
-		case ActionType.SET_FILTER_EVALUATIONS_TYPE:
+		case ActionType.EVALUATIONS_LIST_SET_FILTER_TYPE:
 			return {
 				...state,
 				typeFilter: action.payload
@@ -26,4 +31,4 @@ export const VisualisationEvaluationReducer = (state = initialState, action) => 
         default:
             return state;
     }
-};
+}

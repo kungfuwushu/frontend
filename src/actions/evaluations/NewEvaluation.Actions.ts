@@ -3,25 +3,24 @@ import { IEvaluation } from '../../state/Evaluation';
 import { Groups, Evaluations } from '../../api';
 import { Dispatch } from 'redux';
 
-export interface IEvaluationsProps {
+export interface INewEvaluationsProps {
+    onLoad: () => void;
     save: (evaluation: IEvaluation) => void;
-    fetchGroups: () => void ;
 
-    evaluations: any[];
-    containingFilterGroups: any;
+    groups: any[];
+    groupsContainingFilter: any;
 }
 
-
-export const fetchGroups = () => (dispatch: Dispatch) => {
+export const onLoad = () => (dispatch: Dispatch) => {
     Groups.all()
         .then(data =>
-            dispatch(fetchGroupsSuccess(data))
+            dispatch(onLoadSuccess(data))
         );
 };
 
-const fetchGroupsSuccess = (data : any) : IAppAction => {
+const onLoadSuccess = (data : any) : IAppAction => {
     return {
-        type: ActionType.GROUPS_EVALUATION,
+        type: ActionType.NEW_EVALUATION_ON_LOAD_SUCCESS,
         payload: data
     };
 };
@@ -29,13 +28,13 @@ const fetchGroupsSuccess = (data : any) : IAppAction => {
 export const save = (evaluation : any) => (dispatch: Dispatch) => {
     Evaluations.create(evaluation)
         .then(data => 
-            dispatch(saveEval(data))
+            dispatch(saveSuccess(data))
         );
 }
-export const saveEval = (evaluation: IEvaluation): IAppAction => {
+
+export const saveSuccess = (evaluation: IEvaluation): IAppAction => {
     return {
-        type: ActionType.SAVE_NEW_EVALUATION,
+        type: ActionType.NEW_EVALUATION_SAVE_SUCCESS,
         payload: evaluation
     };
 };
-

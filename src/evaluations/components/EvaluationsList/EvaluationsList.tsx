@@ -6,7 +6,7 @@ import * as _ from 'lodash';
 import moment from 'moment';
 
 import { IEvaluationsListProps } from '../../../actions/evaluations/EvaluationsList.Actions';
-import * as VisualisationEvaluationActionCreators from '../../../actions/evaluations/EvaluationsList.Actions';
+import * as EvaluationsListActionCreators from '../../../actions/evaluations/EvaluationsList.Actions';
 
 import './EvaluationsList.css';
 import { Select, Button } from 'antd';
@@ -16,7 +16,7 @@ import { SearchInput } from '../../../custom';
 
 class EvaluationsList extends React.Component<IEvaluationsListProps> {
 	public componentWillMount(){
-		this.props.fetchEvaluations();
+		this.props.onLoad();
 	}
 
 	private changeRoute(e: any, route: string) {
@@ -89,12 +89,12 @@ class EvaluationsList extends React.Component<IEvaluationsListProps> {
 }
 
 const mapStateToProps = (state: any) => ({
-    evaluations: state.visualisationEvaluation.evaluations,
-    containingFilter: state.visualisationEvaluation.containingFilter,
-    typeFilter: state.visualisationEvaluation.typeFilter,
+    evaluations: state.evaluationsList.evaluations,
+    containingFilter: state.evaluationsList.containingFilter,
+    typeFilter: state.evaluationsList.typeFilter,
 });
 
 const mapDispatchtoProps = (dispatch: Dispatch) =>
-    bindActionCreators(_.assign({}, VisualisationEvaluationActionCreators), dispatch);
+    bindActionCreators(_.assign({}, EvaluationsListActionCreators), dispatch);
 
 export default connect(mapStateToProps, mapDispatchtoProps)(EvaluationsList);
