@@ -30,8 +30,8 @@ class EvaluationsList extends React.Component<IEvaluationsListProps> {
 			<div className="evaluation" key={evaluation.id} onClick={() => this.props.history.push(`/evaluations/${evaluation.id}/details`)}>
 				<div className="evaluation-header">
 					<div className="title-type">
-						<span className="title">Nom de l'evaluation</span>
-						<span className="type">PASSAGE DE GRADE</span>
+						<span className="title">{evaluation.name}</span>
+						<span className="type">{evaluation.type}</span>
 					</div>
 					<span className="date">{moment(date).format('MMMM Do YYYY')}</span>
 				</div>

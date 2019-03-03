@@ -12,8 +12,10 @@
     width: 20px;
 }
 
-.EvaluateFight .Buttons{
+.EvaluateFight .roundsNavigation {
     display: flex;
-    justify-content : space-around;
-    bottom:20%; 
+}
+
+.EvaluateFight .nextRound {
+    margin-left: auto;
 }

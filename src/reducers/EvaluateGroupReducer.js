@@ -4,7 +4,7 @@ const initialState = {
     performers: [],
     evaluation: undefined,
     rankExercises: [],
-    rankCriterias: [],
+    rankCriterion: [],
     selectedPerformer: undefined,
     selectedExercise: undefined,
 };
@@ -24,17 +24,17 @@ export const EvaluateGroupReducer = (state = initialState, action) => {
         case ActionType.EVALUATE_GROUP_FETCH_ALL_BY_EVALUATION_ID_SUCCESS: {
             const evaluation = action.payload[0];
             const performers = action.payload[1];
+            const rankExercises = action.payload[2];
             return {
                 ...state,
                 evaluation,
                 performers,
-                rankExercises: action.payload[2],
-                rankCriterias: action.payload[3],
+                rankExercises,
                 selectedExercise: evaluation.exercises.length > 0 ? evaluation.exercises[0] : undefined,
                 selectedPerformer: performers.length > 0 ? performers[0] : undefined,
             };
         }
-        case ActionType.NEXT: {
+        case ActionType.NEXT_PERFOMER_OR_EXERCISE: {
             const { performers, evaluation, selectedPerformer, selectedExercise } = state;
             const { exercises } = evaluation;
             if (performers.indexOf(selectedPerformer) !== performers.length - 1)
