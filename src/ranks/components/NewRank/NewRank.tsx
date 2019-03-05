@@ -5,100 +5,89 @@ import { INewRankProps } from '../../../actions/ranks/NewRank.Actions';
 import * as NewRankActionCreators from '../../../actions/ranks/NewRank.Actions';
 import * as _ from 'lodash';
 
-import { Input, Radio, Button } from 'antd';
-const RadioGroup = Radio.Group;
+import './NewRank.css';
+import { Input, Button, Upload, Icon } from 'antd';
+const { TextArea } = Input;
 
-import { IRank } from '../../../state/Rank';
-
-import RankExercice from './RankExercise'
-
-interface StateRank{
-    rank : IRank;
-    loading: false;
+interface StateNewRank {
+	name?: string;
+	description?: string;
+    errorMessage?: string;
+    fileList: any[];
 }
 
-class NewRank extends React.Component<INewRankProps,StateRank> {
-    private typeChoice: any;
-    private nameChoice : any;
-    private descriptionChoice : any;
-    private picture : any;
-
+class NewRank extends React.Component<INewRankProps, StateNewRank> {
     constructor(props: any) {
         super(props);
         this.state = {
-            loading: false,
-            rank : {name:'',description:'',picture:'', typeExercise:'',exercises:[]}
+            name: undefined,
+            description: undefined,
+            errorMessage: undefined,
+            fileList: []
         }
     }
 
-    componentWillMount () {
-        this.typeChoice = 1
-        this.props.setExercisesTypeFilter("TAOLU");  
+	private back() {
+		this.props.history.goBack();
+	}
+
+	private save() {
+		const { name, description } = this.state;
+		if (!name || !description ) {
+			this.setState({
+				errorMessage: "Oups! Tout est bien rempli ?"
+			});
+			return;
+		}
+		this.props.save({
+			name,
+			description,
+		});
+		this.back();
+	}
+
+    onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ name: e.target.value });
     }
 
-    onSubmit() { 
-        this.setState({ 
-            rank: {
-                name :this.nameChoice,
-                description:this.descriptionChoice,
-                picture:this.picture,
-                typeExercise: this.typeChoice,
-                exercises:[]
-            }  
-        });
-        console.log(this.state);
-        this.props.save({
-            name :this.nameChoice,
-            description:this.descriptionChoice,
-            picture:this.picture,
-            typeExercise: this.typeChoice,
-            exercises:[]
-        });
+    onDescriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ description: e.target.value });
     }
 
-    onChangeType = (e:any) => {
-        this.typeChoice = e.target.value
-    }
-
-    onChangeName = (e:any) => {
-        this.nameChoice = e.target.value
-    }
-
-    onChangeDescription = (e:any) => {
-        this.descriptionChoice = e.target.value
-    }
-
-    onChangePicture = (e:any) => {
-        this.picture = e.target.value
-    }
-
-    public renderExercice(exercice:any){
-        <div>
-            <h1>Je suis un exercice </h1>
-            {/*{criteresExercice.map( critere => <p> <Checkbox>{critere.value}</Checkbox>;
-            barème : <Input placeholder="Barème" /></p>)}          */}
-        </div>
-    }
+    onImageChange = ({fileList}: any) => this.setState({ fileList });
 
     render() {
-        return (
+        const { errorMessage, fileList } = this.state;
+        const uploadButton = (
             <div>
+              <Icon type='plus' />
+              <div className="ant-upload-text">Upload</div>
+            </div>
+        );
+        return (
+            <div className="NewRank">
                 <h1>Création d'un Grade</h1>
-                <h2>Informations</h2>
-                <Input placeholder="Nom du grade" onChange={this.onChangeName} />
-                <Input placeholder="Description" onChange={this.onChangeDescription}/>
-                <h2>Type d'évaluation</h2>
-                <RadioGroup onChange={this.onChangeType} value={this.typeChoice}>
-                    <Radio value={1}>Taolu</Radio>
-                    <Radio value={2}>Technique</Radio>
-                    <Radio value={3}>Combat</Radio>
-                    <Radio value={4}>Self-defense</Radio>
-                    <Radio value={5}>Physique</Radio>
-                    <Radio value={6}>Théorique</Radio>
-                </RadioGroup>
+				{errorMessage? <span className="error">{errorMessage}</span> : ''}
+                <h2 className="infos-title">Informations</h2>
+                <Input className="name" placeholder="Nom du grade" onChange={this.onNameChange} />
+                <TextArea autosize={{ minRows: 2, maxRows: 10 }} placeholder="Description" />
+                <h2>Télécharger une image</h2>
+                <Upload
+                    name="image"
+                    listType="picture-card"
+                    className="image-upload"
+                    fileList={fileList}
+                    action="https://cors-anywhere.herokuapp.com/https://jsonplaceholder.typicode.com/posts/"
+                    onChange={this.onImageChange}
+                >
+                    {fileList.length >= 1 ? null : uploadButton}
+                </Upload>
                 <h2>Exercices</h2>
-                <RankExercice/>
-                <Button type="primary" onClick={this.onSubmit.bind(this)}>Enregistrer</Button> 
+                <i>A venir...</i>
+				<div className="actions">
+					<Button onClick={() => this.back()}>Retour</Button>
+					<Button type="primary" onClick={() => this.save()} className="save">Enregistrer</Button>
+				</div>
             </div>
         );
     }

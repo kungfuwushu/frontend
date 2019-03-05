@@ -15,9 +15,14 @@ class RanksList extends React.Component<IRanksListProps> {
 	}
 
 	private renderRank(rank: any){
-		const { id, name } = rank;
+		const { id, name, image } = rank;
         return(
-			<div key={id}>{name}</div>
+			<div key={id} className="rank">
+				{image?
+					<img className="image" src={image}/> : ''
+				}
+				{name}
+			</div>
 		)
 	}
 

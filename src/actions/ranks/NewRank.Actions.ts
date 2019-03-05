@@ -1,13 +1,13 @@
 import { IAppAction, ActionType } from '../Helpers';
-import { IRank } from '../../state/Rank';
 import { Dispatch } from 'redux';
 import { Ranks ,Exercises } from '../../api';
 
 export interface INewRankProps {
     exercisesAJour: (type : any) => void;
-    save: (rank: IRank) => void;
+    save: (rank: any) => void;
     setExercisesTypeFilter: (type : any) => void;
 
+    history: any;
     ranks: [];
     typeFilter : any;
     exercicesfiltred : any;

@@ -1,12 +1,12 @@
 import { IAppAction, ActionType } from '../Helpers';
-import { IEvaluation } from '../../state/Evaluation';
 import { Groups, Evaluations } from '../../api';
 import { Dispatch } from 'redux';
 
 export interface INewEvaluationsProps {
     onLoad: () => void;
-    save: (evaluation: IEvaluation) => void;
+    save: (evaluation: any) => void;
 
+    history: any;
     groups: any[];
     groupsContainingFilter: any;
 }
@@ -32,7 +32,7 @@ export const save = (evaluation : any) => (dispatch: Dispatch) => {
         );
 }
 
-export const saveSuccess = (evaluation: IEvaluation): IAppAction => {
+export const saveSuccess = (evaluation: any): IAppAction => {
     return {
         type: ActionType.NEW_EVALUATION_SAVE_SUCCESS,
         payload: evaluation

@@ -1,134 +1,148 @@
-
-import { DatePicker } from 'antd';
 import * as React from 'react';
-import { Input, Col } from 'antd';
-import { Select } from 'antd';
-import { Button } from 'antd';
-
 import { connect } from 'react-redux';
 import * as _ from 'lodash';
 import { bindActionCreators, Dispatch } from 'redux';
 import { INewEvaluationsProps } from '../../../actions/evaluations/NewEvaluation.Actions';
 import * as NewEvaluationActionCreators from '../../../actions/evaluations/NewEvaluation.Actions';
-import { IEvaluation } from '../../../state/Evaluation';
+
+import './NewEvaluation.css';
+import { Button, Select, DatePicker, Input, Col, Radio } from 'antd';
+const InputGroup = Input.Group;
+const Option = Select.Option;
+const RadioGroup = Radio.Group;
 
 import * as moment from 'moment';
 
-const InputGroup = Input.Group;
-
 interface StateNewEvaluation {
-	optionsGrade: any[];
-	evaluation: IEvaluation;
+	name?: string;
+	type?: string;
+	date?: string;
+	address?: string;
+	city?: string;
+	postalCode?: string;
+	groups: any[];
+	errorMessage?: string;
 }
 
 class NewEvaluation extends React.Component<INewEvaluationsProps, StateNewEvaluation> {
-	private choixGroupe: any;
-	private choixDate: any;
-	private choixVille: any;
-	private choixCP: any;
-	private choixadresse: any;
-	private children: any;
-
 	constructor(props: any) {
 		super(props);
 		this.state = {
-			optionsGrade: [],
-
-			evaluation: { groupe: '', date: '', adresse: '', ville: '', codePostal: '' }
+			name: undefined,
+			type: "RANK",
+			date: undefined,
+			address: undefined,
+			city: undefined,
+			postalCode: undefined,
+			groups: [],
+			errorMessage: undefined,
 		}
 	}
 
 	public componentWillMount() {
-		this.setState({
-			optionsGrade: [],
-			evaluation: { groupe: '', date: '', adresse: '', ville: '', codePostal: '' },
-		});
 		this.props.onLoad();
 	}
 
-	private onSubmit() {//Evaluation.create 
-		this.setState({
-			evaluation: { groupe: this.choixGroupe, date: this.choixDate, adresse: this.choixadresse, ville: this.choixVille, codePostal: this.choixCP }
+	private back() {
+		this.props.history.goBack();
+	}
+
+	private save() {
+		const { name, type, date, address, city, postalCode, groups } = this.state;
+		if (!name || !type || !date || !address || !city || !postalCode || groups.length == 0) {
+			this.setState({
+				errorMessage: "Oups! Tout est bien rempli ?"
+			});
+			return;
+		}
+		this.props.save({
+			name,
+			type,
+			date,
+			address,
+			city,
+			postalCode,
+			groups
 		});
-		this.props.save({ groupe: this.choixGroupe, date: this.choixDate, adresse: this.choixadresse, ville: this.choixVille, codePostal: this.choixCP })
-		console.log(this.state);
+		this.back();
 	}
 
-	private onChange = (date: moment.Moment, dateString: string) => {
-		this.choixDate = dateString;
+	private onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ name: e.target.value });
 	}
 
-	private onChangeAdresse = (e: any) => {
-		this.choixadresse = e.target.value;
+	private onTypeChange = (e: any) => {
+		this.setState({ type: e.target.value });
 	}
 
-	private onChangeVille = (e: any) => {
-		this.choixVille = e.target.value;
+	private onDateChange = (date: moment.Moment, dateString: string) => {
+		this.setState({ date: date.format() });
 	}
 
-	private onChangeCP = (e: any) => {
-		this.choixCP = e.target.value;
+	private onAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ address: e.target.value });
 	}
 
-	private onChangeGroupe = (value: any, option: any) => {
-		this.choixGroupe = option;
+	private onCityChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ city: e.target.value });
 	}
-	
-	/** 
-	 private filterGroups() {
-		   const { containingFilterGroups } = this.props;
-		   return containingFilterGroups
-	 }
-	 */
+
+	private onPostalCodeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		this.setState({ postalCode: e.target.value });
+	}
+
+	private onGroupsChange = (value: string[]) => {
+		this.setState({ groups: value.map(Number) });
+	}
 
 	public render() {
-		//const filteredGroups = this.filterGroups();
-		this.children = [];
-
+		const { groups } = this.props;
+		const { errorMessage } = this.state;
 		return (
-			<div>
-				<h1 className="Title">Planification d'une nouvelle évaluation</h1>
-				<h2 className="Title-Date">Date et heure de l'évaluation</h2>
+			<div className="NewEvaluation">
+				<h1>Nouvelle évaluation</h1>
+				{errorMessage? <span className="error">{errorMessage}</span> : ''}
+				<h2 className="name-title">Nom</h2>
+				<Input className="name" placeholder="Nom de l'évaluation" onChange={this.onNameChange} />
+				<h2>Type d'évaluation</h2>
+				<RadioGroup onChange={this.onTypeChange} value={this.state.type}>
+					<Radio value={"RANK"}>Passage de grade</Radio>
+					<Radio value={"OTHER"}>Autre</Radio>
+				</RadioGroup>
+				<h2>Heure et date de rendez-vous</h2>
 				<DatePicker
 					showTime
 					format="YYYY-MM-DD HH:mm:ss"
-					placeholder="Select Time"
-					onChange={this.onChange}
+					placeholder="Sélectionnez l'heure et la date"
+					onChange={this.onDateChange}
+					className="date-picker"
+					style={{ width: "100%" }}
 				/>
-
-				<h2 className="TitleAdress">Adresse de l'évaluation</h2>
-				<InputGroup
-					size="default" >
-					<Col span={12}>
-						<Input placeholder="Adresse" onChange={this.onChangeAdresse} />
+				<h2>Lieu</h2>
+				<Input className="address" placeholder="Adresse" onChange={this.onAddressChange} />
+				<InputGroup>
+					<Col span={6}>
+						<Input placeholder="Code postal" onChange={this.onPostalCodeChange} />
 					</Col>
-					<Col span={2}>
-						<Input placeholder="CP" onChange={this.onChangeCP} />
-					</Col>
-					<Col span={4}>
-						<Input placeholder="Ville" onChange={this.onChangeVille} />
+					<Col span={18}>
+						<Input placeholder="Ville" onChange={this.onCityChange} />
 					</Col>
 				</InputGroup>
-
-				<h2 className="TitleSelection">Sélection des groupes évalués</h2>
-
-				{/**<div>
-          {filteredGroups.map((groups: any) =>
-            this.children.push(<Option value={groups.id}>{groups.name}</Option>)
-					)}
-          </div>  */}
+				<h2>Groupes à évaluer</h2>
 				<Select
 					mode="multiple"
-					size="large"
-					placeholder="Please select"
-					defaultValue={[]}
-					style={{ width: '40%' }}
-					onChange={this.onChangeGroupe}
+					placeholder="Sélectionnez les groupes à évaluer"
+					defaultValue={this.state.groups}
+					onChange={this.onGroupsChange}
 				>
-					{this.children}
+					{groups.map((group: any) =>
+						<Option key={group.id}>{group.name}</Option>
+					)}
 				</Select>
-				<Button type="primary" onClick={this.onSubmit.bind(this)}>Enregistrer</Button>
-				<Button type="primary">Retour</Button>
+				<div className="actions">
+					<Button onClick={() => this.back()}>Retour</Button>
+					<Button type="primary" onClick={() => this.save()} className="save">Enregistrer</Button>
+				</div>
 			</div>
 		);
 	}
