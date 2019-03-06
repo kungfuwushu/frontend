@@ -8,6 +8,10 @@ import { EvaluationsListReducer } from './EvaluationsListReducer';
 import { NewEvaluationReducer } from './NewEvaluationReducer';
 import { RanksListReducer } from './RanksListReducer';
 import { NewRankReducer } from './NewRankReducer';
+<<<<<<< HEAD
+=======
+import { MemberSpaceReducer } from './MemberSpaceReducer';
+>>>>>>> a1c613c... [REFACTOR] rename member space files
 
 export const reducers = combineReducers({
     utility: UtilityReducer,
@@ -19,4 +23,9 @@ export const reducers = combineReducers({
     newEvaluation: NewEvaluationReducer,
     ranksList: RanksListReducer,
     newRankList: NewRankReducer,
+<<<<<<< HEAD
 });
+=======
+    memberSpace: MemberSpaceReducer,
+});
+>>>>>>> a1c613c... [REFACTOR] rename member space files

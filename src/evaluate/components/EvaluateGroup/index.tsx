@@ -1,1 +1,1 @@
-export {default as EvaluateGroup} from './EvaluateGroup';
+export {default} from './EvaluateGroup';
