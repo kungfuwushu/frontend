@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 
 import './NewRank.css';
 import { Input, Button, Upload, Icon } from 'antd';
+import ExerciseSelection from './ExerciseSelection';
 const { TextArea } = Input;
 
 interface StateNewRank {
@@ -23,7 +24,7 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
             name: undefined,
             description: undefined,
             errorMessage: undefined,
-            fileList: []
+            fileList: [],
         }
     }
 
@@ -44,8 +45,8 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
 			description,
 		});
 		this.back();
-	}
-
+    }
+   
     onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.setState({ name: e.target.value });
     }
@@ -55,6 +56,27 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
     }
 
     onImageChange = ({fileList}: any) => this.setState({ fileList });
+
+    /*
+    private renderExercise(exercise:any){
+        
+        <div className="exercise" key={exercise.id}>
+            <div className="exercise-header">
+                <div className="title-type">
+                    <span className="title">{exercise.name}</span>
+                    <span className="type">{exercise.type}</span>
+                </div>
+            </div>
+            <div className="body">
+                    <div className="descriptions">
+                    <span>{`${exercise.description}`}</span>
+                </div>
+                    <div className="actions">
+                    <Button onClick={(e: any) => {}} type="primary">Ajouter</Button>
+                </div>
+            </div>
+        </div>
+    }*/
 
     render() {
         const { errorMessage, fileList } = this.state;
@@ -82,8 +104,18 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
                 >
                     {fileList.length >= 1 ? null : uploadButton}
                 </Upload>
+
                 <h2>Exercices</h2>
-                <i>A venir...</i>
+
+                <div>
+                    <Button type="primary" onClick={() => this.props.openModal()}>
+                    Open Modal
+                    </Button>
+                    <ExerciseSelection />
+                </div>
+
+
+
 				<div className="actions">
 					<Button onClick={() => this.back()}>Retour</Button>
 					<Button type="primary" onClick={() => this.save()} className="save">Enregistrer</Button>

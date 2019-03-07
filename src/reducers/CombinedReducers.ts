@@ -6,6 +6,7 @@ import { EvaluationsListReducer } from './EvaluationsListReducer';
 import { NewEvaluationReducer } from './NewEvaluationReducer';
 import { RanksListReducer } from './RanksListReducer';
 import { NewRankReducer } from './NewRankReducer';
+import { ExerciseSelectionReducer } from './ExerciseSelectionReducer';
 
 export const reducers = combineReducers({
     utility: UtilityReducer,
@@ -15,4 +16,5 @@ export const reducers = combineReducers({
     newEvaluation: NewEvaluationReducer,
     ranksList: RanksListReducer,
     newRankList: NewRankReducer,
+    exerciseSelection: ExerciseSelectionReducer,
 });

@@ -6,12 +6,10 @@ export interface INewRankProps {
     exercisesAJour: (type : any) => void;
     save: (rank: any) => void;
     setExercisesTypeFilter: (type : any) => void;
+    openModal: () => IAppAction;
 
     history: any;
-    ranks: [];
-    typeFilter : any;
-    exercicesfiltred : any;
-    criteresExercice : any;
+    selectedExercises: any[];
 }
 
 export const save = (rank : any) =>(dispatch: Dispatch) => {
@@ -48,5 +46,11 @@ export const setExercisesTypeFilter = (type : any) : IAppAction => {
     return {
         type: ActionType.TYPE_EXERCISES,
         payload: type
+    };
+};
+
+export const openModal = () : IAppAction => {
+    return {
+        type: ActionType.EXERCISE_SELECTION_OPEN_MODAL,
     };
 };
