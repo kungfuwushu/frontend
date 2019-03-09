@@ -1,0 +1,13 @@
+.EvaluateCriterion .criteria {
+    display: flex;
+    align-items: center;
+    margin: 16px 32px;
+}
+
+.EvaluateCriterion .criteria-name {
+    margin-left: 24px;
+}
+
+.EvaluateCriterion .ant-select {
+    width: 64px;
+}

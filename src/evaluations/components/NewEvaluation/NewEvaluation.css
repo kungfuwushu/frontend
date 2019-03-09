@@ -1,0 +1,48 @@
+.NewEvaluation {
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 8px;
+    background-color: white;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    flex-shrink: 0;
+}
+
+.NewEvaluation h1 {
+    text-align: center;
+    font-weight: 600;
+}
+
+.NewEvaluation h2 {
+    margin-top: 20px;
+}
+
+.NewEvaluation .name-title {
+    margin-top: 0;
+}
+
+.NewEvaluation .date-picker {
+    width: unset;
+}
+
+.NewEvaluation .address {
+    margin-bottom: 8px;
+}
+
+.NewEvaluation .actions {
+    display: flex;
+    margin-top: 30px;
+}
+
+.NewEvaluation .save {
+    margin-left: auto;
+}
+
+.NewEvaluation .error {
+    color: red;
+    margin-bottom: 20px;
+}
