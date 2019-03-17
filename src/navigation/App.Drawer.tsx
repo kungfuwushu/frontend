@@ -27,14 +27,13 @@ interface IAppDrawer {
 class AppDrawer extends React.Component<IAppDrawer, {}> {
     public routes = [
         { path: '/', title: 'Dashboard', icon: () => <DashboardIcon /> },
-        { path: '/profile', title: 'Profile', icon: () => <FaceIcon /> },
+        { path: '/account', title: 'Profile', icon: () => <AccountCircleIcon /> },
         { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
-        { path: '/ranks', title: 'Ranks', icon: () => <Grade /> },
-        { path: '/evaluations', title: 'Evaluations', icon: () => <Assignment /> },
         { path: '/members', title: 'Members', icon: () => <FaceIcon /> },
-        { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
-        { path: '/account', title: 'Profile', icon: () => <AccountCircleIcon /> }
-    ]
+        { path: '/ranks', title: 'Ranks', icon: () => <Grade /> },
+        { path: '/evaluations', title: 'Evaluations', icon: () => <Assignment /> }
+
+    ];
 
     public render(): JSX.Element {
         const { authentication, classes, utility } = this.props;

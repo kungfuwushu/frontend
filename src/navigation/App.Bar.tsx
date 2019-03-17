@@ -26,7 +26,6 @@ import AppDrawer from './App.Drawer';
 import Home from "../pages/Home";
 import {TrainingsList} from "../trainings";
 import {MemberDetails} from "../members";
-import {FormattedMessage} from 'react-intl';
 import {AccountPage} from "../pages/Account";
 import {isAuthenticated} from "../state/AppState";
 //import {ProfilePage} from "../pages/Profile";

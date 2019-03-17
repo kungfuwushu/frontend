@@ -18,11 +18,4 @@ export class User extends UserModel {
     public static NAME = 'name';
     public static ROLES = 'roles';
 
-    public email: string;
-    public name: string;
-    public roles: string[];
-
-    public isInRole(candidate: string) {
-        return _.intersection(this.roles, [candidate]).length > 0;
-    }
 }
