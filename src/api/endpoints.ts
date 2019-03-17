@@ -24,7 +24,6 @@ export const Programs = {
 export const Categories = {
   byId: (id: number) => get(`/categories/${id}/categories`),
   byName: (name: string) => get(`/categories?name=${encode(name)}`),
-  create: (criteria: any) => post(`/categories`, criteria),
 };
 
 export const Exercises = {
@@ -33,12 +32,9 @@ export const Exercises = {
   byCategoryId: (id: number) => get(`/categories/${id}/exercises`),
   byName: (name: string) => get(`/exercises?name=${encode(name)}`),
   byType: (type: string) => get(`/exercises?type=${encode(type)}`),
-  create: (exercise: any) => post(`/exercises`, exercise),
 };
 
-export const Criterias = {
-  byExerciseId: (id: number) => get(`/exercises/${id}/criterias`),
-  create: (criteria: any) => post(`/criterias`, criteria),
+export const Criterion = {
 };
 
 export const Ranks = {
@@ -48,18 +44,20 @@ export const Ranks = {
 };
 
 export const RankExercises = {
+  byEvaluationId: (id: number) => get(`/evaluations/${id}/rank-exercises`),
   byRankId: (id: number) => get(`/ranks/${id}/rank-exercises`),
   create: (rankExercise: any) => post(`/rank-exercises`, rankExercise),
 };
 
-export const RankCriterias = {
-  byRankExerciseId: (id: number) => get(`/rank-exercises/${id}/rank-criterias`),
-  create: (item: any) => post(`/rank-criterias`, item),
+export const RankCriterion = {
+  byEvaluationId: (id: number) => get(`/evaluations/${id}/rank-criterion`),
+  byRankExerciseId: (id: number) => get(`/rank-exercises/${id}/rank-criterion`),
+  create: (item: any) => post(`/rank-criterion`, item),
 };
 
 export const Evaluations = {
-  upcomingByGroupId: (id: number) => get(`/groups/${id}/upcoming-evaluations`),
-  pastByGroupId: (id: number) => get(`/groups/${id}/past-evaluations`),
+  all: () => get(`/evaluations`),
+  byId: (id: number) => get(`/evaluations/${id}`),
   create: (evaluation: any) => post(`/evaluations`, evaluation),
 };
 

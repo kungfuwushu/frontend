@@ -1,6 +1,7 @@
 //#region 
 import * as React from 'react';
 
+import { hot } from 'react-hot-loader';
 const classNames = require('classnames');
 import {withStyles} from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -31,6 +32,13 @@ import {isAuthenticated} from "../state/AppState";
 //import {ProfilePage} from "../pages/Profile";
 //import {isAuthenticated} from "../state/AppState";
 
+
+import { FormattedMessage } from 'react-intl';
+import { EvaluateGroup } from "../evaluate";
+import { EvaluationsList } from "../evaluations";
+import { NewEvaluation } from "../evaluations";
+import { RanksList } from "../ranks";
+import { NewRank } from "../ranks";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -130,7 +138,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                                     horizontal: 'right',
                                 }}
                                 open={open}
-                                onClose={this.handleMenuClose.bind(this, null)}
+                                onClose={this.handleMenuClose.bind(this, undefined)}
                             >
                                 <MenuItem onClick={this.handleMenuClose.bind(this, '/account')}>{this.props.authentication.name}</MenuItem>
                                 <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
@@ -181,6 +189,11 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/members' component={isAuthenticated(MemberDetails as any)}/>
                     <Route path='/trainings' component={isAuthenticated(TrainingsList as any)}/>
                     <Route path='/account' render={this.renderAccount} />
+                    <Route exact path='/ranks' component={RanksList} />
+                    <Route path='/new-rank' component={NewRank} />
+                    <Route exact path='/evaluations' component={EvaluationsList} />
+                    <Route path='/new-evaluation' component={NewEvaluation} />
+                    <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup} />
                 </main>
             </div>
         );
@@ -196,4 +209,4 @@ const mapStateToProps = (state: any) => ({
 const mapDispatchtoProps = (dispatch: Dispatch) =>
     bindActionCreators(_.assign({}, AppActionCreators), dispatch);
 
-export default withRouter(connect(mapStateToProps, mapDispatchtoProps)(withStyles(styles as any, {withTheme: true})(MiniDrawer as any)) as any);
+export default hot(module)(withRouter(connect(mapStateToProps, mapDispatchtoProps)(withStyles(styles as any, {withTheme: true})(MiniDrawer as any)) as any));

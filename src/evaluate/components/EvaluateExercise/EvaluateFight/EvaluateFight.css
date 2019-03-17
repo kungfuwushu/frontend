@@ -1,0 +1,21 @@
+.EvaluateFight .ant-table-title
+{
+  text-align: center;
+}
+
+.EvaluateFight .Score td
+{
+    display: flex;
+}
+
+.EvaluateFight .ant-input{
+    width: 20px;
+}
+
+.EvaluateFight .roundsNavigation {
+    display: flex;
+}
+
+.EvaluateFight .nextRound {
+    margin-left: auto;
+}

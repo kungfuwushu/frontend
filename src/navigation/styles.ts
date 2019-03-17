@@ -75,7 +75,9 @@ export const styles = (theme: Theme) => ({
       minHeight: '100%',
       height: '100%',
       flex: '1 1 auto',
-      overflowY: 'scroll'
+      overflowY: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
     },
     button: {
       margin: theme.spacing.unit,
