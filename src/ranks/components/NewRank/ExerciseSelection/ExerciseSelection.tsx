@@ -5,17 +5,17 @@ import { IExerciseSelectionProps } from '../../../../actions/ranks/ExerciseSelec
 import * as ExerciseSelectionActionCreators from '../../../../actions/ranks/ExerciseSelection.Action';
 import * as _ from 'lodash';
 
-import { Modal } from 'antd';
+import { Modal, Checkbox } from 'antd';
 
 interface ExerciseSelectionState {
-    visible: any;
+    checkedExercises: any[];
 }
 
 export class ExerciseSelection extends React.Component<IExerciseSelectionProps, ExerciseSelectionState> {
     constructor(props: any) {
         super(props);
         this.state = {
-            visible : false
+            checkedExercises: [],
         }
     }
 
@@ -25,9 +25,27 @@ export class ExerciseSelection extends React.Component<IExerciseSelectionProps, 
 
     closeModal = () => this.props.closeModal();
 
-    private renderExercise(exercise: any){
-        return( 
+    handleOk = () => {
+        const { checkedExercises } = this.state;
+        this.props.addSelectedExercises(checkedExercises);
+        this.closeModal();
+        this.setState({
+            checkedExercises: [],
+        })
+    }
+
+    renderExercise = (exercise: any) => {
+        const handleChange = (e: any) => {
+            const { checkedExercises } = this.state;
+            this.setState({
+                checkedExercises : e.target.checked ? 
+                    checkedExercises.concat([exercise]) : checkedExercises.filter(exo => exo !== exercise)
+            })
+        }
+
+        return(
             <div className="exercise" key={exercise.id}>
+                <Checkbox onChange={handleChange}></Checkbox>
 				<div className="exercise-header">
 					<div className="title-type">
 						<span className="title">{exercise.name}</span>
@@ -35,25 +53,26 @@ export class ExerciseSelection extends React.Component<IExerciseSelectionProps, 
 					</div>
 				</div>
 				<div className="body">
-                     <div className="actions">
-						</div>
+                    <div className="actions">
+                    </div>
 				</div>
 			</div>
         )
     }
 
     render() {
-        const { visibleModal, exercises } = this.props;
+        const { visibleModal, exercises, selectedExercises } = this.props;
+        const filteredExercises = exercises.filter(exercise => !selectedExercises.includes(exercise));
         return (
             <div>
                 <Modal
-                        title="Basic Modal"
-                        visible={visibleModal}
-                        onOk={this.closeModal}
-                        onCancel={this.closeModal}
-                    >
-                    {exercises.map((exercise: any) =>
-                        this.renderExercise(exercise)    
+                    title="Basic Modal"
+                    visible={visibleModal}
+                    onOk={this.handleOk}
+                    onCancel={this.closeModal}
+                >
+                    {filteredExercises.map((exercise: any) =>
+                        this.renderExercise(exercise)  
                     )}
                 </Modal>   
             </div>
@@ -62,6 +81,7 @@ export class ExerciseSelection extends React.Component<IExerciseSelectionProps, 
 }
 
 const mapStateToProps = (state: any) => ({
+    selectedExercises: state.newRank.exercises,
     exercises: state.exerciseSelection.exercises,
     visibleModal: state.exerciseSelection.visibleModal,
 });

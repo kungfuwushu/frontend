@@ -15,6 +15,6 @@ export const reducers = combineReducers({
     evaluationsList : EvaluationsListReducer,
     newEvaluation: NewEvaluationReducer,
     ranksList: RanksListReducer,
-    newRankList: NewRankReducer,
+    newRank: NewRankReducer,
     exerciseSelection: ExerciseSelectionReducer,
 });

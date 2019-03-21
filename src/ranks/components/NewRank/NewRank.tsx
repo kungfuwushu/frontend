@@ -57,29 +57,11 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
 
     onImageChange = ({fileList}: any) => this.setState({ fileList });
 
-    /*
-    private renderExercise(exercise:any){
-        
-        <div className="exercise" key={exercise.id}>
-            <div className="exercise-header">
-                <div className="title-type">
-                    <span className="title">{exercise.name}</span>
-                    <span className="type">{exercise.type}</span>
-                </div>
-            </div>
-            <div className="body">
-                    <div className="descriptions">
-                    <span>{`${exercise.description}`}</span>
-                </div>
-                    <div className="actions">
-                    <Button onClick={(e: any) => {}} type="primary">Ajouter</Button>
-                </div>
-            </div>
-        </div>
-    }*/
+    addExercises = () => this.props.openModal();
 
     render() {
         const { errorMessage, fileList } = this.state;
+        const { exercises } = this.props;
         const uploadButton = (
             <div>
               <Icon type='plus' />
@@ -104,18 +86,18 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
                 >
                     {fileList.length >= 1 ? null : uploadButton}
                 </Upload>
-
-                <h2>Exercices</h2>
-
-                <div>
-                    <Button type="primary" onClick={() => this.props.openModal()}>
-                    Open Modal
-                    </Button>
+                <div className="exercises-header">
+                    <h2>Exercices</h2>
+                    <Button type="primary" onClick={() => this.addExercises()}>Ajouter des exercices</Button>
                     <ExerciseSelection />
                 </div>
-
-
-
+                {exercises.length === 0?"Aucuns exercices sélectionnés." :""}
+                {exercises.map((exercise: any) => 
+                    <div key={exercise.id}>
+                        {exercise.name}
+                        <Button type="danger" onClick={() => this.props.removeExercise(exercise)}>Retirer</Button>
+                    </div>
+                )}
 				<div className="actions">
 					<Button onClick={() => this.back()}>Retour</Button>
 					<Button type="primary" onClick={() => this.save()} className="save">Enregistrer</Button>
@@ -125,7 +107,11 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
     }
 }
 
+const mapStateToProps = (state: any) => ({
+    exercises: state.newRank.exercises,
+});
+
 const mapDispatchtoProps = (dispatch: Dispatch) =>
   bindActionCreators(_.assign({}, NewRankActionCreators), dispatch);
 
-export default connect(null, mapDispatchtoProps)(NewRank);
+export default connect(mapStateToProps, mapDispatchtoProps)(NewRank);

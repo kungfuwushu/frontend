@@ -5,8 +5,10 @@ import { Exercises } from '../../api';
 export interface IExerciseSelectionProps {
     onLoad: () => void;
     closeModal: () => IAppAction;
+    addSelectedExercises: (exercises: any[]) => IAppAction;
 
     exercises: any[];
+    selectedExercises: any[];
     visibleModal: boolean;
 }
 
@@ -27,5 +29,12 @@ const onLoadSuccess = (data : any) : IAppAction => {
 export const closeModal = () : IAppAction => {
     return {
         type: ActionType.EXERCISE_SELECTION_CLOSE_MODAL,
+    };
+};
+
+export const addSelectedExercises = (exercises: any[]) : IAppAction => {
+    return {
+        type: ActionType.NEW_RANK_ADD_EXERCISES,
+        payload: exercises
     };
 };
