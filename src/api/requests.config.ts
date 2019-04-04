@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_ROOT = "http://localhost:8080";
+const API_ROOT = "https://kungfuapi.herokuapp.com";
 
 const responseData = (res: any) => res.data;
 
