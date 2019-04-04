@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_ROOT = "https://kungfuapi.herokuapp.com";
+const API_ROOT = process.env.REACT_APP_API_ADDRESS;
 
 const responseData = (res: any) => res.data;
 
