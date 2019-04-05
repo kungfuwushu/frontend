@@ -7,6 +7,7 @@ import * as _ from 'lodash';
 
 import './NewRank.css';
 import { Input, Button, Upload, Icon } from 'antd';
+import ExerciseSelection from './ExerciseSelection';
 const { TextArea } = Input;
 
 interface StateNewRank {
@@ -23,7 +24,7 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
             name: undefined,
             description: undefined,
             errorMessage: undefined,
-            fileList: []
+            fileList: [],
         }
     }
 
@@ -44,8 +45,8 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
 			description,
 		});
 		this.back();
-	}
-
+    }
+   
     onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		this.setState({ name: e.target.value });
     }
@@ -56,8 +57,11 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
 
     onImageChange = ({fileList}: any) => this.setState({ fileList });
 
+    addExercises = () => this.props.openModal();
+
     render() {
         const { errorMessage, fileList } = this.state;
+        const { exercises } = this.props;
         const uploadButton = (
             <div>
               <Icon type='plus' />
@@ -82,8 +86,18 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
                 >
                     {fileList.length >= 1 ? null : uploadButton}
                 </Upload>
-                <h2>Exercices</h2>
-                <i>A venir...</i>
+                <div className="exercises-header">
+                    <h2>Exercices</h2>
+                    <Button type="primary" onClick={() => this.addExercises()}>Ajouter des exercices</Button>
+                    <ExerciseSelection />
+                </div>
+                {exercises.length === 0?"Aucuns exercices sélectionnés." :""}
+                {exercises.map((exercise: any) => 
+                    <div key={exercise.id}>
+                        {exercise.name}
+                        <Button type="danger" onClick={() => this.props.removeExercise(exercise)}>Retirer</Button>
+                    </div>
+                )}
 				<div className="actions">
 					<Button onClick={() => this.back()}>Retour</Button>
 					<Button type="primary" onClick={() => this.save()} className="save">Enregistrer</Button>
@@ -93,7 +107,11 @@ class NewRank extends React.Component<INewRankProps, StateNewRank> {
     }
 }
 
+const mapStateToProps = (state: any) => ({
+    exercises: state.newRank.exercises,
+});
+
 const mapDispatchtoProps = (dispatch: Dispatch) =>
   bindActionCreators(_.assign({}, NewRankActionCreators), dispatch);
 
-export default connect(null, mapDispatchtoProps)(NewRank);
+export default connect(mapStateToProps, mapDispatchtoProps)(NewRank);

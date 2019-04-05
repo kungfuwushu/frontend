@@ -43,6 +43,16 @@
     max-width: 100%;
 }
 
+.NewRank .exercises-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.NewRank .exercises-header h2 {
+    margin-right: auto;
+}
+
 .NewRank .actions {
     display: flex;
     margin-top: 30px;

@@ -1,29 +1,25 @@
 import { ActionType } from '../actions/Helpers';
 
 const initialState = {
-    ranks: [],
-    typeFilter : undefined,
-    exercicesfiltred : undefined,
-}
+    exercises: [],
+};
 
-export const NewRankReducer = (state, action) =>{
+export const NewRankReducer = (state = initialState, action) => {
     switch (action.type){
         case ActionType.NEW_RANK_SAVE_SUCCESS:
-            return { 
-                ...state,
-                ranks: [...state.ranks, action.value]
-            }
-        case ActionType.FETCH_EXERCISES:
+            return state
+        case ActionType.NEW_RANK_ADD_EXERCISES:
             return {
                 ...state,
-                exercicesfiltred: action.payload
+                exercises: state.exercises.concat(action.payload)
             }
-        case ActionType.EXERCISE_RANK_SELECTED:
+        case ActionType.NEW_RANK_REMOVE_EXERCISE:
+            const exerciseToRemove = action.payload;
             return {
                 ...state,
-                typeFilter: action.payload
+                exercises: state.exercises.filter(exercise => exercise.id !== exerciseToRemove.id)
             }
         default:
-            return initialState
+            return state
     }
 }

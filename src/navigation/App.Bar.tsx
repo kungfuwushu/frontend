@@ -38,10 +38,7 @@ import { EvaluationsList } from "../evaluations";
 import { NewEvaluation } from "../evaluations";
 import { RanksList } from "../ranks";
 import { NewRank } from "../ranks";
-<<<<<<< HEAD
-=======
 import { MemberSpace } from "../members";
->>>>>>> a1c613c... [REFACTOR] rename member space files
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -163,7 +160,6 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         );
     }
 
-<<<<<<< HEAD
     private renderDrawer() {
         const {utility, authentication} = this.props;
         return (
@@ -198,50 +194,11 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route exact path='/evaluations' component={EvaluationsList} />
                     <Route path='/new-evaluation' component={NewEvaluation} />
                     <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup} />
+                    <Route path='/memberspace' component={MemberSpace} />
                 </main>
             </div>
         );
     }
-=======
-    return null;
-  }
-
-
-  private renderDrawer() {
-    const { utility } = this.props;
-    return (
-      <Hidden mdDown={!utility.drawerOpen && true}>
-        <AppDrawer
-          utility={utility}
-          handleDrawerClose={this.handleDrawerClose}
-        />
-      </Hidden>
-    );
-  }
-
-  public render() {
-    const { classes } = this.props;
-    return (
-      <div className={classes.root}>
-        {this.renderAppBar()}
-        {this.renderDrawer()}
-
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Route path='/' exact={true} component={Home} />
-          <Route path='/profile' component={MemberDetails} />
-          <Route path='/trainings' component={TrainingsList} />
-          <Route exact path='/ranks' component={RanksList} />
-          <Route path='/new-rank' component={NewRank} />
-          <Route exact path='/evaluations' component={EvaluationsList} />
-          <Route path='/new-evaluation' component={NewEvaluation} />
-          <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup} />
-          <Route path='/memberspace' component={MemberSpace} />
-        </main>
-      </div>
-    );
-  }
->>>>>>> a1c613c... [REFACTOR] rename member space files
 }
 
 const mapStateToProps = (state: any) => ({

@@ -31,15 +31,9 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
         { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
         { path: '/members', title: 'Members', icon: () => <FaceIcon /> },
         { path: '/ranks', title: 'Ranks', icon: () => <Grade /> },
-<<<<<<< HEAD
-        { path: '/evaluations', title: 'Evaluations', icon: () => <Assignment /> }
-
-    ];
-=======
         { path: '/evaluations', title: 'Evaluations', icon: () => <Assignment /> },
         { path: '/memberspace', title: 'Espace pratiquant', icon: () => <FaceIcon /> },
-    ]
->>>>>>> a1c613c... [REFACTOR] rename member space files
+    ];
 
     public render(): JSX.Element {
         const { authentication, classes, utility } = this.props;
