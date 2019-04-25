@@ -32,6 +32,8 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
         { path: '/members', title: 'Members', icon: () => <FaceIcon /> },
         { path: '/ranks', title: 'Ranks', icon: () => <Grade /> },
         { path: '/evaluations', title: 'Evaluations', icon: () => <Assignment /> },
+        { path: '/myrank', title: 'Mon grade', icon: () => <Grade /> },
+        { path: '/myevaluations', title: 'Mes évaluations', icon: () => <Assignment /> },
     ];
 
     public render(): JSX.Element {

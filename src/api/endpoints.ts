@@ -39,6 +39,7 @@ export const Criterion = {
 
 export const Ranks = {
   all: () => get(`/ranks`),
+  byId: (id: number) => get(`/ranks/${id}`),
   byName: (name: string) => get(`/ranks?name=${encode(name)}`),
   create: (rank: any) => post(`/ranks`, rank),
 };
