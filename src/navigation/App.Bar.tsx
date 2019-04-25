@@ -34,11 +34,8 @@ import {isAuthenticated} from "../state/AppState";
 
 import { FormattedMessage } from 'react-intl';
 import { EvaluateGroup } from "../evaluate";
-import { EvaluationsList } from "../evaluations";
-import { NewEvaluation } from "../evaluations";
-import { RanksList } from "../ranks";
-import { NewRank } from "../ranks";
-import { MemberSpace } from "../members";
+import { EvaluationsList, NewEvaluation } from "../evaluations";
+import { RanksList, NewRank } from "../ranks";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -194,7 +191,6 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route exact path='/evaluations' component={EvaluationsList} />
                     <Route path='/new-evaluation' component={NewEvaluation} />
                     <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup} />
-                    <Route path='/memberspace' component={MemberSpace} />
                 </main>
             </div>
         );

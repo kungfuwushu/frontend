@@ -1,0 +1,9 @@
+.EvaluateCriteria {
+    display: flex;
+    align-items: center;
+    margin: 16px 32px;
+}
+
+.EvaluateCriteria .name {
+    margin-left: 24px;
+}

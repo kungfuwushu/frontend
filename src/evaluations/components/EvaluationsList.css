@@ -1,0 +1,35 @@
+.EvaluationsList {
+    display: flex;
+    flex-grow: 2;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 8px;
+    background-color: white;
+    flex-direction: column;
+}
+
+.EvaluationsList .header {
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    padding: 16px;
+}
+
+.EvaluationsList .top{
+    display: flex;
+}
+
+.EvaluationsList .top button {
+    margin-left: auto;
+}
+
+.EvaluationsList .SearchInput {
+    width: 400px;
+    margin-left: 16px;
+}
+
+.EvaluationsList .select {
+    width: 200px;
+}
+
+.EvaluationsList .evaluations {
+    overflow-y: auto;
+}

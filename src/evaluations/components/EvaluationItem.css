@@ -1,0 +1,59 @@
+.EvaluationItem  {
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 8px;
+    background-color: white;
+    flex-shrink: 0;
+    margin: 16px;
+    width: auto;
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.EvaluationItem button{
+    display: flex;
+    margin-left: inherit;
+}
+
+.EvaluationItem .evaluation-header {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.EvaluationItem .title-type {
+    display: flex;
+    flex-direction: column;
+}
+
+.EvaluationItem .title {
+    font-size: 130%;
+    font-weight: 700;
+}
+
+.EvaluationItem .type {
+    font-size: 80%;
+}
+
+.EvaluationItem .actions,
+.EvaluationItem .date {
+    margin-left: auto;
+}
+
+.EvaluationItem .body,
+.EvaluationItem .actions {
+    display: flex;
+    align-items: flex-end;
+}
+
+.EvaluationItem .descriptions {
+    display: flex;
+    flex-direction: column;
+}
+
+.EvaluationItem .actions button {
+    margin-left: 16px;
+}
+

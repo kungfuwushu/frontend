@@ -1,0 +1,48 @@
+.RanksList {
+    display: flex;
+    flex-grow: 2;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 8px;
+    background-color: white;
+    flex-direction: column;
+}
+
+.RanksList .header {
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    padding: 16px;
+}
+
+.RanksList .top{
+    display: flex;
+}
+
+.RanksList .top button {
+    margin-left: auto;
+}
+
+.RanksList .ranks {
+    overflow-y: auto;
+}
+
+.RanksList .rank  {
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 8px;
+    background-color: white;
+    flex-shrink: 0;
+    margin: 16px;
+    width: auto;
+    padding: 16px;
+    cursor: pointer;
+    display: flex;
+    position: relative;
+    font-weight: 600;
+    align-items: center;
+}
+
+.RanksList img {
+    margin-right: 16px;
+    width: 75px;
+    height: 75px;
+}
