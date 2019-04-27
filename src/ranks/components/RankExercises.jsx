@@ -4,6 +4,7 @@ import './RankExercises.css';
 import { Tooltip } from 'antd';
 
 import { ReactComponent as Remove } from '../../icons/cancel.svg';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const RankExercises = ({rankExercises, onChange}) => {
     const handleChange = (index) => (rankExercise) => {
@@ -14,17 +15,53 @@ const RankExercises = ({rankExercises, onChange}) => {
     const handleRemove = (index) => () => {
         onChange(rankExercises.filter((_, i) => i !== index));
     }
+    const reorder = (list, startIndex, endIndex) => {
+        const result = Array.from(list);
+        const [removed] = result.splice(startIndex, 1);
+        result.splice(endIndex, 0, removed);
+        return result;
+    };
+    const handleSortEnd = ({source, destination}) => {
+        if (!destination) {
+          return;
+        }
+        onChange(
+            reorder(rankExercises,source.index,destination.index)
+        );
+    }
     return (
-        <div className="RankExercises">
-            {rankExercises.map((rankExercise, index) => 
-                <RankExercise
-                    rankExercise={rankExercise}
-                    onChange={handleChange(index)}
-                    onRemove={handleRemove(index)}
-                    key={index}
-                />
-            )}
-        </div>
+        <DragDropContext onDragEnd={handleSortEnd}>
+            <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className="RankExercises"
+                >
+                    {rankExercises.map((rankExercise, index) => (
+                    <Draggable key={index} draggableId={rankExercise.id} index={index}>
+                        {(provided, snapshot) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className={snapshot.isDragging ? "dragged-exercise" : "draggable-exercise"}
+                        >
+                            <RankExercise
+                                rankExercise={rankExercise}
+                                onChange={handleChange(index)}
+                                onRemove={handleRemove(index)}
+                                key={index}
+                            />
+                        </div>
+                        )}
+                    </Draggable>
+                    ))}
+                    {provided.placeholder}
+                </div>
+                )}
+            </Droppable>
+        </DragDropContext>
     )
 }
 
@@ -41,7 +78,7 @@ const RankExercise = ({ rankExercise, onRemove, onChange }) => {
         }
     }
     return (
-        <div key={exercise.id} className="RankExercise">
+        <div className="RankExercise">
             <div className="header">
                 <Tooltip title="Retirer cet exercice">
                     <Remove onClick={() => onRemove(rankExercise)} className="remove"/>
