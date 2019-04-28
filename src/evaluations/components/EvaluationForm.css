@@ -1,4 +1,4 @@
-.NewEvaluation {
+.EvaluationForm {
     -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     border-radius: 8px;
@@ -12,37 +12,37 @@
     flex-shrink: 0;
 }
 
-.NewEvaluation h1 {
+.EvaluationForm h1 {
     text-align: center;
     font-weight: 600;
 }
 
-.NewEvaluation h2 {
+.EvaluationForm h2 {
     margin-top: 20px;
 }
 
-.NewEvaluation .name-title {
+.EvaluationForm .name-title {
     margin-top: 0;
 }
 
-.NewEvaluation .date-picker {
+.EvaluationForm .date-picker {
     width: unset;
 }
 
-.NewEvaluation .address {
+.EvaluationForm .address {
     margin-bottom: 8px;
 }
 
-.NewEvaluation .actions {
+.EvaluationForm .actions {
     display: flex;
     margin-top: 30px;
 }
 
-.NewEvaluation .save {
+.EvaluationForm .save {
     margin-left: auto;
 }
 
-.NewEvaluation .error {
+.EvaluationForm .error {
     color: red;
     margin-bottom: 20px;
 }

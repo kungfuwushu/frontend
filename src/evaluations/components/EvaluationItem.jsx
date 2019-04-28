@@ -5,6 +5,7 @@ import './EvaluationItem.css';
 import { Button } from 'antd';
 
 import moment from 'moment';
+import 'moment/locale/fr';
 
 const EvaluationItem = ({ evaluation }) => {
 	const { groups, address, city, postalCode, date } = evaluation;
@@ -15,7 +16,7 @@ const EvaluationItem = ({ evaluation }) => {
 					<span className="title">{evaluation.name}</span>
 					<span className="type">{evaluation.type}</span>
 				</div>
-				<span className="date">{moment(date).format('MMMM Do YYYY')}</span>
+				<span className="date">{moment(date).format('LLLL')}</span>
 			</div>
 			<div className="body">
 				<div className="descriptions">
@@ -25,6 +26,9 @@ const EvaluationItem = ({ evaluation }) => {
 					)}
 				</div>
 				<div className="actions">
+                    <Link to={`/evaluations/${evaluation.id}/edit`}>
+					    <Button type="primary">Editer</Button>
+                    </Link>
                     <Link to={`/evaluations/${evaluation.id}/results`}>
 					    <Button type="primary">Résultats</Button>
                     </Link>
