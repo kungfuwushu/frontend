@@ -123,13 +123,14 @@ const Fight = ({ rankExercise, onChange }) => {
         data.rankRounds[index] = rankRound;
         onChange(data);
     }
+    const { rankRounds } = rankExercise;
     return (
         <React.Fragment>
             <div className="rounds-number">
                 <span>Nombre de reprises : </span>
-                <input type="number" min={1} defaultValue={1 +''} onChange={handleRoundsNumberChange}/>
+                <input type="number" min={1} value={rankRounds.length} onChange={handleRoundsNumberChange}/>
             </div>
-            {rankExercise.rankRounds.map((rankRound, index) => 
+            {rankRounds.map((rankRound, index) => 
                 <Round
                     rankRound={rankRound}
                     number={index + 1}

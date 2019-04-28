@@ -29,20 +29,6 @@
     margin-bottom: 8px;
 }
 
-.NewRank .ImagePicker {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.NewRank .ant-upload-list-item,
-.NewRank .ant-upload-select {
-    margin: 0;
-}
-
-.NewRank .uploaded-image {
-    max-width: 100%;
-}
-
 .NewRank .exercises-header {
     display: flex;
     flex-direction: row;

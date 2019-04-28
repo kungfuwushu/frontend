@@ -61,7 +61,7 @@ const ExercisePicker = ({ visible, onClose, onPicked }) => {
             var rankExercise = {
                 exercise,
                 type: exercise.type,
-                id: count + index + 1
+                id: count - index - 1
             }
             switch (exercise.type) {
                 case 'TAOLU':

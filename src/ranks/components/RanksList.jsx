@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 import './RanksList.css';
 import { Button } from 'antd';
@@ -60,10 +61,9 @@ const RanksList = ({history}) => {
 								ref={provided.innerRef}
 								{...provided.draggableProps}
 								{...provided.dragHandleProps}
-								className={`rank ${snapshot.isDragging ? "dragged-rank" : "draggable-rank"}`}
+								className={`${snapshot.isDragging ? "dragged-rank" : "draggable-rank"}`}
 							>
-								{rank.image && <img src={rank.image} alt={rank.name} />}
-								{rank.name}
+								<RankItem rank={rank}/>
 							</div>
 							)}
 						</Draggable>
@@ -73,6 +73,20 @@ const RanksList = ({history}) => {
 					)}
 				</Droppable>
 			</DragDropContext>
+		</div>
+	);
+}
+
+const RankItem = ({rank}) => {
+	return (
+		<div className="RankItem">
+			{rank.image && <img src={rank.image} alt={rank.name} />}
+			<span>{rank.name}</span>
+			<div className="actions">
+				<Link to={`/ranks/${rank.id}/edit`}>
+					<Button type="primary">Editer</Button>
+				</Link>
+			</div>
 		</div>
 	);
 }

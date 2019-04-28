@@ -28,7 +28,7 @@
     padding: 16px;
 }
 
-.RanksList .rank  {
+.RanksList .RankItem  {
     -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     border-radius: 8px;
@@ -43,8 +43,12 @@
     align-items: center;
 }
 
-.RanksList img {
+.RanksList .RankItem img {
     margin-right: 16px;
     width: 75px;
     height: 75px;
+}
+
+.RanksList .RankItem .actions {
+    margin-left: auto;
 }
