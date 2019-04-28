@@ -22,7 +22,10 @@
 }
 
 .RanksList .ranks {
+    display: grid;
+    grid-gap: 16px;
     overflow-y: auto;
+    padding: 16px;
 }
 
 .RanksList .rank  {
@@ -31,7 +34,6 @@
     border-radius: 8px;
     background-color: white;
     flex-shrink: 0;
-    margin: 16px;
     width: auto;
     padding: 16px;
     cursor: pointer;
