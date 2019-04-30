@@ -3,7 +3,10 @@ import React from 'react';
 import './RankExercises.css';
 import { Tooltip } from 'antd';
 
+import { InputNumber } from '../../custom';
+
 import { ReactComponent as Remove } from '../../icons/cancel.svg';
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 const RankExercises = ({rankExercises, onChange}) => {
     const handleChange = (index) => (rankExercise) => {
@@ -14,17 +17,53 @@ const RankExercises = ({rankExercises, onChange}) => {
     const handleRemove = (index) => () => {
         onChange(rankExercises.filter((_, i) => i !== index));
     }
+    const reorder = (rankExercises, startIndex, endIndex) => {
+        const reordered = Array.from(rankExercises);
+        const [removed] = reordered.splice(startIndex, 1);
+        reordered.splice(endIndex, 0, removed);
+        return reordered;
+    };
+    const handleSortEnd = ({source, destination}) => {
+        if (!destination) {
+          return;
+        }
+        onChange(
+            reorder(rankExercises, source.index, destination.index)
+        );
+    }
     return (
-        <div className="RankExercises">
-            {rankExercises.map((rankExercise, index) => 
-                <RankExercise
-                    rankExercise={rankExercise}
-                    onChange={handleChange(index)}
-                    onRemove={handleRemove(index)}
-                    key={index}
-                />
-            )}
-        </div>
+        <DragDropContext onDragEnd={handleSortEnd}>
+            <Droppable droppableId="droppable">
+                {(provided, snapshot) => (
+                <div
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                    className="RankExercises"
+                >
+                    {rankExercises.map((rankExercise, index) => (
+                    <Draggable key={index} draggableId={rankExercise.id} index={index}>
+                        {(provided, snapshot) => (
+                        <div
+                            ref={provided.innerRef}
+                            {...provided.draggableProps}
+                            {...provided.dragHandleProps}
+                            className={snapshot.isDragging ? "dragged-exercise" : "draggable-exercise"}
+                        >
+                            <RankExercise
+                                rankExercise={rankExercise}
+                                onChange={handleChange(index)}
+                                onRemove={handleRemove(index)}
+                                key={index}
+                            />
+                        </div>
+                        )}
+                    </Draggable>
+                    ))}
+                    {provided.placeholder}
+                </div>
+                )}
+            </Droppable>
+        </DragDropContext>
     )
 }
 
@@ -41,7 +80,7 @@ const RankExercise = ({ rankExercise, onRemove, onChange }) => {
         }
     }
     return (
-        <div key={exercise.id} className="RankExercise">
+        <div className="RankExercise">
             <div className="header">
                 <Tooltip title="Retirer cet exercice">
                     <Remove onClick={() => onRemove(rankExercise)} className="remove"/>
@@ -55,8 +94,7 @@ const RankExercise = ({ rankExercise, onRemove, onChange }) => {
 }
 
 const Fight = ({ rankExercise, onChange }) => {
-    const handleRoundsNumberChange = ({target : {value}}) => {
-        var rounds = parseInt(value);
+    const handleRoundsNumberChange = (rounds) => {
         const { rankRounds } = rankExercise;
         if (!rounds || rounds === rankRounds.length)
             return;
@@ -86,13 +124,19 @@ const Fight = ({ rankExercise, onChange }) => {
         data.rankRounds[index] = rankRound;
         onChange(data);
     }
+    const { rankRounds } = rankExercise;
     return (
         <React.Fragment>
             <div className="rounds-number">
                 <span>Nombre de reprises : </span>
-                <input type="number" min={1} defaultValue={1 +''} onChange={handleRoundsNumberChange}/>
+                <InputNumber
+                    min={1}
+                    value={rankRounds.length}
+                    onChange={handleRoundsNumberChange}
+                    className="rounds-input"
+                />
             </div>
-            {rankExercise.rankRounds.map((rankRound, index) => 
+            {rankRounds.map((rankRound, index) => 
                 <Round
                     rankRound={rankRound}
                     number={index + 1}
@@ -159,10 +203,10 @@ const CriterionContainer = ({rankCriterion, onChange}) => {
 }
 
 const Criteria = ({ rankCriteria, onChange }) => {
-    const handleChange = ({target: {value}}) => {
+    const handleChange = (value) => {
         onChange({
             ...rankCriteria,
-            maximumScore: parseInt(value) || undefined
+            maximumScore: value
         })
     }
     const { criteria, maximumScore } = rankCriteria;
@@ -171,7 +215,11 @@ const Criteria = ({ rankCriteria, onChange }) => {
             <span>{criteria.name}</span>
             <div className="criteria-scale">
                 <Tooltip title="Barème">
-                    <input type="number" value={maximumScore || ''} onChange={handleChange} min={0}/>
+                    <InputNumber
+                        min={0}
+                        value={maximumScore || ''}
+                        onChange={handleChange}
+                    />
                 </Tooltip>
             </div>
         </div>

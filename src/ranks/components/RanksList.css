@@ -1,48 +1,123 @@
 .RanksList {
     display: flex;
-    flex-grow: 2;
-    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    border-radius: 8px;
-    background-color: white;
+    justify-content: center;
+}
+
+.RanksList h1 {
+    margin: 0;
+}
+
+.RanksList .card {
+    flex-grow: 1;
+    display: flex;
     flex-direction: column;
+    max-width: 936px;
 }
 
 .RanksList .header {
-    border-bottom: 1px solid rgba(0,0,0,.12);
+    display: flex;
+    align-items: center;
     padding: 16px;
 }
 
-.RanksList .top{
-    display: flex;
+.RanksList .table-header,
+.RanksList .header {
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    background-color: #FCFCFC;
 }
 
-.RanksList .top button {
+.RanksList .header button {
     margin-left: auto;
 }
 
+.RanksList .table-header {
+    padding: 4px 32px;
+    text-transform: uppercase;
+    font-size: 80%;
+}
+
+.RanksList .empty {
+    align-self: center;
+    padding: 32px;
+}
+
 .RanksList .ranks {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
     overflow-y: auto;
 }
 
-.RanksList .rank  {
-    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    border-radius: 8px;
-    background-color: white;
-    flex-shrink: 0;
-    margin: 16px;
-    width: auto;
-    padding: 16px;
-    cursor: pointer;
-    display: flex;
-    position: relative;
-    font-weight: 600;
-    align-items: center;
+.RanksList .table-header,
+.RanksList .RankItem {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.4fr;
 }
 
-.RanksList img {
+.RanksList .RankItem  {
+    flex-shrink: 0;
+    width: auto;
+    padding: 16px 32px;
+    position: relative;
+    align-items: center;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.RanksList .RankItem:hover,
+.RanksList .dragged .RankItem {
+    background-color: #FCFCFC;
+}
+
+.RankItem .name {
+    align-items: center;
+    display: flex;
+    font-weight: 600;
+}
+
+.RankItem .exercises {
+    white-space: nowrap;
+}
+
+.RanksList .table-header .name {
+    padding-left: 48px;
+}
+
+.RanksList .RankItem img {
+    width: 32px;
+    height: 32px;
     margin-right: 16px;
-    width: 75px;
-    height: 75px;
+}
+
+.RanksList .RankItem .actions {
+    margin-left: 32px;
+    display: grid;
+}
+
+.RankItem a {
+    line-height: 0;
+}
+
+.RanksList .RankItem .edit,
+.RanksList .RankItem .delete {
+    fill: #585858;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.RanksList .RankItem .edit:hover,
+.RanksList .RankItem .delete:hover {
+    fill: black;
+}
+
+.RanksList .RankItem .actions {
+    opacity: 0;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    margin-left: auto;
+}
+
+.RanksList .RankItem:hover .actions {
+    opacity: 1;
 }

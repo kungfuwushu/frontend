@@ -1,0 +1,47 @@
+.EvaluationForm {
+    display: flex;
+    justify-content: center;
+}
+
+.EvaluationForm .card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 500px;
+    padding: 16px;
+}
+
+.EvaluationForm h1 {
+    text-align: center;
+    font-weight: 600;
+}
+
+.EvaluationForm h2 {
+    margin-top: 20px;
+}
+
+.EvaluationForm .name-title {
+    margin-top: 0;
+}
+
+.EvaluationForm .date-picker {
+    width: unset;
+}
+
+.EvaluationForm .address {
+    margin-bottom: 8px;
+}
+
+.EvaluationForm .actions {
+    display: flex;
+    margin-top: 30px;
+}
+
+.EvaluationForm .save {
+    margin-left: auto;
+}
+
+.EvaluationForm .error {
+    color: red;
+    margin-bottom: 20px;
+}

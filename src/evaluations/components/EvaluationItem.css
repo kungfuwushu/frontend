@@ -1,16 +1,15 @@
 .EvaluationItem  {
-    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    border-radius: 8px;
-    background-color: white;
     flex-shrink: 0;
-    margin: 16px;
     width: auto;
     padding: 16px;
-    cursor: pointer;
     display: flex;
     flex-direction: column;
     position: relative;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.EvaluationItem:hover {
+    background-color: #FCFCFC;
 }
 
 .EvaluationItem button{
@@ -55,5 +54,12 @@
 
 .EvaluationItem .actions button {
     margin-left: 16px;
+}
+
+.EvaluationItem .date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-style: italic;
 }
 

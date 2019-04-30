@@ -1,8 +1,9 @@
 import React from 'react';
 
-import { InputNumber } from 'antd';
-
 import './EvaluateCriterion.css';
+
+import { InputNumber } from '../../custom';
+import { Tooltip } from 'antd';
 
 const EvaluateCriterion = ({ criterionResult, onChange }) => {
 	const handleChange = (index) => (criteriaResult) => {
@@ -34,10 +35,15 @@ const EvaluateCriteria = ({ criteriaResult, onChange }) => {
 	return (
 		<div className="EvaluateCriteria">
 			<InputNumber
+				value={criteriaResult.score || ''}
 				min={0}
 				max={rankCriteria.maximumScore}
-				value={criteriaResult.score}
 				onChange={handleChange}
+				addonAfter={
+					<Tooltip title="Barème">
+						<span>{rankCriteria.maximumScore}</span>
+					</Tooltip>
+				}
 			/>
 			<span className="name">{rankCriteria.criteria.name}</span>
 		</div>

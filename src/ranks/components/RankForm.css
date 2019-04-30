@@ -1,0 +1,48 @@
+.RankForm {
+    display: flex;
+    justify-content: center;
+}
+
+.RankForm .card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 500px;
+    padding: 16px;
+}
+
+.RankForm h1 {
+    text-align: center;
+    font-weight: 600;
+}
+
+.RankForm h2 {
+    margin-top: 20px;
+}
+
+.RankForm .infos-title {
+    margin-top: 0;
+}
+
+.RankForm .name {
+    margin-bottom: 8px;
+}
+
+.RankForm .exercises-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.RankForm .exercises-header h2 {
+    margin-right: auto;
+}
+
+.RankForm .actions {
+    display: flex;
+    margin-top: 30px;
+}
+
+.RankForm .save {
+    margin-left: auto;
+}

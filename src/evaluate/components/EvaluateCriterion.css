@@ -7,3 +7,8 @@
 .EvaluateCriteria .name {
     margin-left: 24px;
 }
+
+.EvaluateCriteria .input,
+.EvaluateCriteria .addon {
+    flex-grow: 1;
+}

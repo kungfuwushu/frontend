@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 
-import { Modal, Checkbox, Button } from 'antd';
+import { Modal, Checkbox, Button, Select } from 'antd';
+import { SearchInput } from '../../custom';
 
 import * as api from '../../api';
+
+import './ExercisePicker.css';
+
+const Option = Select.Option;
 
 const ExercisePickerContainer = ({onPicked}) => {
     const [ isVisible, setVisibility] = useState(false);
@@ -24,21 +29,39 @@ const ExercisePickerContainer = ({onPicked}) => {
 }
 
 const ExercisePicker = ({ visible, onClose, onPicked }) => {
+    const [ count, setCount ] = useState(0);
     const [ checkedExercises, setCheckedExercises ] = useState([]);
     const [ exercises, setExercises ] = useState([]);
+    const [ filteredExercises, setFilteredExercises ] = useState([]);
+    const [ filter, setFilter ] = useState({
+        search: undefined,
+        type: undefined,
+    });
     
     useEffect(() => {
         api.Exercises.all()
-            .then(exercises =>
-                setExercises(exercises)
-            );
+            .then(exercises => {
+                setExercises(exercises);
+                setFilteredExercises(exercises);
+            });
     }, []);
 
+    useEffect(() => {
+        setFilteredExercises(exercises.filter(exercise => {
+            if (filter.search && !exercise.name.toLowerCase().includes(filter.search.toLowerCase()))
+                return false;
+            if (filter.type && filter.type !== exercise.type)
+                return false;
+            return true;
+        }));
+    }, [filter]);
+
     const handlePicked = () => {
-        const rankExercises = checkedExercises.map(exercise => {
+        const rankExercises = checkedExercises.map((exercise, index) => {
             var rankExercise = {
                 exercise,
-                type: exercise.type
+                type: exercise.type,
+                id: count - index - 1
             }
             switch (exercise.type) {
                 case 'TAOLU':
@@ -64,47 +87,110 @@ const ExercisePicker = ({ visible, onClose, onPicked }) => {
         });
         onPicked(rankExercises);
         setCheckedExercises([]);
+        setCount(count + rankExercises.length);
     }
 
-    const renderExercise = (exercise) => {
-        const handleChange = ({ target : { checked }}) => {
-            setCheckedExercises(checked ? 
-                checkedExercises.concat([exercise]) :
-                checkedExercises.filter(exo => exo !== exercise)
-            );
+    const handleChecked = (exercise) => (checked) => {
+        setCheckedExercises(checked ? 
+            checkedExercises.concat([exercise]) :
+            checkedExercises.filter(exo => exo !== exercise)
+        );
+    }
+
+    const renderSelectedExercisesInfo = () => {
+        const count = checkedExercises.length;
+        if (count === 0)
+            return "Aucune sélection"
+        return `${count} exercice${count > 1 ? 's' : ''} sélectionné${count > 1 ? 's' : ''}`;
+    }
+
+    const handleFilterChange = (filterName) => (value) => {
+        const data = {...filter};
+        data[filterName] = value;
+        setFilter(data);
+    }
+
+    const exerciseTypes = [
+        {
+            name: 'Tous les types',
+            value: undefined
+        },
+        {
+            name: 'Physique',
+            value: 'PHYSICAL'
+        },
+        {
+            name: 'Taolu',
+            value: 'TAOLU'
+        },
+        {
+            name: 'Combat',
+            value: 'FIGHT'
         }
-
-        return(
-            <div className="exercise" key={exercise.id}>
-                <Checkbox
-                    checked={checkedExercises.includes(exercise)}
-                    onChange={handleChange}
-                />
-				<div className="exercise-header">
-					<div className="title-type">
-						<span className="title">{exercise.name}</span>
-						<span className="type">{exercise.type}</span>
-					</div>
-				</div>
-				<div className="body">
-                    <div className="actions">
-                    </div>
-				</div>
-			</div>
-        )
-    }
-
+    ];
     return (
-        <div>
-            <Modal
-                visible={visible}
-                onOk={handlePicked}
-                onCancel={onClose}
-            >
-                {exercises.map((exercise) =>
-                    renderExercise(exercise)  
+        <Modal
+            visible={visible}
+            onOk={handlePicked}
+            onCancel={onClose}
+            title="Sélection d'exercices"
+            footer={[
+                <Button key="back" onClick={onClose} className="back">Retour</Button>,
+                <span className="selected-info" key="info">
+                    {renderSelectedExercisesInfo()}
+                </span>,
+                <Button
+                    key="submit"
+                    type="primary"
+                    onClick={handlePicked}
+                    disabled={checkedExercises.length < 1}
+                >
+                    Ajouter
+                </Button>,
+            ]}
+            className="ExercisePicker"
+        >
+            <div className="filters">
+                <Select
+                    defaultValue="Type d'exercice"
+                    className="select"
+                    onChange={handleFilterChange('type')}
+                >
+                    {exerciseTypes.map((type, index) =>
+                        <Option value={type.value} key={index}>{type.name}</Option>
+                    )}
+                </Select>
+                <SearchInput
+                    onSearch={handleFilterChange('search')}
+                    placeholder="Rechercher par nom"
+                />
+            </div>
+            <div className="exercises">
+                {filteredExercises.map((exercise, index) =>
+                    <Exercise
+                        exercise={exercise}
+                        checked={checkedExercises.includes(exercise)}
+                        onChecked={handleChecked(exercise)}
+                        key={index}
+                    /> 
                 )}
-            </Modal>   
+            </div>
+        </Modal>
+    )
+}
+
+const Exercise = ({ exercise, checked, onChecked }) => {
+    const handleChecked = () => onChecked(!checked);
+
+    return(
+        <div className="Exercise" onClick={handleChecked}>
+            <Checkbox
+                checked={checked}
+                onChange={handleChecked}
+                className="checkbox"
+            />
+            <span className="title">{exercise.name}</span>
+            <span className="type">{exercise.type}</span>
         </div>
     )
 }
