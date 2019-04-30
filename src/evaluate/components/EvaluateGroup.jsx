@@ -7,6 +7,8 @@ import './EvaluateGroup.css';
 
 import ExerciseEvaluation from './EvaluateExercise';
 
+import { Card } from '../../custom';
+
 import * as api from '../../api';
 
 const EvaluateGroup = ({ match }) => {
@@ -21,13 +23,13 @@ const EvaluateGroup = ({ match }) => {
         Promise.all([
             api.Evaluations.byId(evaluationId),
             api.Members.byEvaluationId(evaluationId),
-            api.RankExercises.byEvaluationId(evaluationId),
-        ]).then(([ evaluation, performers, rankExercises ]) => {
+            /*api.RankExercises.byEvaluationId(evaluationId),*/
+        ]).then(([ evaluation, performers/*, rankExercises*/ ]) => {
             setEvaluation(evaluation);
             setPerformers(performers);
-            setRankExercises(rankExercises);
+            setRankExercises([]);
             setPerformer(performers[0]);
-            setRankExercise(rankExercises[0]);
+            setRankExercise(undefined);
         });
     }, []);
     
@@ -53,42 +55,44 @@ const EvaluateGroup = ({ match }) => {
         return(<div>Loading...</div>);
     return (
         <div className="EvaluateGroup">
-            <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
-                <div className="list-header">Exercices</div>
-                <Menu selectedKeys={rankExercise ? [rankExercise.id+''] : []}>
-                    {rankExercises.map(rankExercise => 
-                        <Menu.Item
-                            key={rankExercise.id}
-                            onClick={handleRankExerciseSelected(rankExercise)}
-                        >
-                            <span>{rankExercise.exercise.name}</span>
-                        </Menu.Item>
-                    )}
-                </Menu>
-            </Col>
-            <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
-                <div className="list-header">Pratiquants</div>
-                <Menu selectedKeys={performer ? [performer.id+''] : []}>
-                    {performers.map((performer) =>
-                        <Menu.Item
-                            key={performer.id}
-                            onClick={handlePerformerSelected(performer)}
-                        >
-                            <span>{performer.firstName + " " + performer.lastName}</span>
-                        </Menu.Item>
-                    )}
-                </Menu>
-            </Col>
-            <Col xs={14} sm={14} md={14} lg={14} xl={14} className="exercise-panel">
-                <ExerciseEvaluation
-                    evaluation={evaluation}
-                    performer={performer}
-                    rankExercise={rankExercise}
-                />
-                <div className="next">
-                    <Button onClick={handleNext} type="primary">SUIVANT <Icon type="right"/></Button>
-                </div>
-            </Col>
+            <Card className="card">
+                <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
+                    <div className="list-header">Exercices</div>
+                    <Menu selectedKeys={rankExercise ? [rankExercise.id+''] : []}>
+                        {rankExercises.map(rankExercise => 
+                            <Menu.Item
+                                key={rankExercise.id}
+                                onClick={handleRankExerciseSelected(rankExercise)}
+                            >
+                                <span>{rankExercise.exercise.name}</span>
+                            </Menu.Item>
+                        )}
+                    </Menu>
+                </Col>
+                <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
+                    <div className="list-header">Pratiquants</div>
+                    <Menu selectedKeys={performer ? [performer.id+''] : []}>
+                        {performers.map((performer) =>
+                            <Menu.Item
+                                key={performer.id}
+                                onClick={handlePerformerSelected(performer)}
+                            >
+                                <span>{performer.firstName + " " + performer.lastName}</span>
+                            </Menu.Item>
+                        )}
+                    </Menu>
+                </Col>
+                <Col xs={14} sm={14} md={14} lg={14} xl={14} className="exercise-panel">
+                    <ExerciseEvaluation
+                        evaluation={evaluation}
+                        performer={performer}
+                        rankExercise={rankExercise}
+                    />
+                    <div className="next">
+                        <Button onClick={handleNext} type="primary">SUIVANT <Icon type="right"/></Button>
+                    </div>
+                </Col>
+            </Card>
         </div>
     );
 }

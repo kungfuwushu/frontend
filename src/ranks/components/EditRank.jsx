@@ -16,8 +16,10 @@ const EditRank = ({ match, history }) => {
     }, []);
 
 	const handleSave = () => {
-        console.log("saving rank", rank);
-        history.goBack();
+        api.Ranks.update(rank)
+            .then(_ => 
+                history.goBack()
+            );
     }
     
     if (!rank)

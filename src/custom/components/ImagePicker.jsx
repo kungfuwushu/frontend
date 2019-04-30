@@ -7,6 +7,8 @@ import './ImagePicker.css';
 import { ReactComponent as RemoveIcon } from '../../icons/cancel.svg';
 import { ReactComponent as UploadIcon } from '../../icons/upload.svg';
 
+import * as api from '../../api';
+
 const ImagePicker = ({ imageUrl, onChange }) => {
     const [file, setFile] = useState(undefined);
     const { getRootProps, getInputProps } = useDropzone({
@@ -14,12 +16,17 @@ const ImagePicker = ({ imageUrl, onChange }) => {
         multiple: false,
         onDrop: files => {
             if (files.length > 0) {
-                const imageUrl = URL.createObjectURL(files[0]);
+                const file = files[0];
+                const imageUrl = URL.createObjectURL(file);
                 setFile({
-                    ...files[0],
+                    ...file,
                     preview: imageUrl
                 });
                 onChange(imageUrl);
+                api.Files.upload(file)
+                    .then(response =>
+                        onChange(response.fileDownloadUri)
+                    )
             }
         },
         disabled: !!imageUrl

@@ -3,6 +3,8 @@ import React from 'react';
 import './RankExercises.css';
 import { Tooltip } from 'antd';
 
+import { InputNumber } from '../../custom';
+
 import { ReactComponent as Remove } from '../../icons/cancel.svg';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -15,18 +17,18 @@ const RankExercises = ({rankExercises, onChange}) => {
     const handleRemove = (index) => () => {
         onChange(rankExercises.filter((_, i) => i !== index));
     }
-    const reorder = (list, startIndex, endIndex) => {
-        const result = Array.from(list);
-        const [removed] = result.splice(startIndex, 1);
-        result.splice(endIndex, 0, removed);
-        return result;
+    const reorder = (rankExercises, startIndex, endIndex) => {
+        const reordered = Array.from(rankExercises);
+        const [removed] = reordered.splice(startIndex, 1);
+        reordered.splice(endIndex, 0, removed);
+        return reordered;
     };
     const handleSortEnd = ({source, destination}) => {
         if (!destination) {
           return;
         }
         onChange(
-            reorder(rankExercises,source.index,destination.index)
+            reorder(rankExercises, source.index, destination.index)
         );
     }
     return (
@@ -92,8 +94,7 @@ const RankExercise = ({ rankExercise, onRemove, onChange }) => {
 }
 
 const Fight = ({ rankExercise, onChange }) => {
-    const handleRoundsNumberChange = ({target : {value}}) => {
-        var rounds = parseInt(value);
+    const handleRoundsNumberChange = (rounds) => {
         const { rankRounds } = rankExercise;
         if (!rounds || rounds === rankRounds.length)
             return;
@@ -128,7 +129,12 @@ const Fight = ({ rankExercise, onChange }) => {
         <React.Fragment>
             <div className="rounds-number">
                 <span>Nombre de reprises : </span>
-                <input type="number" min={1} value={rankRounds.length} onChange={handleRoundsNumberChange}/>
+                <InputNumber
+                    min={1}
+                    value={rankRounds.length}
+                    onChange={handleRoundsNumberChange}
+                    className="rounds-input"
+                />
             </div>
             {rankRounds.map((rankRound, index) => 
                 <Round
@@ -197,10 +203,10 @@ const CriterionContainer = ({rankCriterion, onChange}) => {
 }
 
 const Criteria = ({ rankCriteria, onChange }) => {
-    const handleChange = ({target: {value}}) => {
+    const handleChange = (value) => {
         onChange({
             ...rankCriteria,
-            maximumScore: parseInt(value) || undefined
+            maximumScore: value
         })
     }
     const { criteria, maximumScore } = rankCriteria;
@@ -209,7 +215,11 @@ const Criteria = ({ rankCriteria, onChange }) => {
             <span>{criteria.name}</span>
             <div className="criteria-scale">
                 <Tooltip title="Barème">
-                    <input type="number" value={maximumScore || ''} onChange={handleChange} min={0}/>
+                    <InputNumber
+                        min={0}
+                        value={maximumScore || ''}
+                        onChange={handleChange}
+                    />
                 </Tooltip>
             </div>
         </div>

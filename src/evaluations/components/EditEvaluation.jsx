@@ -16,8 +16,10 @@ const EditEvaluation = ({ match, history }) => {
     }, []);
 
 	const handleSave = () => {
-        console.log("saving evaluation", evaluation);
-        history.goBack();
+        api.Evaluations.update(evaluation)
+            .then(_ =>
+                history.goBack()
+            );
     }
     
     if (!evaluation)

@@ -1,49 +1,48 @@
-.NewRank {
-    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    border-radius: 8px;
-    background-color: white;
-    padding: 16px;
+.RankForm {
     display: flex;
-    flex-direction: column;
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    flex-shrink: 0;
+    justify-content: center;
 }
 
-.NewRank h1 {
+.RankForm .card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 500px;
+    padding: 16px;
+}
+
+.RankForm h1 {
     text-align: center;
     font-weight: 600;
 }
 
-.NewRank h2 {
+.RankForm h2 {
     margin-top: 20px;
 }
 
-.NewRank .infos-title {
+.RankForm .infos-title {
     margin-top: 0;
 }
 
-.NewRank .name {
+.RankForm .name {
     margin-bottom: 8px;
 }
 
-.NewRank .exercises-header {
+.RankForm .exercises-header {
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
-.NewRank .exercises-header h2 {
+.RankForm .exercises-header h2 {
     margin-right: auto;
 }
 
-.NewRank .actions {
+.RankForm .actions {
     display: flex;
     margin-top: 30px;
 }
 
-.NewRank .save {
+.RankForm .save {
     margin-left: auto;
 }

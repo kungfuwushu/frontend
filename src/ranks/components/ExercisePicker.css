@@ -19,7 +19,7 @@
 
 .ExercisePicker .SearchInput {
     margin-left: 16px;
-    flex-grow: 2;
+    flex-grow: 1;
 }
 
 .ExercisePicker .select {

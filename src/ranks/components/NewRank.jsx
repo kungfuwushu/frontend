@@ -14,9 +14,15 @@ const NewRank = ({ history }) => {
     });
 
 	const handleSave = () => {
-        console.log("creating rank", rank);
-		api.Ranks.create(rank)
-			.then(data => 
+		const newRank = {
+			...rank,
+			rankExercises: rank.rankExercises.map(rankExercise => ({
+				...rankExercise,
+				id: undefined
+			}))
+		};
+		api.Ranks.create(newRank)
+			.then(_ => 
 				history.goBack()
 			);
     }

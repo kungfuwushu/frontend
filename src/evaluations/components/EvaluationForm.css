@@ -1,15 +1,14 @@
 .EvaluationForm {
-    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
-    border-radius: 8px;
-    background-color: white;
-    padding: 16px;
+    display: flex;
+    justify-content: center;
+}
+
+.EvaluationForm .card {
     display: flex;
     flex-direction: column;
-    width: 500px;
-    margin-left: auto;
-    margin-right: auto;
-    flex-shrink: 0;
+    flex-grow: 1;
+    max-width: 500px;
+    padding: 16px;
 }
 
 .EvaluationForm h1 {

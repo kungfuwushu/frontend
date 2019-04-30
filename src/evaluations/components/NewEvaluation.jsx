@@ -16,9 +16,8 @@ const NewEvaluation = ({ history }) => {
 	});
 
 	const handleSave = () => {
-		console.log("creating evaluation", evaluation);
 		api.Evaluations.create(evaluation)
-			.then(data => 
+			.then(_ => 
 				history.goBack()
 			);
 	}

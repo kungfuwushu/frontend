@@ -16,7 +16,10 @@ const EvaluationItem = ({ evaluation }) => {
 					<span className="title">{evaluation.name}</span>
 					<span className="type">{evaluation.type}</span>
 				</div>
-				<span className="date">{moment(date).format('LLLL')}</span>
+				<span className="date">
+					<span className="day">{moment(date).format('dddd Do MMMM YYYY')}</span>
+					<div>à <span className="hour">{moment(date).format('HH:mm')}</span></div>
+				</span>
 			</div>
 			<div className="body">
 				<div className="descriptions">

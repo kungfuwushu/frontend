@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import './EvaluationsList.css';
 import { Select, Button } from 'antd';
 
-import { SearchInput } from '../../custom';
+import { SearchInput, Card } from '../../custom';
 import EvaluationItem from './EvaluationItem';
 
 import * as api from '../../api';
@@ -65,37 +65,41 @@ const EvaluationsList = ({history}) => {
 
 	return (
 		<div className="EvaluationsList">
-			<div className="header">
-				<div className="top">
-					<h2>Evaluations et statistiques</h2>
-					<Button
-						onClick={() => history.push('/new-evaluation')}
-						type="primary"
-					>
-						Planifier une nouvelle evaluation
-					</Button>
+			<Card className="card">
+				<div className="header">
+					<div className="top">
+						<h2>Evaluations et statistiques</h2>
+						<Button
+							onClick={() => history.push('/new-evaluation')}
+							type="primary"
+						>
+							Planifier une nouvelle evaluation
+						</Button>
+					</div>
+					<div className="filters">
+						<Select
+							defaultValue="Type d'évaluation"
+							className="select"
+							onChange={handleFilterChange('type')}
+						>
+							{evaluationTypes.map((type, index) =>
+								<Option value={type.value} key={index}>{type.name}</Option>
+							)}
+						</Select>
+						<SearchInput
+							onSearch={handleFilterChange('search')}
+							placeholder="Rechercher par nom, groupe, adresse"
+						/>
+					</div>
 				</div>
-				<div className="filters">
-					<Select
-						defaultValue="Type d'évaluation"
-						className="select"
-						onChange={handleFilterChange('type')}
-					>
-						{evaluationTypes.map((type, index) =>
-                        	<Option value={type.value} key={index}>{type.name}</Option>
+				<div className="wrapper">
+					<div className="evaluations">
+						{filteredEvaluations.map((evaluation, index) =>
+							<EvaluationItem evaluation={evaluation} key={index}/>
 						)}
-					</Select>
-					<SearchInput
-						onSearch={handleFilterChange('search')}
-						placeholder="Rechercher par nom, groupe, adresse"
-					/>
+					</div>
 				</div>
-			</div>
-			<div className="evaluations">
-				{filteredEvaluations.map((evaluation, index) =>
-					<EvaluationItem evaluation={evaluation} key={index}/>
-				)}
-			</div>
+			</Card>
 		</div>
 	);
 }
