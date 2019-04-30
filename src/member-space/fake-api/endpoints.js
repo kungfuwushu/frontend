@@ -11,14 +11,17 @@ export const Ranks = {
 };
 
 export const ExerciseResults = {
+    byId: (id) => fakeExerciseResults(1).then(exerciseResults => exerciseResults[0]),
+    byEvaluationResultIdAndExerciseId: (evaluationId) => api.ExerciseResults.byEvaluationResultId(evaluationId),
     byRankIdAndPerformerId: (rankId, performerId) => fakeExerciseResults(rankId),
     byEvaluationIdAndPerformerId: (evaluationId, performerId) => fakeExerciseResults(evaluationId),
 };
 
 const fakeExerciseResults = (rankId) => Ranks.byId(rankId).then(rank => {
     const randomScore = (maximumScore) => Math.floor((Math.random() * maximumScore) + 1);
-    return rank.rankExercises.map(rankExercise => {
+    return rank.rankExercises.map((rankExercise, index) => {
         var exerciseResult = {
+            id: index,
             rankExercise,
             type: rankExercise.exercise.type,
         }
@@ -49,6 +52,7 @@ const fakeExerciseResults = (rankId) => Ranks.byId(rankId).then(rank => {
 });
 
 export const Evaluations = {
+    byId: (evaluationId) => api.Evaluations.byId(evaluationId),
     allUpcomingByMemberId: (memberId) => api.Evaluations.all(),
 };
 

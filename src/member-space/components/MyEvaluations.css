@@ -1,0 +1,40 @@
+
+.MyEvaluations .evaluations{
+    display: grid;
+	grid-gap: 20px;
+	grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 1000px) {
+	.MyRank {
+		grid-template-columns: 1fr;
+	}
+}
+
+.MyEvaluations .evaluations h2{
+  text-align: center; 
+  padding-top: 16px;
+  border-bottom: 1px solid rgba(0,0,0,.12);
+  padding: 16px;
+}
+
+.MyEvaluations .evaluations .right{
+	display: flex;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 8px;
+    background-color: white;
+    flex-direction: column;
+    margin-top:16px;
+	
+}
+
+.MyEvaluations .evaluations .left{
+	display: flex;
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 8px;
+    background-color: white;
+    flex-direction: column;
+    margin-top:16px;
+}

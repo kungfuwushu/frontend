@@ -1,0 +1,27 @@
+.EvaluationItem {
+	background-color: gainsboro ;
+	display: flex;
+}
+
+.EvaluationItem .details{
+	display:flex;
+	align-items: flex-end;
+}
+
+.EvaluationItem .details .type{
+	
+	margin-right: auto;
+}
+
+.EvaluationItem .address {
+	margin-left: 30px;
+}
+
+.is-result {
+	display: flex;
+}
+
+.is-result .details{
+	display: flex;
+}
+

@@ -1,7 +1,21 @@
 .ExerciseItem {
-    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    display: flex;
+    -webkit-box-shadow: 0 1px 20px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
     border-radius: 5px;
-    background-color: white;
+    background-color:white;
+    color:#666666;
     padding: 12px;
+    align-items: center;
+}
+.ExerciseItem .details{
+    margin-left: 24px;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-gap: 8px;
+    align-items: baseline;
+}
+.ExerciseItem .name {
+    font-weight:bold;
+    font-size: 20px;
 }

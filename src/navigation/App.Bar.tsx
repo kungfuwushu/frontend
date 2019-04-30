@@ -36,7 +36,7 @@ import { FormattedMessage } from 'react-intl';
 import { EvaluateGroup } from "../evaluate";
 import { EvaluationsList, NewEvaluation } from "../evaluations";
 import { RanksList, NewRank } from "../ranks";
-import { MyRank, MyEvaluations, EvaluationDetails, ExerciseDetails } from "../member-space";
+import { MyRank, MyEvaluations, EvaluationDetails, ExerciseResultDetails, RankExerciseDetails} from "../member-space";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -192,10 +192,11 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route exact path='/evaluations' component={EvaluationsList} />
                     <Route path='/new-evaluation' component={NewEvaluation} />
                     <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup} />
-                    <Route path='/myevaluations' component={MyEvaluations} />
-                    <Route path='/myevaluations/:id/details' component={EvaluationDetails} />
-                    <Route path='/ranks/:rankId/exercises/:exerciseId/details' component={ExerciseDetails} />
                     <Route path='/myrank' component={MyRank} />
+                    <Route exact path='/myevaluations' component={MyEvaluations} />
+                    <Route path='/myevaluations/:id' component={EvaluationDetails} />
+                    <Route path='/exercise-results/:id' component={ExerciseResultDetails} />
+                    <Route path='/rank-exercises/:id' component={RankExerciseDetails} />
                 </main>
             </div>
         );
