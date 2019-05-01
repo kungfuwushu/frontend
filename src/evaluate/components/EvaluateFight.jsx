@@ -10,9 +10,9 @@ import { Timer } from '../../custom';
 const EvaluateFight = ({ exerciseResult, onChange }) => {
 	const [ roundIndex, setRoundIndex ] = useState(0);
 
-	const handleChange = (criterionResult) => {
+	const handleChange = (criteriaResults) => {
 		const data = {...exerciseResult};
-		data.roundsResult[roundIndex].criterionResult = criterionResult;
+		data.roundsResult[roundIndex].criteriaResults = criteriaResults;
 		onChange(data);
 	}
 
@@ -24,7 +24,7 @@ const EvaluateFight = ({ exerciseResult, onChange }) => {
 			<h1>Reprise {roundIndex + 1}</h1>
 			<Timer defaultTime={90}/>
 			<EvaluateCriterion
-				criterionResult={exerciseResult.roundsResult[roundIndex].criterionResult}
+				criteriaResults={exerciseResult.roundsResult[roundIndex].criteriaResults}
 				onChange={handleChange}
 			/>
 			<div className="roundsNavigation">

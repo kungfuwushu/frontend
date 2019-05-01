@@ -2,14 +2,14 @@ import React from 'react';
 
 import './ExerciseDetails.css';
 
-const ExerciseDetails = ({ rankExercise, exerciseResult }) => {
+const ExerciseDetails = ({ exerciseScale, exerciseResult }) => {
     const isResult = !!exerciseResult;
 
-    if (!rankExercise)
+    if (!exerciseScale)
         return(<div>Loading...</div>);
     return (
         <div className={`ExerciseDetails ${isResult ? 'is-result' : ''}`}>
-            {rankExercise.exercise.name}
+            {exerciseScale.exercise.name}
         </div>
     );
 }

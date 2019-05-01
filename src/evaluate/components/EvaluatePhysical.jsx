@@ -4,7 +4,7 @@ import { InputNumber } from 'antd';
 
 const EvaluatePhysical = ({ exerciseResult, onChange }) => {
     const getMeasurementUnit = () => {
-        switch(exerciseResult.rankExercise.exercise.measurementUnit) {
+        switch(exerciseResult.exerciseScale.exercise.measurementUnit) {
             case 'METER':
                 return 'mètres';
             case 'SECOND':

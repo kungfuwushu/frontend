@@ -1,4 +1,4 @@
-.EvaluationItem  {
+.TestItem  {
     flex-shrink: 0;
     width: auto;
     padding: 16px;
@@ -8,55 +8,55 @@
     border-bottom: 1px solid #e8e8e8;
 }
 
-.EvaluationItem:hover {
+.TestItem:hover {
     background-color: #FCFCFC;
 }
 
-.EvaluationItem button{
+.TestItem button{
     display: flex;
     margin-left: inherit;
 }
 
-.EvaluationItem .evaluation-header {
+.TestItem .test-header {
     display: flex;
     margin-bottom: 16px;
 }
 
-.EvaluationItem .title-type {
+.TestItem .title-type {
     display: flex;
     flex-direction: column;
 }
 
-.EvaluationItem .title {
+.TestItem .title {
     font-size: 130%;
     font-weight: 700;
 }
 
-.EvaluationItem .type {
+.TestItem .type {
     font-size: 80%;
 }
 
-.EvaluationItem .actions,
-.EvaluationItem .date {
+.TestItem .actions,
+.TestItem .date {
     margin-left: auto;
 }
 
-.EvaluationItem .body,
-.EvaluationItem .actions {
+.TestItem .body,
+.TestItem .actions {
     display: flex;
     align-items: flex-end;
 }
 
-.EvaluationItem .descriptions {
+.TestItem .descriptions {
     display: flex;
     flex-direction: column;
 }
 
-.EvaluationItem .actions button {
+.TestItem .actions button {
     margin-left: 16px;
 }
 
-.EvaluationItem .date {
+.TestItem .date {
     display: flex;
     flex-direction: column;
     align-items: flex-end;

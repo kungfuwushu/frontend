@@ -1,19 +1,18 @@
-.EvaluationItem {
-	background-color: gainsboro ;
+.TestItem {
 	display: flex;
 }
 
-.EvaluationItem .details{
+.TestItem .details{
 	display:flex;
 	align-items: flex-end;
 }
 
-.EvaluationItem .details .type{
+.TestItem .details .type{
 	
 	margin-right: auto;
 }
 
-.EvaluationItem .address {
+.TestItem .address {
 	margin-left: 30px;
 }
 

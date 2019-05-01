@@ -2,15 +2,15 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './ExerciseItem.css';
 
-const ExerciseItem = ({ rankExercise, exerciseResult }) => {
+const ExerciseItem = ({ exerciseScale, exerciseResult }) => {
     const isResult = !!exerciseResult;
     
-    const { exercise } = rankExercise;
+    const { exercise } = exerciseScale;
     return (
         <Link
             to={isResult ?
-                `/exercise-results/${exerciseResult.id}` :
-                `/rank-exercises/${rankExercise.id}`
+                `/exercises-results/${exerciseResult.id}` :
+                `/exercises-scales/${exerciseScale.id}`
             }
         >
             <div className={`ExerciseItem ${isResult ? 'is-result' : ''}`}>

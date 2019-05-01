@@ -9,15 +9,15 @@ const NewRank = ({ history }) => {
     const [ rank, setRank ] = useState({
         name: undefined,
         description: undefined,
-        rankExercises: [],
+        exercisesScales: [],
         image: undefined
     });
 
 	const handleSave = () => {
 		const newRank = {
 			...rank,
-			rankExercises: rank.rankExercises.map(rankExercise => ({
-				...rankExercise,
+			exercisesScales: rank.exercisesScales.map(exerciseScale => ({
+				...exerciseScale,
 				id: undefined
 			}))
 		};

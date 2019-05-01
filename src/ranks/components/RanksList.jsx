@@ -105,7 +105,7 @@ const RanksList = ({history}) => {
 }
 
 const RankItem = ({ rank, onDelete }) => {
-	const exercises = rank.rankExercises.length;
+	const exercises = rank.exercisesScales.length;
 	return (
 		<div className="RankItem">
 			<div className="name">

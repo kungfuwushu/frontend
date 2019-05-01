@@ -8,13 +8,13 @@ import 'moment/locale/fr';
 
 import { Card } from '../../custom';
 
-import './EvaluationForm.css';
+import './TestForm.css';
 import { Button, Select, DatePicker, Input, Col, Radio } from 'antd';
 const InputGroup = Input.Group;
 const Option = Select.Option;
 const RadioGroup = Radio.Group;
 
-const EvaluationForm = ({ title, evaluation, onChange, onSave, history }) => {
+const TestForm = ({ title, test, onChange, onSave, history }) => {
 	const [ allGroups, setAllGroups ] = useState([]);
 
 	useEffect(() => {
@@ -25,32 +25,32 @@ const EvaluationForm = ({ title, evaluation, onChange, onSave, history }) => {
 	}, []);
 
 	const handleInputChange = (fieldName) => ({target: {value}}) => {
-		const data = {...evaluation};
+		const data = {...test};
 		data[fieldName] = value;
 		onChange(data);
 	}
 
 	const handleDateChange = (date) => onChange({
-		...evaluation,
+		...test,
 		date: date.format()
 	});
 
 	const handleGroupSelect = (stringId) => onChange({
-		...evaluation,
-		groups: evaluation.groups.concat([allGroups.find(group => parseInt(stringId) === group.id)])
+		...test,
+		groups: test.groups.concat([allGroups.find(group => parseInt(stringId) === group.id)])
 	});
 
 	const handleGroupDeselect = (name) => onChange({
-		...evaluation,
-		groups: evaluation.groups.filter(group => name !== group.name)
+		...test,
+		groups: test.groups.filter(group => name !== group.name)
 	});
 
-	const { name, type, date, address, city, postalCode, groups } = evaluation;
+	const { name, type, date, address, city, postalCode, groups } = test;
 	const filteredGroups = allGroups.filter(group =>
-		!evaluation.groups.map(group => group.id).includes(group.id)
+		!test.groups.map(group => group.id).includes(group.id)
 	);
 	return (
-		<div className="EvaluationForm">
+		<div className="TestForm">
 			<Card className="card">
 				<h1>{title}</h1>
 				<h2 className="name-title">Nom</h2>
@@ -120,4 +120,4 @@ const EvaluationForm = ({ title, evaluation, onChange, onSave, history }) => {
 	);
 }
 
-export default withRouter(EvaluationForm);
+export default withRouter(TestForm);

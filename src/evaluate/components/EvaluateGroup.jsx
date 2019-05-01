@@ -5,37 +5,39 @@ import { Menu, Col, Button, Icon } from 'antd';
 
 import './EvaluateGroup.css';
 
-import ExerciseEvaluation from './EvaluateExercise';
+import ExerciseTest from './EvaluateExercise';
 
 import { Card } from '../../custom';
 
 import * as api from '../../api';
 
 const EvaluateGroup = ({ match }) => {
-    const [ evaluation, setEvaluation ] = useState(undefined);
+    const [ test, setTest ] = useState(undefined);
     const [ performers, setPerformers ] = useState([]);
-    const [ rankExercises, setRankExercises ] = useState([]);
+    const [ exercisesScales, setExercisesScales ] = useState([]);
     const [ performer, setPerformer ] = useState(undefined);
-    const [ rankExercise, setRankExercise ] = useState(undefined);
+    const [ exerciseScale, setExerciseScale ] = useState(undefined);
 
     useEffect(() => {
-        const evaluationId = match.params.id;
+        const testId = match.params.id;
         Promise.all([
-            api.Evaluations.byId(evaluationId),
-            api.Members.byEvaluationId(evaluationId),
-            /*api.RankExercises.byEvaluationId(evaluationId),*/
-        ]).then(([ evaluation, performers/*, rankExercises*/ ]) => {
-            setEvaluation(evaluation);
+            api.Tests.byId(testId),
+            api.Members.byTestId(testId),
+            /*api.ExercisesScales.byTestId(testId),*/
+        ]).then(([ test, performers/*, exercisesScales */]) => {
+            setTest(test);
             setPerformers(performers);
-            setRankExercises([]);
-            setPerformer(performers[0]);
-            setRankExercise(undefined);
+            setPerformer(performers.length > 0 ? performers[0] : undefined);
+            setExercisesScales([]);
+            setExerciseScale(undefined);
+            // setExercisesScales(exercisesScales);
+            // setExerciseScale(exercisesScales.length > 0 ? exercisesScales[0] : undefined);
         });
     }, []);
     
-    const handleRankExerciseSelected = (rankExercise) => () => {
-        setRankExercise(rankExercise);
-        // filter performers according to the rankExercise
+    const handleExerciseScaleSelected = (exerciseScale) => () => {
+        setExerciseScale(exerciseScale);
+        // filter performers according to the exerciseScale
     }
 
     const handlePerformerSelected = (performer) => () => setPerformer(performer);
@@ -46,25 +48,25 @@ const EvaluateGroup = ({ match }) => {
             setPerformer(performers[performerIndex + 1]);
         else {
             setPerformer(performers[0]);
-            const rankExerciseIndex = rankExercises.indexOf(rankExercise);
-            setRankExercise(rankExercises[(rankExerciseIndex + 1) % rankExercises.length]);
+            const exerciseScaleIndex = exercisesScales.indexOf(exerciseScale);
+            setExerciseScale(exercisesScales[(exerciseScaleIndex + 1) % exercisesScales.length]);
         }
     }
 
-    if (!evaluation)
+    if (!test)
         return(<div>Loading...</div>);
     return (
         <div className="EvaluateGroup">
             <Card className="card">
                 <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
                     <div className="list-header">Exercices</div>
-                    <Menu selectedKeys={rankExercise ? [rankExercise.id+''] : []}>
-                        {rankExercises.map(rankExercise => 
+                    <Menu selectedKeys={exerciseScale ? [exerciseScale.id+''] : []}>
+                        {exercisesScales.map(exerciseScale => 
                             <Menu.Item
-                                key={rankExercise.id}
-                                onClick={handleRankExerciseSelected(rankExercise)}
+                                key={exerciseScale.id}
+                                onClick={handleExerciseScaleSelected(exerciseScale)}
                             >
-                                <span>{rankExercise.exercise.name}</span>
+                                <span>{exerciseScale.exercise.name}</span>
                             </Menu.Item>
                         )}
                     </Menu>
@@ -83,10 +85,10 @@ const EvaluateGroup = ({ match }) => {
                     </Menu>
                 </Col>
                 <Col xs={14} sm={14} md={14} lg={14} xl={14} className="exercise-panel">
-                    <ExerciseEvaluation
-                        evaluation={evaluation}
+                    <ExerciseTest
+                        test={test}
                         performer={performer}
-                        rankExercise={rankExercise}
+                        exerciseScale={exerciseScale}
                     />
                     <div className="next">
                         <Button onClick={handleNext} type="primary">SUIVANT <Icon type="right"/></Button>

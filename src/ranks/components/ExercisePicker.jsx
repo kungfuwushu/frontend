@@ -12,9 +12,9 @@ const Option = Select.Option;
 const ExercisePickerContainer = ({onPicked}) => {
     const [ isVisible, setVisibility] = useState(false);
     const toggle = () => setVisibility(!isVisible);
-    const handlePicked = (rankExercises) => {
+    const handlePicked = (exercisesScales) => {
         toggle();
-        onPicked(rankExercises);
+        onPicked(exercisesScales);
     }
     return (
         <React.Fragment>
@@ -57,37 +57,37 @@ const ExercisePicker = ({ visible, onClose, onPicked }) => {
     }, [filter]);
 
     const handlePicked = () => {
-        const rankExercises = checkedExercises.map((exercise, index) => {
-            var rankExercise = {
+        const exercisesScales = checkedExercises.map((exercise, index) => {
+            var exerciseScale = {
                 exercise,
                 type: exercise.type,
                 id: count - index - 1
             }
             switch (exercise.type) {
                 case 'TAOLU':
-                    rankExercise.rankCriterion = exercise.criterion.map(criteria => ({
+                    exerciseScale.criterionScales = exercise.criterion.map(criteria => ({
                         criteria,
-                        maximumScore: undefined,
+                        scale: undefined,
                     }));
                     break;
                 case 'FIGHT':
                     const round = exercise.rounds[0];
-                    rankExercise.rankRounds = [{
+                    exerciseScale.roundsScales = [{
                         round,
-                        rankCriterion: round.criterion.map(criteria => ({
+                        criterionScales: round.criterion.map(criteria => ({
                             criteria,
-                            maximumScore: undefined,
+                            scale: undefined,
                         }))
                     }];
                     break;
                 default:
                     break;
             }
-            return rankExercise;
+            return exerciseScale;
         });
-        onPicked(rankExercises);
+        onPicked(exercisesScales);
         setCheckedExercises([]);
-        setCount(count + rankExercises.length);
+        setCount(count + exercisesScales.length);
     }
 
     const handleChecked = (exercise) => (checked) => {

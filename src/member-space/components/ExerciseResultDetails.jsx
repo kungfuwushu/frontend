@@ -19,7 +19,7 @@ const ExerciseResultDetails = ({ match }) => {
         return(<div>Loading...</div>);
     return (
         <ExerciseDetails 
-			rankExercise={exerciseResult.rankExercise}
+			exerciseScale={exerciseResult.exerciseScale}
 			exerciseResult={exerciseResult}
 		/>
     );

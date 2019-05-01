@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import './EvaluationItem.css';
+import './TestItem.css';
 import { Button } from 'antd';
 
 import moment from 'moment';
 import 'moment/locale/fr';
 
-const EvaluationItem = ({ evaluation }) => {
-	const { groups, address, city, postalCode, date } = evaluation;
+const TestItem = ({ test }) => {
+	const { groups, address, city, postalCode, date } = test;
 	return(
-		<div className="EvaluationItem">
-			<div className="evaluation-header">
+		<div className="TestItem">
+			<div className="test-header">
 				<div className="title-type">
-					<span className="title">{evaluation.name}</span>
-					<span className="type">{evaluation.type}</span>
+					<span className="title">{test.name}</span>
+					<span className="type">{test.type}</span>
 				</div>
 				<span className="date">
 					<span className="day">{moment(date).format('dddd Do MMMM YYYY')}</span>
@@ -29,13 +29,13 @@ const EvaluationItem = ({ evaluation }) => {
 					)}
 				</div>
 				<div className="actions">
-                    <Link to={`/evaluations/${evaluation.id}/edit`}>
+                    <Link to={`/tests/${test.id}/edit`}>
 					    <Button type="primary">Editer</Button>
                     </Link>
-                    <Link to={`/evaluations/${evaluation.id}/results`}>
+                    <Link to={`/tests/${test.id}/results`}>
 					    <Button type="primary">Résultats</Button>
                     </Link>
-                    <Link to={`/evaluations/${evaluation.id}/evaluate-group`}>
+                    <Link to={`/tests/${test.id}/evaluate-group`}>
 					    <Button type="primary">Evaluer</Button>
                     </Link>
 				</div>
@@ -44,4 +44,4 @@ const EvaluationItem = ({ evaluation }) => {
 	)
 }
 
-export default EvaluationItem;
+export default TestItem;

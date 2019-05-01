@@ -2,9 +2,9 @@ import * as api from '../../api';
 
 export const Ranks = {
     byId: (id) => api.Ranks.byId(id).then(rank => {
-        const { rankExercises } = rank;
+        const { exercisesScales } = rank;
         for (let i = 0; i < 3; i++)
-            rank.rankExercises = rank.rankExercises.concat(rankExercises);
+            rank.exercisesScales = rank.exercisesScales.concat(exercisesScales);
         rank.description = "Description du grade Petit Panda, nanani na nan na na nian ian ian a ann an a ian ia n.";
         return rank;
     }),
@@ -12,32 +12,32 @@ export const Ranks = {
 
 export const ExerciseResults = {
     byId: (id) => fakeExerciseResults(1).then(exerciseResults => exerciseResults[0]),
-    byEvaluationResultIdAndExerciseId: (evaluationId) => api.ExerciseResults.byEvaluationResultId(evaluationId),
+    byTestResultIdAndExerciseId: (testId) => api.ExerciseResults.byTestResultId(testId),
     byRankIdAndPerformerId: (rankId, performerId) => fakeExerciseResults(rankId),
-    byEvaluationIdAndPerformerId: (evaluationId, performerId) => fakeExerciseResults(evaluationId),
+    byTestIdAndPerformerId: (testId, performerId) => fakeExerciseResults(testId),
 };
 
 const fakeExerciseResults = (rankId) => Ranks.byId(rankId).then(rank => {
-    const randomScore = (maximumScore) => Math.floor((Math.random() * maximumScore) + 1);
-    return rank.rankExercises.map((rankExercise, index) => {
+    const randomScore = (scale) => Math.floor((Math.random() * scale) + 1);
+    return rank.exercisesScales.map((exerciseScale, index) => {
         var exerciseResult = {
             id: index,
-            rankExercise,
-            type: rankExercise.exercise.type,
+            exerciseScale,
+            type: exerciseScale.exercise.type,
         }
         switch (exerciseResult.type) {
             case 'TAOLU':
-                exerciseResult.criterionResult = rankExercise.rankCriterion.map(rankCriteria => ({
-                    rankCriteria,
-                    score: randomScore(rankCriteria.maximumScore),
+                exerciseResult.criteriaResults = exerciseScale.criterionScales.map(criteriaScale => ({
+                    criteriaScale,
+                    score: randomScore(criteriaScale.scale),
                 }));
                 break;
             case 'FIGHT':
-                exerciseResult.roundsResult = rankExercise.rankRounds.map(rankRound => ({
-                    rankRound,
-                    criterionResult: rankRound.rankCriterion.map(rankCriteria => ({
-                        rankCriteria,
-                        score: randomScore(rankCriteria.maximumScore),
+                exerciseResult.roundsResult = exerciseScale.roundsScales.map(roundScale => ({
+                    roundScale,
+                    criteriaResults: roundScale.criterionScales.map(criteriaScale => ({
+                        criteriaScale,
+                        score: randomScore(criteriaScale.scale),
                     })),
                 }));
                 break;
@@ -51,19 +51,19 @@ const fakeExerciseResults = (rankId) => Ranks.byId(rankId).then(rank => {
     });
 });
 
-export const Evaluations = {
-    byId: (evaluationId) => api.Evaluations.byId(evaluationId),
-    allUpcomingByMemberId: (memberId) => api.Evaluations.all(),
+export const Tests = {
+    byId: (testId) => api.Tests.byId(testId),
+    allUpcomingByMemberId: (memberId) => api.Tests.all(),
 };
 
-export const EvaluationResults = {
-    allStartedByMemberId: (memberId) => fakeEvaluationResults(),
-    allCompletedByMemberId: (memberId) => fakeEvaluationResults(),
+export const TestResults = {
+    allStartedByMemberId: (memberId) => fakeTestResults(),
+    allCompletedByMemberId: (memberId) => fakeTestResults(),
 }
 
-const fakeEvaluationResults = () => api.Evaluations.all().then(evaluations => evaluations.map(evaluation => {
+const fakeTestResults = () => api.Tests.all().then(tests => tests.map(test => {
     return {
-        evaluation,
+        test,
         performerGroup: {
             id: 1,
             name: "Groupe 1",

@@ -1,38 +1,38 @@
-.EvaluationsList {
+.TestsList {
     display: flex;
     justify-content: center;
 }
 
-.EvaluationsList .card {
+.TestsList .card {
     display: grid;
     grid-template-rows: min-content 1fr;
     flex-grow: 1;
     max-width: 936px;
 }
 
-.EvaluationsList .header {
+.TestsList .header {
     border-bottom: 1px solid rgba(0,0,0,.12);
     padding: 16px;
     background-color: #FCFCFC;
 }
 
-.EvaluationsList .top{
+.TestsList .top{
     display: flex;
 }
 
-.EvaluationsList .top button {
+.TestsList .top button {
     margin-left: auto;
 }
 
-.EvaluationsList .SearchInput {
+.TestsList .SearchInput {
     width: 400px;
     margin-left: 16px;
 }
 
-.EvaluationsList .select {
+.TestsList .select {
     width: 200px;
 }
 
-.EvaluationsList .evaluations {
+.TestsList .tests {
     overflow: auto;
 }

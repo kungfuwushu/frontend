@@ -20,8 +20,8 @@ const MyRank = () => {
         });
     }, []);
 
-    const findExerciseResult = (rankExercise) => {
-        return exercisesResult.find(exerciseResult => exerciseResult.rankExercise.id = rankExercise.id);
+    const findExerciseResult = (exerciseScale) => {
+        return exercisesResult.find(exerciseResult => exerciseResult.exerciseScale.id = exerciseScale.id);
     }
 
     if (!rank)
@@ -34,10 +34,10 @@ const MyRank = () => {
                 <span className="name">{rank.name}</span>
                 <span className="description">{rank.description}</span>
             </div>
-            {rank.rankExercises.map((rankExercise, index) => 
+            {rank.exercisesScales.map((exerciseScale, index) => 
                 <ExerciseItem
-                    rankExercise={rankExercise}
-                    exerciseResult={findExerciseResult(rankExercise)}
+                    exerciseScale={exerciseScale}
+                    exerciseResult={findExerciseResult(exerciseScale)}
                     key={index}
                 />
             )}

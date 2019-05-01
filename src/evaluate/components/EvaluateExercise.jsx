@@ -6,30 +6,30 @@ import EvaluatePhysical from './EvaluatePhysical';
 import EvaluateFight from './EvaluateFight';
 import EvaluateTaolu from './EvaluateTaolu';
 
-const EvaluateExercise = ({ evaluation, performer, rankExercise }) => {
+const EvaluateExercise = ({ test, performer, exerciseScale }) => {
 	const [ exerciseResult, setExerciseResult ] = useState(undefined);
 
 	useEffect(() => {
 		// fetch exercise result (if doesn't automatically create one from back-end)
-		if (!rankExercise)
+		if (!exerciseScale)
 			return;
 
 		var exerciseResult = {
-			rankExercise,
-			type: rankExercise.exercise.type,
+			exerciseScale,
+			type: exerciseScale.exercise.type,
 		}
 		switch (exerciseResult.type) {
 			case 'TAOLU':
-				exerciseResult.criterionResult = rankExercise.rankCriterion.map(rankCriteria => ({
-					rankCriteria,
+				exerciseResult.criteriaResults = exerciseScale.criterionScales.map(criteriaScale => ({
+					criteriaScale,
 					score: undefined,
 				}));
 				break;
 			case 'FIGHT':
-				exerciseResult.roundsResult = rankExercise.rankRounds.map(rankRound => ({
-					rankRound,
-					criterionResult: rankRound.rankCriterion.map(rankCriteria => ({
-						rankCriteria,
+				exerciseResult.roundsResult = exerciseScale.roundsScales.map(roundScale => ({
+					roundScale,
+					criteriaResults: roundScale.criterionScales.map(criteriaScale => ({
+						criteriaScale,
 						score: undefined,
 					})),
 				}));
@@ -41,12 +41,12 @@ const EvaluateExercise = ({ evaluation, performer, rankExercise }) => {
 				break;
 		}
 		setExerciseResult(exerciseResult);
-	}, [rankExercise, performer]);
+	}, [exerciseScale, performer]);
 	
 	if (!exerciseResult)
 		return (<div>Exercise not available.</div>);
 	
-	const { exercise } = exerciseResult.rankExercise;
+	const { exercise } = exerciseResult.exerciseScale;
 
 	const renderContent = () => {
 		const { type } = exercise;

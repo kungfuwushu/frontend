@@ -1,23 +1,20 @@
 import { get, post, put, del } from './requests.config';
-const encode = encodeURIComponent;
 
 export const Members = {
 	byId: (id: number) => get(`/members/${id}`),
 	byAccountId: (id: number) => get(`/accounts/${id}/members`),
 	byGroupId: (id: number) => get(`/groups/${id}/members`),
-	byEvaluationId: (id: number) => get(`/evaluations/${id}/members`),
+	byTestId: (id: number) => get(`/tests/${id}/members`),
 };
 
 export const Groups = {
 	all: () => get(`/groups`),
 	byId: (id: number) => get(`/groups/${id}`),
-	byName: (name: string) => get(`/groups?name=${encode(name)}`),
-	byEvaluationId: (id: number) => get(`/evaluations/${id}/groups`),
+	byTestId: (id: number) => get(`/tests/${id}/groups`),
 };
 
 export const Exercises = {
 	all: () => get(`/exercises`),
-	byEvaluationId: (id: number) => get(`/evaluations/${id}/exercises`),
 };
 
 export const Ranks = {
@@ -29,22 +26,23 @@ export const Ranks = {
 	reorder: (id: number, start: number, end: number) => put(`/ranks/${id}/reorder?startIndex=${start}&endIndex=${end}`),
 };
 
-export const Evaluations = {
-	all: () => get(`/evaluations`),
-	byId: (id: number) => get(`/evaluations/${id}`),
-	create: (evaluation: any) => post(`/evaluations`, evaluation),
-	update: (evaluation: any) => put(`/evaluations`, evaluation),
+export const Tests = {
+	all: () => get(`/tests`),
+	byId: (id: number) => get(`/tests/${id}`),
+	create: (test: any) => post(`/tests`, test),
+	update: (test: any) => put(`/tests`, test),
 };
 
-export const EvaluationResults = {
-	byEvaluationId: (id: number) => get(`/evaluations/${id}/evaluation-results`),
-	byMemberId: (id: number) => get(`/members/${id}/evaluation-results`),
-	create: (result: any) => post(`/evaluation-results`, result),
+export const TestResults = {
+	byId: (id: number) => get(`/tests-results/${id}`),
+	byTestId: (id: number) => get(`/tests/${id}/tests-results`),
+	byMemberId: (id: number) => get(`/members/${id}/tests-results`),
 };
 
 export const ExerciseResults = {
-	byEvaluationResultId: (id: number) => get(`/evaluation-results/${id}/exercise-results`),
-	create: (exercise: any) => post(`/exercise-results`, exercise),
+	byTestResultId: (id: number) => get(`/tests-results/${id}/exercises-results`),
+	create: (exercise: any) => post(`/exercises-results`, exercise),
+	update: (exercise: any) => put(`/exercises-results`, exercise),
 };
 
 export const Files = {

@@ -1,4 +1,4 @@
-.EvaluationDetails .exercises {
+.TestDetails .exercises {
 	display: grid;
 	grid-gap: 20px;
 	grid-template-columns: 1fr [content-start] 1fr [content-end] 1fr;
@@ -6,18 +6,18 @@
 }
 
 @media (max-width: 1000px) {
-	.EvaluationDetails .exercises {
+	.TestDetails .exercises {
 		grid-template-columns: [content-start] 1fr 1fr [content-end];
 	}
 }
 
 @media (max-width: 600px) {
-	.EvaluationDetails .exercises {
+	.TestDetails .exercises {
 		grid-template-columns: [content-start] 1fr [content-end];
 	}
 }
 
-.EvaluationDetails .rank {
+.TestDetails .rank {
 	grid-column: content-start / content-end;
 	grid-row: content-top / content-bottom;
 	display: flex;
@@ -26,11 +26,11 @@
 	justify-content: center;
 }
 
-.EvaluationDetails .rank img {
+.TestDetails .rank img {
 	width: 200px;
 }
 
-.EvaluationDetails .rank .name {
+.TestDetails .rank .name {
 	font-size: 140%;
 	font-weight: 700;
 }

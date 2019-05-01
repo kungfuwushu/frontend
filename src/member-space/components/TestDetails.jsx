@@ -1,35 +1,35 @@
 import React, { useState, useEffect } from 'react';
 
-import './EvaluationDetails.css';
+import './TestDetails.css';
 
 import ExerciseItem from './ExerciseItem';
 import { withRouter } from 'react-router';
 import * as api from '../fake-api';
 
-const EvaluationDetails = ({ match }) => {
-    const [ evaluation, setEvaluation ] = useState(undefined);
+const TestDetails = ({ match }) => {
+    const [ test, setTest ] = useState(undefined);
     const [ exercisesResult, setExercisesResult ] = useState([]);
 
     useEffect(() => {
-		const evaluationId = match.params.id;
+		const testId = match.params.id;
         Promise.all([
-            api.Evaluations.byId(evaluationId),
-            api.ExerciseResults.byEvaluationIdAndPerformerId(evaluationId, 1),
-        ]).then(([ evaluation, exercisesResult ]) => {
-            setEvaluation(evaluation);
+            api.Tests.byId(testId),
+            api.ExerciseResults.byTestIdAndPerformerId(testId, 1),
+        ]).then(([ test, exercisesResult ]) => {
+            setTest(test);
             setExercisesResult(exercisesResult);
         });
     }, []);
 
-    if (!evaluation)
+    if (!test)
         return(<div>Loading...</div>);
     return (
-        <div className="EvaluationDetails">
-            <h1>{evaluation.name}</h1>
+        <div className="TestDetails">
+            <h1>{test.name}</h1>
 			<div className="exercises">
                 {exercisesResult.map((exerciseResult, index) => 
 					<ExerciseItem
-						rankExercise={exerciseResult.rankExercise}
+						exerciseScale={exerciseResult.exerciseScale}
 						exerciseResult={exerciseResult}
 						key={index}
 					/>
@@ -39,4 +39,4 @@ const EvaluationDetails = ({ match }) => {
     );
 }
 
-export default withRouter(EvaluationDetails);
+export default withRouter(TestDetails);

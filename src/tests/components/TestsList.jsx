@@ -1,41 +1,41 @@
 import React, { useState, useEffect } from 'react';
 
-import './EvaluationsList.css';
+import './TestsList.css';
 import { Select, Button } from 'antd';
 
 import { SearchInput, Card } from '../../custom';
-import EvaluationItem from './EvaluationItem';
+import TestItem from './TestItem';
 
 import * as api from '../../api';
 
 const Option = Select.Option;
 
-const EvaluationsList = ({history}) => {
-	const [ evaluations, setEvaluations ] = useState([]);
-	const [ filteredEvaluations, setFilteredEvaluations ] = useState([]);
+const TestsList = ({history}) => {
+	const [ tests, setTests ] = useState([]);
+	const [ filteredTests, setFilteredTests ] = useState([]);
 	const [ filter, setFilter ] = useState({
 		type: undefined,
 		search: undefined,
 	});
 
 	useEffect(() => {
-		api.Evaluations.all()
-			.then(evaluations => {
-				setEvaluations(evaluations);
-				setFilteredEvaluations(evaluations);
+		api.Tests.all()
+			.then(tests => {
+				setTests(tests);
+				setFilteredTests(tests);
 			});
 	}, []);
 
 	useEffect(() => {
-		setFilteredEvaluations(evaluations.filter(evaluation => {
-			if (filter.type && filter.type !== evaluation.type)
+		setFilteredTests(tests.filter(test => {
+			if (filter.type && filter.type !== test.type)
 				return false;
 			if (filter.search && 
-				!evaluation.name.toLowerCase().includes(filter.search.toLowerCase()) &&
-				!evaluation.address.toLowerCase().includes(filter.search.toLowerCase()) &&
-				!evaluation.city.toLowerCase().includes(filter.search.toLowerCase()) &&
-				!evaluation.postalCode.toLowerCase().includes(filter.search.toLowerCase()) /*&&
-				!evaluation.groups.some(group => group.name.toLowerCase().includes(filter.search.toLowerCase()))*/
+				!test.name.toLowerCase().includes(filter.search.toLowerCase()) &&
+				!test.address.toLowerCase().includes(filter.search.toLowerCase()) &&
+				!test.city.toLowerCase().includes(filter.search.toLowerCase()) &&
+				!test.postalCode.toLowerCase().includes(filter.search.toLowerCase()) /*&&
+				!test.groups.some(group => group.name.toLowerCase().includes(filter.search.toLowerCase()))*/
 			)
 				return false;
 			return true;
@@ -48,7 +48,7 @@ const EvaluationsList = ({history}) => {
 		setFilter(data);
 	}
 
-    const evaluationTypes = [
+    const testTypes = [
         {
             name: 'Tous les types',
             value: undefined
@@ -64,16 +64,16 @@ const EvaluationsList = ({history}) => {
     ];
 
 	return (
-		<div className="EvaluationsList">
+		<div className="TestsList">
 			<Card className="card">
 				<div className="header">
 					<div className="top">
-						<h2>Evaluations et statistiques</h2>
+						<h2>Tests et statistiques</h2>
 						<Button
-							onClick={() => history.push('/new-evaluation')}
+							onClick={() => history.push('/new-test')}
 							type="primary"
 						>
-							Planifier une nouvelle evaluation
+							Planifier une nouvelle test
 						</Button>
 					</div>
 					<div className="filters">
@@ -82,7 +82,7 @@ const EvaluationsList = ({history}) => {
 							className="select"
 							onChange={handleFilterChange('type')}
 						>
-							{evaluationTypes.map((type, index) =>
+							{testTypes.map((type, index) =>
 								<Option value={type.value} key={index}>{type.name}</Option>
 							)}
 						</Select>
@@ -93,9 +93,9 @@ const EvaluationsList = ({history}) => {
 					</div>
 				</div>
 				<div className="wrapper">
-					<div className="evaluations">
-						{filteredEvaluations.map((evaluation, index) =>
-							<EvaluationItem evaluation={evaluation} key={index}/>
+					<div className="tests">
+						{filteredTests.map((test, index) =>
+							<TestItem test={test} key={index}/>
 						)}
 					</div>
 				</div>
@@ -104,4 +104,4 @@ const EvaluationsList = ({history}) => {
 	);
 }
 
-export default EvaluationsList;
+export default TestsList;

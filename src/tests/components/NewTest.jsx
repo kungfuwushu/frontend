@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 
 import * as api from '../../api';
 
-import EvaluationForm from './EvaluationForm';
+import TestForm from './TestForm';
 
-const NewEvaluation = ({ history }) => {
-	const [ evaluation, setEvaluation ] = useState({
+const NewTest = ({ history }) => {
+	const [ test, setTest ] = useState({
 		name: undefined,
 		type: "RANK",
 		date: undefined,
@@ -16,20 +16,20 @@ const NewEvaluation = ({ history }) => {
 	});
 
 	const handleSave = () => {
-		api.Evaluations.create(evaluation)
+		api.Tests.create(test)
 			.then(_ => 
 				history.goBack()
 			);
 	}
 
 	return (
-		<EvaluationForm
+		<TestForm
 			title="Nouvelle évaluation"
-			evaluation={evaluation}
-			onChange={setEvaluation}
+			test={test}
+			onChange={setTest}
 			onSave={handleSave}
 		/>
 	);
 }
 
-export default NewEvaluation;
+export default NewTest;

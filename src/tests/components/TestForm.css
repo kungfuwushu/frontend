@@ -1,9 +1,9 @@
-.EvaluationForm {
+.TestForm {
     display: flex;
     justify-content: center;
 }
 
-.EvaluationForm .card {
+.TestForm .card {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -11,37 +11,37 @@
     padding: 16px;
 }
 
-.EvaluationForm h1 {
+.TestForm h1 {
     text-align: center;
     font-weight: 600;
 }
 
-.EvaluationForm h2 {
+.TestForm h2 {
     margin-top: 20px;
 }
 
-.EvaluationForm .name-title {
+.TestForm .name-title {
     margin-top: 0;
 }
 
-.EvaluationForm .date-picker {
+.TestForm .date-picker {
     width: unset;
 }
 
-.EvaluationForm .address {
+.TestForm .address {
     margin-bottom: 8px;
 }
 
-.EvaluationForm .actions {
+.TestForm .actions {
     display: flex;
     margin-top: 30px;
 }
 
-.EvaluationForm .save {
+.TestForm .save {
     margin-left: auto;
 }
 
-.EvaluationForm .error {
+.TestForm .error {
     color: red;
     margin-bottom: 20px;
 }

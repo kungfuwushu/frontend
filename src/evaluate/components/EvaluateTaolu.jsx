@@ -2,18 +2,18 @@ import React from 'react';
 
 import EvaluateCriterion from './EvaluateCriterion';
 
-const TaoluEvaluation = ({ exerciseResult, onChange }) => {
-    const handleChange = (criterionResult) => onChange({
+const TaoluTest = ({ exerciseResult, onChange }) => {
+    const handleChange = (criteriaResults) => onChange({
         ...exerciseResult,
-        criterionResult,
+        criteriaResults,
     })
 
     return (
         <EvaluateCriterion
-            criterionResult={exerciseResult.criterionResult}
+            criteriaResults={exerciseResult.criteriaResults}
             onChange={handleChange}
         />
     );
 }
 
-export default TaoluEvaluation;
+export default TaoluTest;

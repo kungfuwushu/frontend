@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './RankExercises.css';
+import './ExercisesScales.css';
 import { Tooltip } from 'antd';
 
 import { InputNumber } from '../../custom';
@@ -8,17 +8,17 @@ import { InputNumber } from '../../custom';
 import { ReactComponent as Remove } from '../../icons/cancel.svg';
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const RankExercises = ({rankExercises, onChange}) => {
-    const handleChange = (index) => (rankExercise) => {
-        const data = rankExercises.slice();
-        data[index] = rankExercise;
+const ExercisesScales = ({exercisesScales, onChange}) => {
+    const handleChange = (index) => (exerciseScale) => {
+        const data = exercisesScales.slice();
+        data[index] = exerciseScale;
         onChange(data);
     }
     const handleRemove = (index) => () => {
-        onChange(rankExercises.filter((_, i) => i !== index));
+        onChange(exercisesScales.filter((_, i) => i !== index));
     }
-    const reorder = (rankExercises, startIndex, endIndex) => {
-        const reordered = Array.from(rankExercises);
+    const reorder = (exercisesScales, startIndex, endIndex) => {
+        const reordered = Array.from(exercisesScales);
         const [removed] = reordered.splice(startIndex, 1);
         reordered.splice(endIndex, 0, removed);
         return reordered;
@@ -28,7 +28,7 @@ const RankExercises = ({rankExercises, onChange}) => {
           return;
         }
         onChange(
-            reorder(rankExercises, source.index, destination.index)
+            reorder(exercisesScales, source.index, destination.index)
         );
     }
     return (
@@ -38,10 +38,10 @@ const RankExercises = ({rankExercises, onChange}) => {
                 <div
                     {...provided.droppableProps}
                     ref={provided.innerRef}
-                    className="RankExercises"
+                    className="ExercisesScales"
                 >
-                    {rankExercises.map((rankExercise, index) => (
-                    <Draggable key={index} draggableId={rankExercise.id} index={index}>
+                    {exercisesScales.map((exerciseScale, index) => (
+                    <Draggable key={index} draggableId={exerciseScale.id} index={index}>
                         {(provided, snapshot) => (
                         <div
                             ref={provided.innerRef}
@@ -49,8 +49,8 @@ const RankExercises = ({rankExercises, onChange}) => {
                             {...provided.dragHandleProps}
                             className={snapshot.isDragging ? "dragged-exercise" : "draggable-exercise"}
                         >
-                            <RankExercise
-                                rankExercise={rankExercise}
+                            <ExerciseScale
+                                exerciseScale={exerciseScale}
                                 onChange={handleChange(index)}
                                 onRemove={handleRemove(index)}
                                 key={index}
@@ -67,23 +67,23 @@ const RankExercises = ({rankExercises, onChange}) => {
     )
 }
 
-const RankExercise = ({ rankExercise, onRemove, onChange }) => {
-    const { exercise } = rankExercise;
+const ExerciseScale = ({ exerciseScale, onRemove, onChange }) => {
+    const { exercise } = exerciseScale;
     const renderContent = () => {
         switch (exercise.type) {
             case 'TAOLU':
-                return <Taolu rankExercise={rankExercise} onChange={onChange}/>
+                return <Taolu exerciseScale={exerciseScale} onChange={onChange}/>
             case 'FIGHT':
-                return <Fight rankExercise={rankExercise} onChange={onChange}/>
+                return <Fight exerciseScale={exerciseScale} onChange={onChange}/>
             default:
                 return null;
         }
     }
     return (
-        <div className="RankExercise">
+        <div className="ExerciseScale">
             <div className="header">
                 <Tooltip title="Retirer cet exercice">
-                    <Remove onClick={() => onRemove(rankExercise)} className="remove"/>
+                    <Remove onClick={() => onRemove(exerciseScale)} className="remove"/>
                 </Tooltip>
                 <span className="exercise-name">{exercise.name}</span>
                 <span className="exercise-type">{exercise.type}</span>
@@ -93,52 +93,52 @@ const RankExercise = ({ rankExercise, onRemove, onChange }) => {
     )
 }
 
-const Fight = ({ rankExercise, onChange }) => {
+const Fight = ({ exerciseScale, onChange }) => {
     const handleRoundsNumberChange = (rounds) => {
-        const { rankRounds } = rankExercise;
-        if (!rounds || rounds === rankRounds.length)
+        const { roundsScales } = exerciseScale;
+        if (!rounds || rounds === roundsScales.length)
             return;
-        if (rounds < rankRounds.length)
+        if (rounds < roundsScales.length)
             onChange({
-                ...rankExercise,
-                rankRounds: rankRounds.slice(0, rounds),
+                ...exerciseScale,
+                roundsScales: roundsScales.slice(0, rounds),
             });
         else {
-            const round = rankExercise.exercise.rounds[0];
+            const round = exerciseScale.exercise.rounds[0];
             onChange({
-                ...rankExercise,
-                rankRounds: rankRounds.concat(
-                    Array(rounds - rankRounds.length).fill().map(_ => ({
+                ...exerciseScale,
+                roundsScales: roundsScales.concat(
+                    Array(rounds - roundsScales.length).fill().map(_ => ({
                         round,
-                        rankCriterion: round.criterion.map(criteria => ({
+                        criterionScales: round.criterion.map(criteria => ({
                             criteria,
-                            maximumScore: undefined,
+                            scale: undefined,
                         }))
                     }))
                 ),
             });
         }
     }
-    const handleChange = (index) => (rankRound) => {
-        const data = {...rankExercise};
-        data.rankRounds[index] = rankRound;
+    const handleChange = (index) => (roundScale) => {
+        const data = {...exerciseScale};
+        data.roundsScales[index] = roundScale;
         onChange(data);
     }
-    const { rankRounds } = rankExercise;
+    const { roundsScales } = exerciseScale;
     return (
         <React.Fragment>
             <div className="rounds-number">
                 <span>Nombre de reprises : </span>
                 <InputNumber
                     min={1}
-                    value={rankRounds.length}
+                    value={roundsScales.length}
                     onChange={handleRoundsNumberChange}
                     className="rounds-input"
                 />
             </div>
-            {rankRounds.map((rankRound, index) => 
+            {roundsScales.map((roundScale, index) => 
                 <Round
-                    rankRound={rankRound}
+                    roundScale={roundScale}
                     number={index + 1}
                     onChange={handleChange(index)}
                     key={index}
@@ -148,52 +148,52 @@ const Fight = ({ rankExercise, onChange }) => {
     )
 }
 
-const Taolu = ({ rankExercise, onChange }) => {
-    const handleChange = (rankCriterion) => {
+const Taolu = ({ exerciseScale, onChange }) => {
+    const handleChange = (criterionScales) => {
         onChange({
-            ...rankExercise,
-            rankCriterion
+            ...exerciseScale,
+            criterionScales
         })
     }
     return (
         <div className="criterion">
             <CriterionContainer
-                rankCriterion={rankExercise.rankCriterion}
+                criterionScales={exerciseScale.criterionScales}
                 onChange={handleChange}
             />
         </div>
     );
 }
 
-const Round = ({ rankRound, number, onChange }) => {
-    const handleChange = (rankCriterion) => {
+const Round = ({ roundScale, number, onChange }) => {
+    const handleChange = (criterionScales) => {
         onChange({
-            ...rankRound,
-            rankCriterion
+            ...roundScale,
+            criterionScales
         })
     }
     return (
         <div className="criterion">
             <span className="round-title">Reprise #{number}</span>
             <CriterionContainer
-                rankCriterion={rankRound.rankCriterion}
+                criterionScales={roundScale.criterionScales}
                 onChange={handleChange}
             />
         </div>
     );
 }
 
-const CriterionContainer = ({rankCriterion, onChange}) => {
-    const handleChange = (index) => (rankCriteria) => {
-        const data = rankCriterion.slice();
-        data[index] = rankCriteria;
+const CriterionContainer = ({criterionScales, onChange}) => {
+    const handleChange = (index) => (criteriaScale) => {
+        const data = criterionScales.slice();
+        data[index] = criteriaScale;
         onChange(data);
     }
     return (
         <React.Fragment>
-            {rankCriterion.map((rankCriteria, index) =>
+            {criterionScales.map((criteriaScale, index) =>
                 <Criteria
-                    rankCriteria={rankCriteria}
+                    criteriaScale={criteriaScale}
                     onChange={handleChange(index)}
                     key={index}
                 />
@@ -202,14 +202,14 @@ const CriterionContainer = ({rankCriterion, onChange}) => {
     );
 }
 
-const Criteria = ({ rankCriteria, onChange }) => {
+const Criteria = ({ criteriaScale, onChange }) => {
     const handleChange = (value) => {
         onChange({
-            ...rankCriteria,
-            maximumScore: value
+            ...criteriaScale,
+            scale: value
         })
     }
-    const { criteria, maximumScore } = rankCriteria;
+    const { criteria, scale } = criteriaScale;
     return (
         <div className="criteria">
             <span>{criteria.name}</span>
@@ -217,7 +217,7 @@ const Criteria = ({ rankCriteria, onChange }) => {
                 <Tooltip title="Barème">
                     <InputNumber
                         min={0}
-                        value={maximumScore || ''}
+                        value={scale || ''}
                         onChange={handleChange}
                     />
                 </Tooltip>
@@ -226,4 +226,4 @@ const Criteria = ({ rankCriteria, onChange }) => {
     );
 }
 
-export default RankExercises;
+export default ExercisesScales;

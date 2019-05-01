@@ -6,7 +6,7 @@ import { Input, Button } from 'antd';
 
 import { ImagePicker, Card } from '../../custom';
 import ExercisePicker from './ExercisePicker';
-import RankExercises from './RankExercises';
+import ExercisesScales from './ExercisesScales';
 
 const { TextArea } = Input;
 
@@ -17,16 +17,16 @@ const RankForm = ({ title, rank, onChange, onSave, history }) => {
         onChange(modifiedRank);
     };
 
-    const handleRankExercisesChange = (rankExercises) => onChange({
+    const handleExercisesScalesChange = (exercisesScales) => onChange({
         ...rank,
-        rankExercises: rankExercises.map((rankExercise, index) => ({
-            ...rankExercise,
+        exercisesScales: exercisesScales.map((exerciseScale, index) => ({
+            ...exerciseScale,
             position: index
         }))
     })
 
-    const handleExercisesPicked = (rankExercises) => handleRankExercisesChange(
-        rank.rankExercises.concat(rankExercises)
+    const handleExercisesPicked = (exercisesScales) => handleExercisesScalesChange(
+        rank.exercisesScales.concat(exercisesScales)
     );
 
     const handleImageChange = (image) => onChange({
@@ -34,7 +34,7 @@ const RankForm = ({ title, rank, onChange, onSave, history }) => {
         image
     });
 
-    const { name, description, image, rankExercises } = rank;
+    const { name, description, image, exercisesScales } = rank;
     return (
         <div className="RankForm">
             <Card className="card">
@@ -61,11 +61,11 @@ const RankForm = ({ title, rank, onChange, onSave, history }) => {
                     <h2>Exercices</h2>
                     <ExercisePicker onPicked={handleExercisesPicked} />
                 </div>
-                {rankExercises.length === 0? 
+                {exercisesScales.length === 0? 
                     "Aucuns exercices sélectionnés." :
-                    <RankExercises
-                        rankExercises={rankExercises}
-                        onChange={handleRankExercisesChange}
+                    <ExercisesScales
+                        exercisesScales={exercisesScales}
+                        onChange={handleExercisesScalesChange}
                     />
                 }
                 <div className="actions">

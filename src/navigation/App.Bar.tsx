@@ -34,9 +34,9 @@ import {isAuthenticated} from "../state/AppState";
 
 import { FormattedMessage } from 'react-intl';
 import { EvaluateGroup } from "../evaluate";
-import { EvaluationsList, NewEvaluation, EditEvaluation } from "../evaluations";
+import { TestsList, NewTest, EditTest } from "../tests";
 import { RanksList, NewRank, EditRank } from "../ranks";
-import { MyRank, MyEvaluations, EvaluationDetails, ExerciseResultDetails, RankExerciseDetails } from "../member-space";
+import { MyRank, MyTests, TestDetails, ExerciseResultDetails, ExerciseScaleDetails } from "../member-space";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -190,15 +190,15 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route exact path='/ranks' component={RanksList} />
                     <Route path='/new-rank' component={NewRank} />
                     <Route path='/ranks/:id/edit' component={EditRank} />
-                    <Route exact path='/evaluations' component={EvaluationsList} />
-                    <Route path='/new-evaluation' component={NewEvaluation} />
-                    <Route path='/evaluations/:id/edit' component={EditEvaluation} />
-                    <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup} />
+                    <Route exact path='/tests' component={TestsList} />
+                    <Route path='/new-test' component={NewTest} />
+                    <Route path='/tests/:id/edit' component={EditTest} />
+                    <Route path='/tests/:id/evaluate-group' component={EvaluateGroup} />
                     <Route path='/myrank' component={MyRank} />
-                    <Route exact path='/myevaluations' component={MyEvaluations} />
-                    <Route path='/myevaluations/:id' component={EvaluationDetails} />
-                    <Route path='/exercise-results/:id' component={ExerciseResultDetails} />
-                    <Route path='/rank-exercises/:id' component={RankExerciseDetails} />
+                    <Route exact path='/mytests' component={MyTests} />
+                    <Route path='/mytests/:id' component={TestDetails} />
+                    <Route path='/exercises-results/:id' component={ExerciseResultDetails} />
+                    <Route path='/exercises-scales/:id' component={ExerciseScaleDetails} />
                 </main>
             </div>
         );
