@@ -28,16 +28,6 @@
     margin-bottom: 8px;
 }
 
-.RankForm .exercises-header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.RankForm .exercises-header h2 {
-    margin-right: auto;
-}
-
 .RankForm .actions {
     display: flex;
     margin-top: 30px;

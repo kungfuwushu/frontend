@@ -6,7 +6,8 @@ import { Tooltip } from 'antd';
 import { InputNumber } from '../../custom';
 
 import { ReactComponent as Remove } from '../../icons/cancel.svg';
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+import { OrderableList } from '../../custom';
 
 const ExercisesScales = ({exercisesScales, onChange}) => {
     const handleChange = (index) => (exerciseScale) => {
@@ -17,53 +18,28 @@ const ExercisesScales = ({exercisesScales, onChange}) => {
     const handleRemove = (index) => () => {
         onChange(exercisesScales.filter((_, i) => i !== index));
     }
-    const reorder = (exercisesScales, startIndex, endIndex) => {
-        const reordered = Array.from(exercisesScales);
-        const [removed] = reordered.splice(startIndex, 1);
-        reordered.splice(endIndex, 0, removed);
-        return reordered;
-    };
-    const handleSortEnd = ({source, destination}) => {
-        if (!destination) {
-          return;
-        }
-        onChange(
-            reorder(exercisesScales, source.index, destination.index)
-        );
-    }
+
+    const handleReorder = (exercisesScales) => onChange(
+        exercisesScales.map((exerciseScale, index) => ({
+			...exerciseScale,
+			position: index
+        }))
+    );
+
     return (
-        <DragDropContext onDragEnd={handleSortEnd}>
-            <Droppable droppableId="droppable">
-                {(provided, snapshot) => (
-                <div
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    className="ExercisesScales"
-                >
-                    {exercisesScales.map((exerciseScale, index) => (
-                    <Draggable key={index} draggableId={exerciseScale.id} index={index}>
-                        {(provided, snapshot) => (
-                        <div
-                            ref={provided.innerRef}
-                            {...provided.draggableProps}
-                            {...provided.dragHandleProps}
-                            className={snapshot.isDragging ? "dragged-exercise" : "draggable-exercise"}
-                        >
-                            <ExerciseScale
-                                exerciseScale={exerciseScale}
-                                onChange={handleChange(index)}
-                                onRemove={handleRemove(index)}
-                                key={index}
-                            />
-                        </div>
-                        )}
-                    </Draggable>
-                    ))}
-                    {provided.placeholder}
-                </div>
-                )}
-            </Droppable>
-        </DragDropContext>
+        <OrderableList 
+            items={exercisesScales}
+            renderItem={(exerciseScale, index) => 
+                <ExerciseScale
+                    exerciseScale={exerciseScale}
+                    onChange={handleChange(index)}
+                    onRemove={handleRemove(index)}
+                    key={index}
+                />
+            }
+            onReorder={handleReorder}
+            className="ExercisesScales"
+        />
     )
 }
 
