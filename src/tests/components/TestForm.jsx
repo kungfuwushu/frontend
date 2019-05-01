@@ -7,6 +7,7 @@ import moment from 'moment';
 import 'moment/locale/fr';
 
 import { Card } from '../../custom';
+import { ExercisesScalesFormSection } from '../../exercises';
 
 import './TestForm.css';
 import { Button, Select, DatePicker, Input, Col, Radio } from 'antd';
@@ -45,7 +46,12 @@ const TestForm = ({ title, test, onChange, onSave, history }) => {
 		groups: test.groups.filter(group => name !== group.name)
 	});
 
-	const { name, type, date, address, city, postalCode, groups } = test;
+    const handleExercisesScalesChange = (exercisesScales) => onChange({
+        ...test,
+        exercisesScales
+    });
+
+	const { name, type, date, address, city, postalCode, groups, exercisesScales } = test;
 	const filteredGroups = allGroups.filter(group =>
 		!test.groups.map(group => group.id).includes(group.id)
 	);
@@ -61,7 +67,11 @@ const TestForm = ({ title, test, onChange, onSave, history }) => {
 					value={name}
 				/>
 				<h2>Type d'évaluation</h2>
-				<RadioGroup onChange={handleInputChange('type')} value={type}>
+				<RadioGroup
+					onChange={handleInputChange('type')}
+					value={type}
+					disabled={!!test.id}
+				>
 					<Radio value={"RANK"}>Passage de grade</Radio>
 					<Radio value={"OTHER"}>Autre</Radio>
 				</RadioGroup>
@@ -111,6 +121,12 @@ const TestForm = ({ title, test, onChange, onSave, history }) => {
 						<Option key={group.id}>{group.name}</Option>
 					)}
 				</Select>
+				{type !== 'RANK' &&
+					<ExercisesScalesFormSection 
+						exercisesScales={exercisesScales}
+						onChange={handleExercisesScalesChange}
+					/>
+				}
 				<div className="actions">
 					<Button onClick={() => history.goBack()}>Annuler</Button>
 					<Button type="primary" onClick={onSave} className="save">Sauvegarder</Button>
