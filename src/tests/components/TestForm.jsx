@@ -73,7 +73,7 @@ const TestForm = ({ title, test, onChange, onSave, history }) => {
 					disabled={!!test.id}
 				>
 					<Radio value={"RANK"}>Passage de grade</Radio>
-					<Radio value={"OTHER"}>Autre</Radio>
+					<Radio value={"PROGRAM"}>Programme</Radio>
 				</RadioGroup>
 				<h2>Heure et date de rendez-vous</h2>
 				<DatePicker

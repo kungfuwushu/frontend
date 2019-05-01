@@ -58,8 +58,8 @@ const TestsList = ({history}) => {
             value: 'RANK'
         },
         {
-            name: 'Autre',
-            value: 'OTHER'
+            name: 'Programme',
+            value: 'PROGRAM'
         }
     ];
 
