@@ -42,6 +42,8 @@ const EvaluateGroup = ({ match }) => {
         });
     }, []);
 
+    useEffect(() => () => save(), [exerciseResult, testResult]);
+
     useEffect(() => {
         save();
 
