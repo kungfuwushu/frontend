@@ -27,15 +27,15 @@ const fakeExerciseResults = (rankId) => Ranks.byId(rankId).then(rank => {
         }
         switch (exerciseResult.type) {
             case 'TAOLU':
-                exerciseResult.criteriaResults = exerciseScale.criterionScales.map(criteriaScale => ({
+                exerciseResult.criterionResults = exerciseScale.criterionScales.map(criteriaScale => ({
                     criteriaScale,
                     score: randomScore(criteriaScale.scale),
                 }));
                 break;
             case 'FIGHT':
-                exerciseResult.roundsResult = exerciseScale.roundsScales.map(roundScale => ({
+                exerciseResult.roundsResults = exerciseScale.roundsScales.map(roundScale => ({
                     roundScale,
-                    criteriaResults: roundScale.criterionScales.map(criteriaScale => ({
+                    criterionResults: roundScale.criterionScales.map(criteriaScale => ({
                         criteriaScale,
                         score: randomScore(criteriaScale.scale),
                     })),

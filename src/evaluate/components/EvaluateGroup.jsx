@@ -5,7 +5,7 @@ import { Menu, Col, Button, Icon } from 'antd';
 
 import './EvaluateGroup.css';
 
-import ExerciseTest from './EvaluateExercise';
+import EvaluateExercise from './EvaluateExercise';
 
 import { Card } from '../../custom';
 
@@ -17,28 +17,84 @@ const EvaluateGroup = ({ match }) => {
     const [ exercisesScales, setExercisesScales ] = useState([]);
     const [ performer, setPerformer ] = useState(undefined);
     const [ exerciseScale, setExerciseScale ] = useState(undefined);
+    const [ testsResults, setTestsResults ] = useState([]);
+    const [ testResult, setTestResult ] = useState(undefined);
+    const [ exerciseResult, setExerciseResult ] = useState(undefined);
 
     useEffect(() => {
         const testId = match.params.id;
         Promise.all([
             api.Tests.byId(testId),
+            api.TestResults.byTestId(testId),
             api.Members.byTestId(testId),
-            /*api.ExercisesScales.byTestId(testId),*/
-        ]).then(([ test, performers/*, exercisesScales */]) => {
+        ]).then(([ test, testsResults, performers ]) => {
             setTest(test);
+            setTestsResults(testsResults);
             setPerformers(performers);
             setPerformer(performers.length > 0 ? performers[0] : undefined);
-            setExercisesScales([]);
-            setExerciseScale(undefined);
-            // setExercisesScales(exercisesScales);
-            // setExerciseScale(exercisesScales.length > 0 ? exercisesScales[0] : undefined);
+            if (test.type === 'PROGRAM')
+                initExercisesScales(test.exercisesScales);
+            if (test.type === 'RANK')
+                api.Ranks.byTestId(test.id)
+                    .then((ranks) => {
+                        initExercisesScales(ranks.reduce((list, rank) => list.concat(rank.exercisesScales), []));
+                    });
         });
     }, []);
-    
-    const handleExerciseScaleSelected = (exerciseScale) => () => {
-        setExerciseScale(exerciseScale);
-        // filter performers according to the exerciseScale
+
+    useEffect(() => {
+        save();
+
+        if (!performer || !exerciseScale) {
+            setExerciseResult(undefined);
+            return;
+        }
+        const testResult = testsResults.find(testResult =>
+            testResult.performerId === performer.id
+        );
+        setTestResult(testResult);
+        api.ExerciseResults.byTestResultIdAndExerciseScaleId(testResult.id, exerciseScale.id)
+            .then(exercisesResults => {
+                if (exercisesResults.length > 0) {
+                    setExerciseResult(exercisesResults[0]);
+                    return;
+                }
+                var exerciseResult = {
+                    exerciseScale,
+                    type: exerciseScale.exercise.type,
+                }
+                switch (exerciseResult.type) {
+                    case 'TAOLU':
+                        exerciseResult.criterionResults = exerciseScale.criterionScales.map(criteriaScale => ({
+                            criteriaScale,
+                            score: undefined,
+                        }));
+                        break;
+                    case 'FIGHT':
+                        exerciseResult.roundsResults = exerciseScale.roundsScales.map(roundScale => ({
+                            roundScale,
+                            criterionResults: roundScale.criterionScales.map(criteriaScale => ({
+                                criteriaScale,
+                                score: undefined,
+                            })),
+                        }));
+                        break;
+                    case 'PHYSICAL':
+                        exerciseResult.score = undefined;
+                        break;
+                    default:
+                        break;
+                }
+                setExerciseResult(exerciseResult);
+            });
+    }, [performer, exerciseScale]);
+
+    const initExercisesScales = (exercisesScales) => {
+        setExercisesScales(exercisesScales);
+        setExerciseScale(exercisesScales.length > 0 ? exercisesScales[0] : undefined)
     }
+    
+    const handleExerciseScaleSelected = (exerciseScale) => () => setExerciseScale(exerciseScale);
 
     const handlePerformerSelected = (performer) => () => setPerformer(performer);
 
@@ -50,6 +106,20 @@ const EvaluateGroup = ({ match }) => {
             setPerformer(performers[0]);
             const exerciseScaleIndex = exercisesScales.indexOf(exerciseScale);
             setExerciseScale(exercisesScales[(exerciseScaleIndex + 1) % exercisesScales.length]);
+        }
+    }
+
+    const handleExerciseResultChange = (exerciseResult) => setExerciseResult({
+        ...exerciseResult,
+        modified: true
+    });
+
+    const save = () => {
+        if (exerciseResult && exerciseResult.modified) {
+            if (exerciseResult.id)
+                api.ExerciseResults.update(testResult.id, exerciseResult);
+            else 
+                api.ExerciseResults.create(testResult.id, exerciseResult);
         }
     }
 
@@ -85,10 +155,9 @@ const EvaluateGroup = ({ match }) => {
                     </Menu>
                 </Col>
                 <Col xs={14} sm={14} md={14} lg={14} xl={14} className="exercise-panel">
-                    <ExerciseTest
-                        test={test}
-                        performer={performer}
-                        exerciseScale={exerciseScale}
+                    <EvaluateExercise
+                        exerciseResult={exerciseResult}
+                        onChange={handleExerciseResultChange}
                     />
                     <div className="next">
                         <Button onClick={handleNext} type="primary">SUIVANT <Icon type="right"/></Button>

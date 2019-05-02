@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 import './EvaluateExercise.css';
 
@@ -6,57 +6,21 @@ import EvaluatePhysical from './EvaluatePhysical';
 import EvaluateFight from './EvaluateFight';
 import EvaluateTaolu from './EvaluateTaolu';
 
-const EvaluateExercise = ({ test, performer, exerciseScale }) => {
-	const [ exerciseResult, setExerciseResult ] = useState(undefined);
-
-	useEffect(() => {
-		// fetch exercise result (if doesn't automatically create one from back-end)
-		if (!exerciseScale)
-			return;
-
-		var exerciseResult = {
-			exerciseScale,
-			type: exerciseScale.exercise.type,
-		}
-		switch (exerciseResult.type) {
-			case 'TAOLU':
-				exerciseResult.criteriaResults = exerciseScale.criterionScales.map(criteriaScale => ({
-					criteriaScale,
-					score: undefined,
-				}));
-				break;
-			case 'FIGHT':
-				exerciseResult.roundsResult = exerciseScale.roundsScales.map(roundScale => ({
-					roundScale,
-					criteriaResults: roundScale.criterionScales.map(criteriaScale => ({
-						criteriaScale,
-						score: undefined,
-					})),
-				}));
-				break;
-			case 'PHYSICAL':
-				exerciseResult.score = undefined;
-				break;
-			default:
-				break;
-		}
-		setExerciseResult(exerciseResult);
-	}, [exerciseScale, performer]);
-	
+const EvaluateExercise = ({ exerciseResult, onChange }) => {
 	if (!exerciseResult)
 		return (<div>Exercise not available.</div>);
-	
+
 	const { exercise } = exerciseResult.exerciseScale;
 
 	const renderContent = () => {
 		const { type } = exercise;
 		switch(type) {
 			case 'TAOLU':
-				return <EvaluateTaolu exerciseResult={exerciseResult} onChange={setExerciseResult} />
+				return <EvaluateTaolu exerciseResult={exerciseResult} onChange={onChange} />
 			case 'PHYSICAL':
-				return <EvaluatePhysical exerciseResult={exerciseResult} onChange={setExerciseResult} />
+				return <EvaluatePhysical exerciseResult={exerciseResult} onChange={onChange} />
 			case 'FIGHT':
-				return <EvaluateFight exerciseResult={exerciseResult} onChange={setExerciseResult} />
+				return <EvaluateFight exerciseResult={exerciseResult} onChange={onChange} />
 			default:
 				return type + 'is not a supported type of exercise.';
 		}

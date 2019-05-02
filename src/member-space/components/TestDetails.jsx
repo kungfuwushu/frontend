@@ -8,16 +8,16 @@ import * as api from '../fake-api';
 
 const TestDetails = ({ match }) => {
     const [ test, setTest ] = useState(undefined);
-    const [ exercisesResult, setExercisesResult ] = useState([]);
+    const [ exercisesResults, setExercisesResults ] = useState([]);
 
     useEffect(() => {
 		const testId = match.params.id;
         Promise.all([
             api.Tests.byId(testId),
             api.ExerciseResults.byTestIdAndPerformerId(testId, 1),
-        ]).then(([ test, exercisesResult ]) => {
+        ]).then(([ test, exercisesResults ]) => {
             setTest(test);
-            setExercisesResult(exercisesResult);
+            setExercisesResults(exercisesResults);
         });
     }, []);
 
@@ -27,7 +27,7 @@ const TestDetails = ({ match }) => {
         <div className="TestDetails">
             <h1>{test.name}</h1>
 			<div className="exercises">
-                {exercisesResult.map((exerciseResult, index) => 
+                {exercisesResults.map((exerciseResult, index) => 
 					<ExerciseItem
 						exerciseScale={exerciseResult.exerciseScale}
 						exerciseResult={exerciseResult}

@@ -3,14 +3,14 @@ import React from 'react';
 import EvaluateCriterion from './EvaluateCriterion';
 
 const TaoluTest = ({ exerciseResult, onChange }) => {
-    const handleChange = (criteriaResults) => onChange({
+    const handleChange = (criterionResults) => onChange({
         ...exerciseResult,
-        criteriaResults,
+        criterionResults,
     })
 
     return (
         <EvaluateCriterion
-            criteriaResults={exerciseResult.criteriaResults}
+            criterionResults={exerciseResult.criterionResults}
             onChange={handleChange}
         />
     );

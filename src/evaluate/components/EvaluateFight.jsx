@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { Button } from 'antd';
 
@@ -10,9 +10,13 @@ import { Timer } from '../../custom';
 const EvaluateFight = ({ exerciseResult, onChange }) => {
 	const [ roundIndex, setRoundIndex ] = useState(0);
 
-	const handleChange = (criteriaResults) => {
+	useEffect(() => {
+		setRoundIndex(0);
+	}, [exerciseResult.id])
+
+	const handleChange = (criterionResults) => {
 		const data = {...exerciseResult};
-		data.roundsResult[roundIndex].criteriaResults = criteriaResults;
+		data.roundsResults[roundIndex].criterionResults = criterionResults;
 		onChange(data);
 	}
 
@@ -24,7 +28,7 @@ const EvaluateFight = ({ exerciseResult, onChange }) => {
 			<h1>Reprise {roundIndex + 1}</h1>
 			<Timer defaultTime={90}/>
 			<EvaluateCriterion
-				criteriaResults={exerciseResult.roundsResult[roundIndex].criteriaResults}
+				criterionResults={exerciseResult.roundsResults[roundIndex].criterionResults}
 				onChange={handleChange}
 			/>
 			<div className="roundsNavigation">
@@ -36,7 +40,7 @@ const EvaluateFight = ({ exerciseResult, onChange }) => {
 						Reprise Précédente
 					</Button>
 				}
-				{roundIndex < exerciseResult.roundsResult.length - 1 &&
+				{roundIndex < exerciseResult.roundsResults.length - 1 &&
 					<Button
 						onClick={handleNextRound}
 						type="primary"

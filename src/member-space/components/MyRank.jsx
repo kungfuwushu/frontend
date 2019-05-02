@@ -8,20 +8,20 @@ import * as api from '../fake-api';
 
 const MyRank = () => {
     const [ rank, setRank ] = useState(undefined);
-    const [ exercisesResult, setExercisesResult ] = useState([]);
+    const [ exercisesResults, setExercisesResults ] = useState([]);
 
     useEffect(() => {
         Promise.all([
             api.Ranks.byId(1),
             api.ExerciseResults.byRankIdAndPerformerId(1, 1),
-        ]).then(([ rank, exercisesResult ]) => {
+        ]).then(([ rank, exercisesResults ]) => {
             setRank(rank);
-            setExercisesResult(exercisesResult);
+            setExercisesResults(exercisesResults);
         });
     }, []);
 
     const findExerciseResult = (exerciseScale) => {
-        return exercisesResult.find(exerciseResult => exerciseResult.exerciseScale.id = exerciseScale.id);
+        return exercisesResults.find(exerciseResult => exerciseResult.exerciseScale.id = exerciseScale.id);
     }
 
     if (!rank)

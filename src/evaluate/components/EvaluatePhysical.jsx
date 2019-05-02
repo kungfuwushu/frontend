@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { InputNumber } from 'antd';
+import { InputNumber } from '../../custom';
+import { Tooltip } from 'antd';
 
 const EvaluatePhysical = ({ exerciseResult, onChange }) => {
     const getMeasurementUnit = () => {
@@ -21,8 +22,16 @@ const EvaluatePhysical = ({ exerciseResult, onChange }) => {
 
     return (
         <div className="EvaluatePhysical">
-            <InputNumber value={exerciseResult.score} onChange={handleChange}/>
-            {` (${getMeasurementUnit()})`}
+            <InputNumber
+                value={exerciseResult.score || ''}
+                min={0}
+                onChange={handleChange}
+                addonAfter={
+                    <Tooltip title="Unité de mesure">
+                        <span>{getMeasurementUnit()}</span>
+                    </Tooltip>
+                }
+            />
         </div>
     );
 }

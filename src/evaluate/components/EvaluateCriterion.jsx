@@ -5,16 +5,16 @@ import './EvaluateCriterion.css';
 import { InputNumber } from '../../custom';
 import { Tooltip } from 'antd';
 
-const EvaluateCriterion = ({ criteriaResults, onChange }) => {
+const EvaluateCriterion = ({ criterionResults, onChange }) => {
 	const handleChange = (index) => (criteriaResult) => {
-		const data = criteriaResults.slice();
+		const data = criterionResults.slice();
 		data[index] = criteriaResult;
 		onChange(data);
 	}
 
 	return (
 		<div className="EvaluateCriterion" >
-			{criteriaResults.map((criteriaResult, index) => 
+			{criterionResults.map((criteriaResult, index) => 
 				<EvaluateCriteria
 					criteriaResult={criteriaResult}
 					onChange={handleChange(index)}
@@ -37,11 +37,11 @@ const EvaluateCriteria = ({ criteriaResult, onChange }) => {
 			<InputNumber
 				value={criteriaResult.score || ''}
 				min={0}
-				max={criteriaScale.scale}
+				max={criteriaScale.scale || 0}
 				onChange={handleChange}
 				addonAfter={
 					<Tooltip title="Barème">
-						<span>{criteriaScale.scale}</span>
+						<span>{criteriaScale.scale || 0}</span>
 					</Tooltip>
 				}
 			/>

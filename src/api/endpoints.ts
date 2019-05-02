@@ -20,6 +20,7 @@ export const Exercises = {
 export const Ranks = {
 	all: () => get(`/ranks`),
 	byId: (id: number) => get(`/ranks/${id}`),
+	byTestId: (id: number) => get(`/tests/${id}/ranks`),
 	create: (rank: any) => post(`/ranks`, rank),
 	update: (rank: any) => put(`/ranks`, rank),
 	delete: (id: number) => del(`/ranks/${id}`),
@@ -40,9 +41,9 @@ export const TestResults = {
 };
 
 export const ExerciseResults = {
-	byTestResultId: (id: number) => get(`/tests-results/${id}/exercises-results`),
-	create: (exercise: any) => post(`/exercises-results`, exercise),
-	update: (exercise: any) => put(`/exercises-results`, exercise),
+	byTestResultIdAndExerciseScaleId: (testResultId: number, exerciseScaleId: number) => get(`/tests-results/${testResultId}/exercises-results?exerciseScaleId=${exerciseScaleId}`),
+	create: (id: number, exerciseResult: any) => post(`/tests-results/${id}/exercises-results`, exerciseResult),
+	update: (id: number, exerciseResult: any) => put(`/tests-results/${id}/exercises-results`, exerciseResult),
 };
 
 export const Files = {
