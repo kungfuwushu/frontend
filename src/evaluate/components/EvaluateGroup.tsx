@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { withRouter } from 'react-router';
+import React, { useEffect, useState, FunctionComponent } from 'react';
+import { withRouter, match } from 'react-router';
 
 import { Menu, Col, Button, Icon } from 'antd';
 
@@ -10,16 +10,21 @@ import EvaluateExercise from './EvaluateExercise';
 import { Card } from '../../custom';
 
 import * as api from '../../api';
+import { Rank, Test, ExerciseScale, Member, ExerciseResult, TestResult } from '../../types';
 
-const EvaluateGroup = ({ match }) => {
-    const [ test, setTest ] = useState(undefined);
-    const [ performers, setPerformers ] = useState([]);
-    const [ exercisesScales, setExercisesScales ] = useState([]);
-    const [ performer, setPerformer ] = useState(undefined);
-    const [ exerciseScale, setExerciseScale ] = useState(undefined);
-    const [ testsResults, setTestsResults ] = useState([]);
-    const [ testResult, setTestResult ] = useState(undefined);
-    const [ exerciseResult, setExerciseResult ] = useState(undefined);
+interface IEvaluateGroup {
+    match: match<any>;
+}
+
+const EvaluateGroup:FunctionComponent<IEvaluateGroup> = ({ match }) => {
+    const [ test, setTest ] = useState<Test>(undefined);
+    const [ performers, setPerformers ] = useState<Array<Member>>([]);
+    const [ exercisesScales, setExercisesScales ] = useState<Array<ExerciseScale>>([]);
+    const [ performer, setPerformer ] = useState<Member>(undefined);
+    const [ exerciseScale, setExerciseScale ] = useState<ExerciseScale>(undefined);
+    const [ testsResults, setTestsResults ] = useState<Array<TestResult>>([]);
+    const [ testResult, setTestResult ] = useState<TestResult>(undefined);
+    const [ exerciseResult, setExerciseResult ] = useState<ExerciseResult>(undefined);
 
     useEffect(() => {
         const testId = match.params.id;
@@ -36,8 +41,12 @@ const EvaluateGroup = ({ match }) => {
                 initExercisesScales(test.exercisesScales);
             if (test.type === 'RANK')
                 api.Ranks.byTestId(test.id)
-                    .then((ranks) => {
-                        initExercisesScales(ranks.reduce((list, rank) => list.concat(rank.exercisesScales), []));
+                    .then((ranks: Rank[]) => {
+                        initExercisesScales(
+                            ranks.reduce((exercisesScales: ExerciseScale[], rank: Rank) => 
+                                exercisesScales.concat(rank.exercisesScales)
+                            , [])
+                        );
                     });
         });
     }, []);
@@ -56,49 +65,21 @@ const EvaluateGroup = ({ match }) => {
         );
         setTestResult(testResult);
         api.ExerciseResults.byTestResultIdAndExerciseScaleId(testResult.id, exerciseScale.id)
-            .then(exercisesResults => {
-                if (exercisesResults.length > 0) {
-                    setExerciseResult(exercisesResults[0]);
-                    return;
-                }
-                var exerciseResult = {
-                    exerciseScale,
-                    type: exerciseScale.exercise.type,
-                }
-                switch (exerciseResult.type) {
-                    case 'TAOLU':
-                        exerciseResult.criterionResults = exerciseScale.criterionScales.map(criteriaScale => ({
-                            criteriaScale,
-                            score: undefined,
-                        }));
-                        break;
-                    case 'FIGHT':
-                        exerciseResult.roundsResults = exerciseScale.roundsScales.map(roundScale => ({
-                            roundScale,
-                            criterionResults: roundScale.criterionScales.map(criteriaScale => ({
-                                criteriaScale,
-                                score: undefined,
-                            })),
-                        }));
-                        break;
-                    case 'PHYSICAL':
-                        exerciseResult.score = undefined;
-                        break;
-                    default:
-                        break;
-                }
-                setExerciseResult(exerciseResult);
+            .then((exercisesResults: ExerciseResult[]) => {
+                setExerciseResult(exercisesResults.length > 0 ?
+                    exercisesResults[0] : ExerciseResult.create(exerciseScale)
+                );
             });
     }, [performer, exerciseScale]);
 
-    const initExercisesScales = (exercisesScales) => {
+    const initExercisesScales = (exercisesScales: ExerciseScale[]) => {
         setExercisesScales(exercisesScales);
         setExerciseScale(exercisesScales.length > 0 ? exercisesScales[0] : undefined)
     }
     
-    const handleExerciseScaleSelected = (exerciseScale) => () => setExerciseScale(exerciseScale);
+    const handleExerciseScaleSelected = (exerciseScale: ExerciseScale) => () => setExerciseScale(exerciseScale);
 
-    const handlePerformerSelected = (performer) => () => setPerformer(performer);
+    const handlePerformerSelected = (performer: Member) => () => setPerformer(performer);
 
     const handleNext = () => {
         const performerIndex = performers.indexOf(performer);
@@ -111,15 +92,19 @@ const EvaluateGroup = ({ match }) => {
         }
     }
 
-    const handleExerciseResultChange = (exerciseResult) => setExerciseResult({
-        ...exerciseResult,
-        modified: true
-    });
+    const handleExerciseResultChange = (exerciseResult: ExerciseResult) => {
+        const newE ={
+            ...exerciseResult,
+            modified: true
+        };
+        console.log('changes', newE);
+        setExerciseResult(newE);
+    }
 
     const save = () => {
         if (exerciseResult && exerciseResult.modified) {
             if (exerciseResult.id)
-                api.ExerciseResults.update(testResult.id, exerciseResult);
+                api.ExerciseResults.update(exerciseResult);
             else 
                 api.ExerciseResults.create(testResult.id, exerciseResult);
         }
@@ -170,4 +155,4 @@ const EvaluateGroup = ({ match }) => {
     );
 }
 
-export default withRouter(EvaluateGroup);
+export default withRouter(EvaluateGroup as any);

@@ -1,9 +1,12 @@
-import * as React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import './SearchInput.css';
 import { Icon, Button, Input, AutoComplete } from 'antd';
 
-const SearchInput = ({ placeholder, onSearch }) => {
+const SearchInput:FunctionComponent<{
+	placeholder?: string;
+	onSearch: (value: string) => {};
+}> = ({ placeholder, onSearch }) => {
 	return (
 		<AutoComplete
 			className="SearchInput"

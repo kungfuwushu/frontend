@@ -1,4 +1,5 @@
 import { get, post, put, del } from './requests.config';
+import { Rank, Test, ExerciseResult } from '../types';
 
 export const Members = {
 	byId: (id: number) => get(`/members/${id}`),
@@ -21,8 +22,8 @@ export const Ranks = {
 	all: () => get(`/ranks`),
 	byId: (id: number) => get(`/ranks/${id}`),
 	byTestId: (id: number) => get(`/tests/${id}/ranks`),
-	create: (rank: any) => post(`/ranks`, rank),
-	update: (rank: any) => put(`/ranks`, rank),
+	create: (rank: Rank) => post(`/ranks`, rank),
+	update: (rank: Rank) => put(`/ranks`, rank),
 	delete: (id: number) => del(`/ranks/${id}`),
 	reorder: (id: number, start: number, end: number) => put(`/ranks/${id}/reorder?startIndex=${start}&endIndex=${end}`),
 };
@@ -30,8 +31,8 @@ export const Ranks = {
 export const Tests = {
 	all: () => get(`/tests`),
 	byId: (id: number) => get(`/tests/${id}`),
-	create: (test: any) => post(`/tests`, test),
-	update: (test: any) => put(`/tests`, test),
+	create: (test: Test) => post(`/tests`, test),
+	update: (test: Test) => put(`/tests`, test),
 };
 
 export const TestResults = {
@@ -41,9 +42,11 @@ export const TestResults = {
 };
 
 export const ExerciseResults = {
+	byId: (id: number) => get(`/exercises-results/${id}`),
 	byTestResultIdAndExerciseScaleId: (testResultId: number, exerciseScaleId: number) => get(`/tests-results/${testResultId}/exercises-results?exerciseScaleId=${exerciseScaleId}`),
-	create: (id: number, exerciseResult: any) => post(`/tests-results/${id}/exercises-results`, exerciseResult),
-	update: (id: number, exerciseResult: any) => put(`/tests-results/${id}/exercises-results`, exerciseResult),
+	byMemberIdAndRankId: (memberId: number, rankId: number) => get(`/members/${memberId}/ranks/${rankId}`),
+	create: (testResultId: number, exerciseResult: ExerciseResult) => post(`/tests-results/${testResultId}/exercises-results`, exerciseResult),
+	update: (exerciseResult: ExerciseResult) => put(`/exercises-results`, exerciseResult),
 };
 
 export const Files = {

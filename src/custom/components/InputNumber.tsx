@@ -1,10 +1,18 @@
-import * as React from 'react';
+import React, { FunctionComponent } from 'react';
 
 import './InputNumber.css';
 import classNames from 'classnames';
 
-const CustomInputNumber = ({ value, min, max, onChange, addonBefore, addonAfter, className }) => {
-    const handleChange = ({target: {value}}) => onChange(parseInt(value));
+const CustomInputNumber:FunctionComponent<{
+    value: number | undefined;
+    min?: number;
+    max?: number;
+    onChange: (value: number) => {};
+    addonBefore?: any;
+    addonAfter?: any;
+    className?: string;
+}> = ({ value, min, max, onChange, addonBefore, addonAfter, className }) => {
+    const handleChange = ({target: {value}}: any) => onChange(parseInt(value));
 
 	return (
         <div className={classNames("InputNumber", className)}>
