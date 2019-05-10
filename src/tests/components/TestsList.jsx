@@ -68,7 +68,7 @@ const TestsList = ({history}) => {
 			<Card className="card">
 				<div className="header">
 					<div className="top">
-						<h2>Tests et statistiques</h2>
+						<h2>Evaluations</h2>
 						<Button
 							onClick={() => history.push('/new-test')}
 							type="primary"

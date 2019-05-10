@@ -28,6 +28,54 @@ export abstract class ExerciseResult {
                 return undefined;
         }
     }
+    
+    static getScore(exerciseResult: ExerciseResult) {
+        switch(exerciseResult.type) {
+            case 'PHYSICAL':
+                return exerciseResult.score;
+            case 'TAOLU':
+                return exerciseResult.criterionResults.reduce((sum, criteriaResult) => 
+                    sum + criteriaResult.score
+                , 0);
+            case 'FIGHT':
+                return exerciseResult.roundsResults.reduce((sum, roundResult) => {
+                    return sum + roundResult.criterionResults.reduce((sum, criteriaResult) => 
+                        sum + criteriaResult.score
+                    , 0)
+                }, 0);
+            default:
+                return undefined;
+        }
+    }
+
+    static getScale(exerciseResult: ExerciseResult) {
+        switch(exerciseResult.type) {
+            case 'TAOLU':
+                return exerciseResult.exerciseScale.criterionScales.reduce((sum, criteriaScale) => 
+                    sum + criteriaScale.scale
+                , 0);
+            case 'FIGHT':
+                return exerciseResult.roundsResults.reduce((sum, roundResult) => {
+                    return sum + roundResult.roundScale.criterionScales.reduce((sum, criteriaScale) => 
+                        sum + criteriaScale.scale
+                    , 0)
+                }, 0);
+            default:
+                return undefined;
+        }
+    }
+
+    static isValidated(exerciseResult: ExerciseResult) {
+        switch(exerciseResult.type) {
+            case 'PHYSICAL':
+                return true;
+            case 'TAOLU':
+            case 'FIGHT':
+                return ExerciseResult.getScore(exerciseResult) >= ExerciseResult.getScale(exerciseResult) / 2;
+            default:
+                return false;
+        }
+    }
 }
 
 export class PhysicalExerciseResult extends ExerciseResult {

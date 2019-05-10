@@ -1,24 +1,30 @@
 .MyRank {
+    display: flex;
+    justify-content: center;
+}
+
+.MyRank .content {
+	flex-grow: 1;
+    max-width: 1000px;
+}
+
+.MyRank .grid {
 	display: grid;
 	grid-gap: 20px;
 	grid-template-columns: 1fr [content-start] 1fr [content-end] 1fr;
-	grid-template-rows: 1fr [content-top] repeat(5, auto) [content-bottom];
+	grid-template-rows: [content-top] repeat(3, auto) [content-bottom];
 }
 
 @media (max-width: 1000px) {
-	.MyRank {
+	.MyRank .grid {
 		grid-template-columns: [content-start] 1fr 1fr [content-end];
 	}
 }
 
 @media (max-width: 600px) {
-	.MyRank {
+	.MyRank .grid {
 		grid-template-columns: [content-start] 1fr [content-end];
 	}
-}
-
-.MyRank h1 {
-	grid-column: 1 / span 3;
 }
 
 .MyRank .rank {
