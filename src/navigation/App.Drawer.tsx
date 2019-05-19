@@ -30,9 +30,10 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
         { path: '/account', title: 'Profile', icon: () => <AccountCircleIcon /> },
         { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
         { path: '/members', title: 'Members', icon: () => <FaceIcon /> },
-        { path: '/ranks', title: 'Ranks', icon: () => <Grade /> },
-        { path: '/evaluations', title: 'Evaluations', icon: () => <Assignment /> }
-
+        { path: '/ranks', title: 'Grades', icon: () => <Grade /> },
+        { path: '/tests', title: 'Evaluations', icon: () => <Assignment /> },
+        { path: '/myrank', title: 'Mon grade', icon: () => <Grade /> },
+        { path: '/mytests', title: 'Mes évaluations', icon: () => <Assignment /> },
     ];
 
     public render(): JSX.Element {

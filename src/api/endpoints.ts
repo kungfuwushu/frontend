@@ -1,78 +1,62 @@
-import { get, post } from './requests.config';
-const encode = encodeURIComponent;
-
-export const Accounts = {
-}
+import { get, post, put, del } from './requests.config';
+import { Rank, Test, ExerciseResult } from '../types';
 
 export const Members = {
-  byId: (id: number) => get(`/members/${id}`),
-  byAccountId: (id: number) => get(`/accounts/${id}/members`),
-  byGroupId: (id: number) => get(`/groups/${id}/members`),
-  byEvaluationId: (id: number) => get(`/evaluations/${id}/members`),
+	byId: (id: number) => get(`/members/${id}`),
+	byAccountId: (id: number) => get(`/accounts/${id}/members`),
+	byGroupId: (id: number) => get(`/groups/${id}/members`),
+	byTestId: (id: number) => get(`/tests/${id}/members`),
 };
 
 export const Groups = {
-  all: () => get(`/groups`),
-  byId: (id: number) => get(`/groups/${id}`),
-  byName: (name: string) => get(`/groups?name=${encode(name)}`),
-  byEvaluationId: (id: number) => get(`/evaluations/${id}/groups`),
-};
-
-export const Programs = {
-};
-
-export const Categories = {
-  byId: (id: number) => get(`/categories/${id}/categories`),
-  byName: (name: string) => get(`/categories?name=${encode(name)}`),
+	all: () => get(`/groups`),
+	byId: (id: number) => get(`/groups/${id}`),
+	byTestId: (id: number) => get(`/tests/${id}/groups`),
 };
 
 export const Exercises = {
-  all: () => get(`/exercises`),
-  byEvaluationId: (id: number) => get(`/evaluations/${id}/exercises`),
-  byCategoryId: (id: number) => get(`/categories/${id}/exercises`),
-  byName: (name: string) => get(`/exercises?name=${encode(name)}`),
-  byType: (type: string) => get(`/exercises?type=${encode(type)}`),
-};
-
-export const Criterion = {
+	all: () => get(`/exercises`),
 };
 
 export const Ranks = {
-  all: () => get(`/ranks`),
-  byName: (name: string) => get(`/ranks?name=${encode(name)}`),
-  create: (rank: any) => post(`/ranks`, rank),
+	all: () => get(`/ranks`),
+	byId: (id: number) => get(`/ranks/${id}`),
+	byTestId: (id: number) => get(`/tests/${id}/ranks`),
+	create: (rank: Rank) => post(`/ranks`, rank),
+	update: (rank: Rank) => put(`/ranks`, rank),
+	delete: (id: number) => del(`/ranks/${id}`),
+	reorder: (id: number, start: number, end: number) => put(`/ranks/${id}/reorder?startIndex=${start}&endIndex=${end}`),
 };
 
-export const RankExercises = {
-  byEvaluationId: (id: number) => get(`/evaluations/${id}/rank-exercises`),
-  byRankId: (id: number) => get(`/ranks/${id}/rank-exercises`),
-  create: (rankExercise: any) => post(`/rank-exercises`, rankExercise),
+export const Tests = {
+	all: () => get(`/tests`),
+	byId: (id: number) => get(`/tests/${id}`),
+	create: (test: Test) => post(`/tests`, test),
+	update: (test: Test) => put(`/tests`, test),
 };
 
-export const RankCriterion = {
-  byEvaluationId: (id: number) => get(`/evaluations/${id}/rank-criterion`),
-  byRankExerciseId: (id: number) => get(`/rank-exercises/${id}/rank-criterion`),
-  create: (item: any) => post(`/rank-criterion`, item),
-};
-
-export const Evaluations = {
-  all: () => get(`/evaluations`),
-  byId: (id: number) => get(`/evaluations/${id}`),
-  create: (evaluation: any) => post(`/evaluations`, evaluation),
-};
-
-export const EvaluationResults = {
-  byEvaluationId: (id: number) => get(`/evaluations/${id}/evaluation-results`),
-  byMemberId: (id: number) => get(`/members/${id}/evaluation-results`),
-  create: (result: any) => post(`/evaluation-results`, result),
+export const TestResults = {
+	byId: (id: number) => get(`/tests-results/${id}`),
+	byTestId: (id: number) => get(`/tests/${id}/tests-results`),
+	byMemberId: (id: number) => get(`/members/${id}/tests-results`),
 };
 
 export const ExerciseResults = {
-  byEvaluationResultId: (id: number) => get(`/evaluation-results/${id}/exercise-results`),
-  create: (exercise: any) => post(`/exercise-results`, exercise),
+	byId: (id: number) => get(`/exercises-results/${id}`),
+	byTestResultIdAndExerciseScaleId: (testResultId: number, exerciseScaleId: number) => get(`/tests-results/${testResultId}/exercises-results?exerciseScaleId=${exerciseScaleId}`),
+	byMemberIdAndRankId: (memberId: number, rankId: number) => get(`/members/${memberId}/ranks/${rankId}`),
+	create: (testResultId: number, exerciseResult: ExerciseResult) => post(`/tests-results/${testResultId}/exercises-results`, exerciseResult),
+	update: (exerciseResult: ExerciseResult) => put(`/exercises-results`, exerciseResult),
 };
 
-export const CriteriaResults = {
-  byExerciseResultId: (id: number) => get(`/exercise-results/${id}/criteria-results`),
-  create: (criteria: any) => post(`/criteria-results`, criteria),
-};
+export const Files = {
+	upload: (file: any) => {
+		var formData = new FormData();
+    	formData.append("file", file);
+		return post(`/files`, formData, {
+			headers: {
+				'Content-Type': 'multipart/form-data'
+			}
+		})
+	},
+}

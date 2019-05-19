@@ -1,0 +1,57 @@
+import React, { FunctionComponent } from 'react';
+import { Link } from 'react-router-dom';
+import './ExerciseItem.css';
+import { ExerciseScale, ExerciseResult } from '../../types';
+
+import classNames from 'classnames';
+
+import { ReactComponent as FailedIcon } from '../../icons/failed.svg';
+import { ReactComponent as ValidatedIcon } from '../../icons/validated.svg';
+
+const ExerciseItem:FunctionComponent<{
+    exerciseScale: ExerciseScale;
+    exerciseResult?: ExerciseResult;
+}> = ({ exerciseScale, exerciseResult }) => {
+    const isResult = !!exerciseResult;
+    const isValidated = isResult ? ExerciseResult.isValidated(exerciseResult) : undefined;
+    
+    const { exercise } = exerciseScale;
+
+    return (
+        <Link
+            to={isResult ?
+                `/exercises-results/${exerciseResult.id}` :
+                `/exercises-scales/${exerciseScale.id}`
+            }
+        >
+            <div 
+                className={classNames(
+                    "ExerciseItem",
+                    isResult ? classNames(
+                        "is-result",
+                        isValidated ? "validated" : "failed"
+                    ) : "",
+                )}
+            >
+                <img src={exercise.image} alt={exercise.name} />
+                <div className="details">
+                    <span className="name">{exercise.name}</span>
+                    <span className="type">{exercise.type}</span>
+                </div>
+                {isResult && (isValidated ?
+                    <div className="result">
+                        <ValidatedIcon className="result-icon" />
+                        <span>Validé</span>
+                    </div>
+                :
+                    <div className="result">
+                        <FailedIcon className="result-icon" />
+                        <span>Échoué</span>
+                    </div>
+                )}
+            </div>
+        </Link>
+    );
+}
+
+export default ExerciseItem;

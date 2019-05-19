@@ -1,0 +1,36 @@
+.TestDetails .exercises {
+	display: grid;
+	grid-gap: 20px;
+	grid-template-columns: 1fr [content-start] 1fr [content-end] 1fr;
+	grid-template-rows: 1fr [content-top] repeat(5, auto) [content-bottom];
+}
+
+@media (max-width: 1000px) {
+	.TestDetails .exercises {
+		grid-template-columns: [content-start] 1fr 1fr [content-end];
+	}
+}
+
+@media (max-width: 600px) {
+	.TestDetails .exercises {
+		grid-template-columns: [content-start] 1fr [content-end];
+	}
+}
+
+.TestDetails .rank {
+	grid-column: content-start / content-end;
+	grid-row: content-top / content-bottom;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.TestDetails .rank img {
+	width: 200px;
+}
+
+.TestDetails .rank .name {
+	font-size: 140%;
+	font-weight: 700;
+}

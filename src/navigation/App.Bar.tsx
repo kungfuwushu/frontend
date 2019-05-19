@@ -34,10 +34,9 @@ import {isAuthenticated} from "../state/AppState";
 
 import { FormattedMessage } from 'react-intl';
 import { EvaluateGroup } from "../evaluate";
-import { EvaluationsList } from "../evaluations";
-import { NewEvaluation } from "../evaluations";
-import { RanksList } from "../ranks";
-import { NewRank } from "../ranks";
+import { TestsList, NewTest, EditTest } from "../tests";
+import { RanksList, NewRank, EditRank } from "../ranks";
+import { MyRank, MyTests, TestDetails, ExerciseResultDetails, ExerciseScaleDetails } from "../member-space";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -190,9 +189,16 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/account' render={this.renderAccount} />
                     <Route exact path='/ranks' component={RanksList} />
                     <Route path='/new-rank' component={NewRank} />
-                    <Route exact path='/evaluations' component={EvaluationsList} />
-                    <Route path='/new-evaluation' component={NewEvaluation} />
-                    <Route path='/evaluations/:id/evaluate-group' component={EvaluateGroup} />
+                    <Route path='/ranks/:id/edit' component={EditRank} />
+                    <Route exact path='/tests' component={TestsList} />
+                    <Route path='/new-test' component={NewTest} />
+                    <Route path='/tests/:id/edit' component={EditTest} />
+                    <Route path='/tests/:id/evaluate-group' component={EvaluateGroup} />
+                    <Route path='/myrank' component={MyRank} />
+                    <Route exact path='/mytests' component={MyTests} />
+                    <Route path='/mytests/:id' component={TestDetails} />
+                    <Route path='/exercises-results/:id' component={ExerciseResultDetails} />
+                    <Route path='/exercises-scales/:id' component={ExerciseScaleDetails} />
                 </main>
             </div>
         );

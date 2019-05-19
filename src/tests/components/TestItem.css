@@ -1,0 +1,65 @@
+.TestItem  {
+    flex-shrink: 0;
+    width: auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.TestItem:hover {
+    background-color: #FCFCFC;
+}
+
+.TestItem button{
+    display: flex;
+    margin-left: inherit;
+}
+
+.TestItem .test-header {
+    display: flex;
+    margin-bottom: 16px;
+}
+
+.TestItem .title-type {
+    display: flex;
+    flex-direction: column;
+}
+
+.TestItem .title {
+    font-size: 130%;
+    font-weight: 700;
+}
+
+.TestItem .type {
+    font-size: 80%;
+}
+
+.TestItem .actions,
+.TestItem .date {
+    margin-left: auto;
+}
+
+.TestItem .body,
+.TestItem .actions {
+    display: flex;
+    align-items: flex-end;
+}
+
+.TestItem .descriptions {
+    display: flex;
+    flex-direction: column;
+}
+
+.TestItem .actions button {
+    margin-left: 16px;
+}
+
+.TestItem .date {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    font-style: italic;
+}
+
