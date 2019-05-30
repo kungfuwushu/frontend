@@ -33,10 +33,10 @@ import {isAuthenticated} from "../state/AppState";
 
 
 import { FormattedMessage } from 'react-intl';
-import { EvaluateGroup } from "../evaluate";
-import { TestsList, NewTest, EditTest } from "../tests";
-import { RanksList, NewRank, EditRank } from "../ranks";
-import { MyRank, MyTests, TestDetails, ExerciseResultDetails, ExerciseScaleDetails } from "../member-space";
+import { EvaluateGroup } from "../components/evaluate";
+import { TestsList, NewTest, EditTest } from "../components/tests";
+import { RanksList, NewRank, EditRank } from "../components/ranks";
+import { MyRank, MyTests, TestDetails, ExerciseResultDetails, ExerciseScaleDetails } from "../components/member-space";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
