@@ -1,0 +1,26 @@
+.TestItem {
+	display: flex;
+}
+
+.TestItem .details{
+	display:flex;
+	align-items: flex-end;
+}
+
+.TestItem .details .type{
+	
+	margin-right: auto;
+}
+
+.TestItem .address {
+	margin-left: 30px;
+}
+
+.is-result {
+	display: flex;
+}
+
+.is-result .details{
+	display: flex;
+}
+

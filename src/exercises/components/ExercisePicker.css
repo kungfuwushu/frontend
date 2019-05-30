@@ -1,0 +1,73 @@
+.ExercisePicker .ant-modal-body {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.ExercisePicker .ant-modal-footer {
+    display: flex;
+    align-items: center;
+}
+
+.ExercisePicker .selected-info {
+    margin-right: 16px;
+}
+
+.ExercisePicker .back {
+    margin-right: auto;
+}
+
+.ExercisePicker .SearchInput {
+    margin-left: 16px;
+    flex-grow: 1;
+}
+
+.ExercisePicker .select {
+    width: 150px;
+}
+
+.ExercisePicker .filters {
+    display: flex;
+    padding: 10px 16px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.ExercisePicker .exercises {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.ExercisePicker .Exercise {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 16px;
+}
+
+.ExercisePicker .Exercise:last-child {
+    border: none;
+}
+
+.ExercisePicker .Exercise:hover {
+    background-color: #FCFCFC;
+    cursor: pointer;
+}
+
+.ExercisePicker .Exercise .checkbox {
+    padding-right: 16px;
+}
+
+.ExercisePicker .Exercise .title {
+    font-weight: 700;
+    padding: 0;
+}
+
+.ExercisePicker .Exercise .title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ExercisePicker .Exercise .type {
+    margin-left: auto;
+    font-size: 80%;
+}

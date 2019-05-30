@@ -1,0 +1,40 @@
+.EvaluateExercise{
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.EvaluateExercise .header {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    padding: 16px;
+    flex-shrink: 0;
+}
+
+.EvaluateExercise .name {
+    font-weight: 600;
+}
+
+.EvaluateExercise .type {
+    margin-left: auto;
+    font-size: 80%;
+}
+
+.EvaluateExercise .body {
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.EvaluateExercise .description {
+    margin-bottom: 16px;
+}
+
+.EvaluateExercise .image{
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 32px;
+    max-width: 100px;
+}
