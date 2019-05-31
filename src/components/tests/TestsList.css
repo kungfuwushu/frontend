@@ -1,13 +1,6 @@
 .TestsList {
-    display: flex;
-    justify-content: center;
-}
-
-.TestsList .card {
-    display: grid;
-    grid-template-rows: min-content 1fr;
     flex-grow: 1;
-    max-width: 936px;
+	max-width: 916px;
 }
 
 .TestsList .header {

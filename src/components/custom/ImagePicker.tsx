@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 
 import { useDropzone } from 'react-dropzone';
 
@@ -9,9 +9,9 @@ import { ReactComponent as UploadIcon } from '../../icons/upload.svg';
 
 import * as api from '../../api';
 
-const ImagePicker:FunctionComponent<{
+const ImagePicker: FC<{
     imageUrl: string | undefined;
-    onChange: (imageUrl: string) => {};
+    onChange: (imageUrl: string) => void;
 }> = ({ imageUrl, onChange }) => {
     const [file, setFile] = useState(undefined);
     const { getRootProps, getInputProps } = useDropzone({

@@ -1,9 +1,9 @@
-.RankForm {
+.ProgramForm {
     display: flex;
     justify-content: center;
 }
 
-.RankForm .card {
+.ProgramForm .card {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
@@ -11,28 +11,38 @@
     padding: 16px;
 }
 
-.RankForm h1 {
+.ProgramForm h1 {
     text-align: center;
     font-weight: 600;
 }
 
-.RankForm h2 {
+.ProgramForm h2 {
     margin-top: 20px;
 }
 
-.RankForm .infos-title {
+.ProgramForm .infos-title {
     margin-top: 0;
 }
 
-.RankForm .name {
+.ProgramForm .name {
     margin-bottom: 8px;
 }
 
-.RankForm .actions {
+.ProgramForm .actions {
     display: flex;
     margin-top: 30px;
 }
 
-.RankForm .save {
+.ProgramForm .save {
     margin-left: auto;
+}
+
+.ProgramForm .exercises-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ProgramForm .exercises-title h2 {
+    margin-right: auto;
 }

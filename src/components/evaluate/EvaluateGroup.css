@@ -1,17 +1,17 @@
 .EvaluateGroup {
-    display: flex;
-    flex-direction: column;
     flex-grow: 1;
+    flex-direction: row !important;
 }
 
-.EvaluateGroup .card {
+.EvaluateGroup .list,
+.EvaluateGroup .exercise-panel {
     display: flex;
-    flex-grow: 1;
+    flex-direction: column;
 }
 
 .EvaluateGroup .ant-menu {
     overflow-y: auto;
-    overflow-x: hidden;
+    flex-grow: 1;
     background-color: transparent;
 }
 
@@ -23,11 +23,6 @@
 
 .EvaluateGroup .list {
     border-right: 1px solid rgba(0,0,0,.12);
-}
-
-.EvaluateGroup .exercise-panel {
-    display: flex;
-    flex-direction: column;
 }
 
 .EvaluateGroup .next {

@@ -6,6 +6,8 @@ import ExerciseItem from './ExerciseItem';
 import { withRouter } from 'react-router';
 import * as api from './fake-api';
 
+import { Loading } from '../custom';
+
 const TestDetails = ({ match }) => {
     const [ test, setTest ] = useState(undefined);
     const [ exercisesResults, setExercisesResults ] = useState([]);
@@ -22,7 +24,7 @@ const TestDetails = ({ match }) => {
     }, []);
 
     if (!test)
-        return(<div>Loading...</div>);
+        return <Loading />;
     return (
         <div className="TestDetails">
             <h1>{test.name}</h1>

@@ -14,19 +14,19 @@ export type Exercise = {
 };
 
 export enum ExerciseType {
-    TAOLU,
-    FIGHT,
-    PHYSICAL
+    TAOLU = 'TAOLU',
+    FIGHT = 'FIGHT',
+    PHYSICAL = 'PHYSICAL',
 }
 
 export enum Objective {
-    MINIMUM,
-    MAXIMUM,
+    MINIMUM = 'MINIMUM',
+    MAXIMUM = 'MAXIMUM',
 };
 
 export enum MeasurementUnit {
-    SECOND,
-    METER,
+    SECOND = 'SECOND',
+    METER = 'METER',
 };
 
 export type ExerciseScale = {

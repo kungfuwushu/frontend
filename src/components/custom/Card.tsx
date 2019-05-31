@@ -1,9 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 
 import './Card.css';
 import classNames from 'classnames';
 
-const Card:FunctionComponent<{
+const Card: FC<{
     className: string;
 }> = ({ className, children }) => {
 	return (

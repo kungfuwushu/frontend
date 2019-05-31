@@ -13,7 +13,7 @@ const NewTest = ({ history }) => {
 		city: undefined,
 		postalCode: undefined,
 		groups: [],
-		exercisesScales: [],
+		programId: undefined,
 	});
 
 	const handleSave = () => {

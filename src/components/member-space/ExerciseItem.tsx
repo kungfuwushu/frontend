@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import './ExerciseItem.css';
 import { ExerciseScale, ExerciseResult } from '../../types';
@@ -10,7 +10,7 @@ import { ReactComponent as ValidatedIcon } from '../../icons/validated.svg';
 
 import { isValidated as isExerciseResultValidated } from '../../utils/ExerciseResult.utils';
 
-const ExerciseItem:FunctionComponent<{
+const ExerciseItem: FC<{
     exerciseScale: ExerciseScale;
     exerciseResult?: ExerciseResult;
 }> = ({ exerciseScale, exerciseResult }) => {

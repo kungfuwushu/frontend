@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FunctionComponent } from 'react';
+import React, { useEffect, useState, FC } from 'react';
 import { withRouter, match } from 'react-router';
 
 import { Menu, Col, Button, Icon } from 'antd';
@@ -7,7 +7,7 @@ import './EvaluateGroup.css';
 
 import EvaluateExercise from './EvaluateExercise';
 
-import { Card } from '../custom';
+import { Card, Loading } from '../custom';
 
 import * as api from '../../api';
 import { Rank, Test, ExerciseScale, Member, ExerciseResult, TestResult } from '../../types';
@@ -17,7 +17,7 @@ interface IEvaluateGroup {
     match: match<any>;
 }
 
-const EvaluateGroup:FunctionComponent<IEvaluateGroup> = ({ match }) => {
+const EvaluateGroup: FC<IEvaluateGroup> = ({ match }) => {
     const [ test, setTest ] = useState<Test>(undefined);
     const [ performers, setPerformers ] = useState<Array<Member>>([]);
     const [ exercisesScales, setExercisesScales ] = useState<Array<ExerciseScale>>([]);
@@ -39,7 +39,7 @@ const EvaluateGroup:FunctionComponent<IEvaluateGroup> = ({ match }) => {
             setPerformers(performers);
             setPerformer(performers.length > 0 ? performers[0] : undefined);
             if (test.type === 'PROGRAM')
-                initExercisesScales(test.exercisesScales);
+                initExercisesScales(test.program.exercisesScales);
             if (test.type === 'RANK')
                 api.Ranks.byTestId(test.id)
                     .then((ranks: Rank[]) => {
@@ -98,7 +98,6 @@ const EvaluateGroup:FunctionComponent<IEvaluateGroup> = ({ match }) => {
             ...exerciseResult,
             modified: true
         };
-        console.log('changes', newE);
         setExerciseResult(newE);
     }
 
@@ -112,47 +111,45 @@ const EvaluateGroup:FunctionComponent<IEvaluateGroup> = ({ match }) => {
     }
 
     if (!test)
-        return(<div>Loading...</div>);
+        return <Loading />;
     return (
-        <div className="EvaluateGroup">
-            <Card className="card">
-                <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
-                    <div className="list-header">Exercices</div>
-                    <Menu selectedKeys={exerciseScale ? [exerciseScale.id+''] : []}>
-                        {exercisesScales.map(exerciseScale => 
-                            <Menu.Item
-                                key={exerciseScale.id}
-                                onClick={handleExerciseScaleSelected(exerciseScale)}
-                            >
-                                <span>{exerciseScale.exercise.name}</span>
-                            </Menu.Item>
-                        )}
-                    </Menu>
-                </Col>
-                <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
-                    <div className="list-header">Pratiquants</div>
-                    <Menu selectedKeys={performer ? [performer.id+''] : []}>
-                        {performers.map((performer) =>
-                            <Menu.Item
-                                key={performer.id}
-                                onClick={handlePerformerSelected(performer)}
-                            >
-                                <span>{performer.firstName + " " + performer.lastName}</span>
-                            </Menu.Item>
-                        )}
-                    </Menu>
-                </Col>
-                <Col xs={14} sm={14} md={14} lg={14} xl={14} className="exercise-panel">
-                    <EvaluateExercise
-                        exerciseResult={exerciseResult}
-                        onChange={handleExerciseResultChange}
-                    />
-                    <div className="next">
-                        <Button onClick={handleNext} type="primary">SUIVANT <Icon type="right"/></Button>
-                    </div>
-                </Col>
-            </Card>
-        </div>
+        <Card className="EvaluateGroup">
+            <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
+                <div className="list-header">Exercices</div>
+                <Menu selectedKeys={exerciseScale ? [exerciseScale.id+''] : []}>
+                    {exercisesScales.map(exerciseScale => 
+                        <Menu.Item
+                            key={exerciseScale.id}
+                            onClick={handleExerciseScaleSelected(exerciseScale)}
+                        >
+                            <span>{exerciseScale.exercise.name}</span>
+                        </Menu.Item>
+                    )}
+                </Menu>
+            </Col>
+            <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
+                <div className="list-header">Pratiquants</div>
+                <Menu selectedKeys={performer ? [performer.id+''] : []}>
+                    {performers.map((performer) =>
+                        <Menu.Item
+                            key={performer.id}
+                            onClick={handlePerformerSelected(performer)}
+                        >
+                            <span>{performer.firstName + " " + performer.lastName}</span>
+                        </Menu.Item>
+                    )}
+                </Menu>
+            </Col>
+            <Col xs={14} sm={14} md={14} lg={14} xl={14} className="exercise-panel">
+                <EvaluateExercise
+                    exerciseResult={exerciseResult}
+                    onChange={handleExerciseResultChange}
+                />
+                <div className="next">
+                    <Button onClick={handleNext} type="primary">SUIVANT <Icon type="right"/></Button>
+                </div>
+            </Col>
+        </Card>
     );
 }
 

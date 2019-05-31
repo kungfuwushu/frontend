@@ -1,5 +1,6 @@
 import { Group } from './Group';
-import { ExerciseScale, ExerciseResult } from './Exercise';
+import { ExerciseResult } from './Exercise';
+import { Program } from './Program';
 
 export type Test = {
     id?: number;
@@ -10,7 +11,7 @@ export type Test = {
     city: string;
     postalCode: string;
     groups: Group[];
-    exercisesScales?: ExerciseScale[];
+    program?: Program;
 };
 
 export type TestResult = {

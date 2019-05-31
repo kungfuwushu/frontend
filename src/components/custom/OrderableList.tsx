@@ -1,11 +1,11 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
-const OrderableList:FunctionComponent<{
+const OrderableList: FC<{
     items: any[];
     renderItem: (item: any, index: number) => {};
-    onReorder: (items: any[], startIndex: number, endIndex: number) => {};
+    onReorder: (items: any[], startIndex: number, endIndex: number) => void;
     className?: string;
 }> = ({ items, renderItem, onReorder, className }) => {
     const handleSortEnd = ({source, destination}: any) => {

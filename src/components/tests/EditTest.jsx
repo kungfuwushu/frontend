@@ -5,6 +5,8 @@ import * as api from '../../api';
 
 import TestForm from './TestForm';
 
+import { Loading } from '../custom';
+
 const EditTest = ({ match, history }) => {
 	const [ test, setTest ] = useState(undefined);
 
@@ -23,7 +25,7 @@ const EditTest = ({ match, history }) => {
     }
     
     if (!test)
-        return(<div>Loading...</div>);
+        return <Loading />;
 	return (
 		<TestForm
 			title="Edition d'une évaluation"

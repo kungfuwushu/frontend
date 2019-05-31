@@ -1,14 +1,8 @@
 .TestForm {
-    display: flex;
-    justify-content: center;
-}
-
-.TestForm .card {
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
+    justify-self: center;
     max-width: 500px;
     padding: 16px;
+    flex-shrink: 0;
 }
 
 .TestForm h1 {
@@ -44,4 +38,8 @@
 .TestForm .error {
     color: red;
     margin-bottom: 20px;
+}
+
+.TestForm .program {
+    margin-left: 12px;
 }

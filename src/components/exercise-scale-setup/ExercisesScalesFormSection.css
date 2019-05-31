@@ -1,9 +1,0 @@
-.ExercisesScalesFormSection .header {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-}
-
-.ExercisesScalesFormSection .header h2 {
-    margin-right: auto;
-}

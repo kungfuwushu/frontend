@@ -64,43 +64,39 @@ const TestsList = ({history}) => {
     ];
 
 	return (
-		<div className="TestsList">
-			<Card className="card">
-				<div className="header">
-					<div className="top">
-						<h2>Evaluations</h2>
-						<Button
-							onClick={() => history.push('/new-test')}
-							type="primary"
-						>
-							Planifier une nouvelle test
-						</Button>
-					</div>
-					<div className="filters">
-						<Select
-							defaultValue="Type d'évaluation"
-							className="select"
-							onChange={handleFilterChange('type')}
-						>
-							{testTypes.map((type, index) =>
-								<Option value={type.value} key={index}>{type.name}</Option>
-							)}
-						</Select>
-						<SearchInput
-							onSearch={handleFilterChange('search')}
-							placeholder="Rechercher par nom, groupe, adresse"
-						/>
-					</div>
+		<Card className="TestsList">
+			<div className="header">
+				<div className="top">
+					<h2>Evaluations</h2>
+					<Button
+						onClick={() => history.push('/new-test')}
+						type="primary"
+					>
+						Planifier une nouvelle test
+					</Button>
 				</div>
-				<div className="wrapper">
-					<div className="tests">
-						{filteredTests.map((test, index) =>
-							<TestItem test={test} key={index}/>
+				<div className="filters">
+					<Select
+						defaultValue="Type d'évaluation"
+						className="select"
+						onChange={handleFilterChange('type')}
+					>
+						{testTypes.map((type, index) =>
+							<Option value={type.value} key={index}>{type.name}</Option>
 						)}
-					</div>
+					</Select>
+					<SearchInput
+						onSearch={handleFilterChange('search')}
+						placeholder="Rechercher par nom, groupe, adresse"
+					/>
 				</div>
-			</Card>
-		</div>
+			</div>
+			<div className="tests">
+				{filteredTests.map((test, index) =>
+					<TestItem test={test} key={index}/>
+				)}
+			</div>
+		</Card>
 	);
 }
 

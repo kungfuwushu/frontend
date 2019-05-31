@@ -3,43 +3,42 @@ import { withRouter } from 'react-router';
 
 import * as api from '../../api';
 
-import { ProgramForm } from '../programs';
+import ProgramForm from './ProgramForm';
 
 import { Loading } from '../custom';
 
-const NewRank = ({ history }) => {
-    const [ rank, setRank ] = useState({
+const NewProgram = ({ history }) => {
+    const [ program, setProgram ] = useState({
         name: undefined,
         description: undefined,
         exercisesScales: [],
-		image: undefined,
-		type: 'RANK',
+		type: 'PROGRAM',
     });
 
 	const handleSave = () => {
-		const newRank = {
-			...rank,
-			exercisesScales: rank.exercisesScales.map(exerciseScale => ({
+		const newProgram = {
+			...program,
+			exercisesScales: program.exercisesScales.map(exerciseScale => ({
 				...exerciseScale,
 				id: undefined
 			}))
 		};
-		api.Ranks.create(newRank)
+		api.Programs.create(newProgram)
 			.then(_ => 
 				history.goBack()
 			);
     }
     
-    if (!rank)
+    if (!program)
         return <Loading />;
 	return (
 		<ProgramForm
-			title="Nouveau grade"
-			program={rank}
-			onChange={setRank}
+			title="Nouveau programme"
+			program={program}
+			onChange={setProgram}
 			onSave={handleSave}
 		/>
 	);
 }
 
-export default withRouter(NewRank);
+export default withRouter(NewProgram);

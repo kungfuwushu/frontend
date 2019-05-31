@@ -3,7 +3,9 @@ import { withRouter } from 'react-router';
 
 import * as api from '../../api';
 
-import RankForm from './RankForm';
+import { ProgramForm } from '../programs';
+
+import { Loading } from '../custom';
 
 const EditRank = ({ match, history }) => {
 	const [ rank, setRank ] = useState(undefined);
@@ -23,11 +25,11 @@ const EditRank = ({ match, history }) => {
     }
     
     if (!rank)
-        return(<div>Loading...</div>);
+        return <Loading />;
 	return (
-		<RankForm
+		<ProgramForm
 			title="Edition d'un grade"
-			rank={rank}
+			program={rank}
 			onChange={setRank}
 			onSave={handleSave}
 		/>

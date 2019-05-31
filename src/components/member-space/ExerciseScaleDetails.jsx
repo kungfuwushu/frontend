@@ -3,6 +3,8 @@ import ExerciseDetails from './ExerciseDetails';
 
 import { withRouter } from 'react-router';
 
+import { Loading } from '../custom';
+
 // import * as api from './fake-api';
 
 const ExerciseScaleDetails = ({ match }) => {
@@ -17,7 +19,7 @@ const ExerciseScaleDetails = ({ match }) => {
     }, []);
 
     if (!exerciseScale)
-        return(<div>Loading...</div>);
+        return <Loading />;
     return (
         <ExerciseDetails 
 			exerciseScale={exerciseScale}

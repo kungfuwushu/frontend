@@ -1,13 +1,13 @@
-import React, { FunctionComponent } from 'react';
+import React, { FC } from 'react';
 
 import './InputNumber.css';
 import classNames from 'classnames';
 
-const CustomInputNumber:FunctionComponent<{
+const CustomInputNumber: FC<{
     value: number | undefined;
     min?: number;
     max?: number;
-    onChange: (value: number) => {};
+    onChange: (value: number) => void;
     addonBefore?: any;
     addonAfter?: any;
     className?: string;

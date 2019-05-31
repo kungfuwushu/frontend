@@ -5,6 +5,8 @@ import { withRouter } from 'react-router';
 
 import * as api from './fake-api';
 
+import { Loading } from '../custom';
+
 const ExerciseResultDetails = ({ match }) => {
     const [ exerciseResult, setExerciseResult ] = useState(undefined);
 
@@ -16,7 +18,7 @@ const ExerciseResultDetails = ({ match }) => {
     }, []);
 
     if (!exerciseResult)
-        return(<div>Loading...</div>);
+        return <Loading />;
     return (
         <ExerciseDetails 
 			exerciseScale={exerciseResult.exerciseScale}

@@ -6,3 +6,4 @@ export * from './Member';
 export * from './Rank';
 export * from './Round';
 export * from './Test';
+export * from './Program';

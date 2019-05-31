@@ -8,6 +8,8 @@ import ExerciseItem from './ExerciseItem';
 import * as api from '../../api';
 import { isValidated } from '../../utils/ExerciseResult.utils';
 
+import { Loading } from '../custom';
+
 const MyRank = () => {
     const [ rank, setRank ] = useState(undefined);
     const [ exercisesResults, setExercisesResults ] = useState([]);
@@ -19,7 +21,6 @@ const MyRank = () => {
         ]).then(([ rank, exercisesResults ]) => {
             setRank(rank);
             setExercisesResults(exercisesResults);
-            console.log(exercisesResults)
         });
     }, []);
 
@@ -34,7 +35,7 @@ const MyRank = () => {
     }
 
     if (!rank)
-        return(<div>Loading...</div>);
+        return <Loading />;
     return (
         <div className="MyRank">
             <div className="content">
