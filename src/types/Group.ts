@@ -1,7 +1,7 @@
 import { Member } from './Member';
 
-export class Group {
+export type Group = {
     id?: number;
     name: string;
     members: Member[];
-}
+};

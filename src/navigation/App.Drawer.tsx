@@ -5,6 +5,8 @@ import BusinessIcon from '@material-ui/icons/BusinessCenter';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Assignment from '@material-ui/icons/Assignment';
+import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
+import Assessment from '@material-ui/icons/Assessment';
 import Grade from '@material-ui/icons/Grade';
 import { Drawer, IconButton, Divider, Theme, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
@@ -30,10 +32,11 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
         { path: '/account', title: 'Profile', icon: () => <AccountCircleIcon /> },
         { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
         { path: '/members', title: 'Members', icon: () => <FaceIcon /> },
+        { path: '/programs', title: 'Programmes', icon: () => <Assignment /> },
         { path: '/ranks', title: 'Grades', icon: () => <Grade /> },
-        { path: '/tests', title: 'Evaluations', icon: () => <Assignment /> },
+        { path: '/tests', title: 'Evaluations', icon: () => <AssignmentTurnedIn /> },
         { path: '/myrank', title: 'Mon grade', icon: () => <Grade /> },
-        { path: '/mytests', title: 'Mes évaluations', icon: () => <Assignment /> },
+        { path: '/mytests', title: 'Mes évaluations', icon: () => <Assessment /> },
     ];
 
     public render(): JSX.Element {

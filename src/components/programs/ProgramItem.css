@@ -1,0 +1,63 @@
+.ProgramItem {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.4fr;
+}
+
+.ProgramItem  {
+    flex-shrink: 0;
+    width: auto;
+    padding: 16px 32px;
+    position: relative;
+    align-items: center;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.ProgramItem .name {
+    align-items: center;
+    display: flex;
+    font-weight: 600;
+}
+
+.ProgramItem .exercises {
+    white-space: nowrap;
+}
+
+.ProgramItem img {
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+}
+
+.ProgramItem .actions {
+    margin-left: 32px;
+    display: grid;
+}
+
+.ProgramItem a {
+    line-height: 0;
+}
+
+.ProgramItem .edit,
+.ProgramItem .delete {
+    fill: #585858;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.ProgramItem .edit:hover,
+.ProgramItem .delete:hover {
+    fill: black;
+}
+
+.ProgramItem .actions {
+    opacity: 0;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    margin-left: auto;
+}
+
+.ProgramItem:hover .actions {
+    opacity: 1;
+}

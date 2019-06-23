@@ -1,0 +1,73 @@
+.ProgramPicker .ant-modal-body {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.ProgramPicker .ant-modal-footer {
+    display: flex;
+    align-items: center;
+}
+
+.ProgramPicker .selected-info {
+    margin-right: 16px;
+}
+
+.ProgramPicker .back {
+    margin-right: auto;
+}
+
+.ProgramPicker .SearchInput {
+    margin-left: 16px;
+    flex-grow: 1;
+}
+
+.ProgramPicker .select {
+    width: 150px;
+}
+
+.ProgramPicker .filters {
+    display: flex;
+    padding: 10px 16px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.ProgramPicker .programs {
+    height: 300px;
+    overflow-y: auto;
+}
+
+.ProgramPicker .ProgramItem {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #e8e8e8;
+    padding: 16px;
+}
+
+.ProgramPicker .ProgramItem:last-child {
+    border: none;
+}
+
+.ProgramPicker .ProgramItem:hover {
+    background-color: #FCFCFC;
+    cursor: pointer;
+}
+
+.ProgramPicker .ProgramItem .checkbox {
+    padding-right: 16px;
+}
+
+.ProgramPicker .ProgramItem .title {
+    font-weight: 700;
+    padding: 0;
+}
+
+.ProgramPicker .ProgramItem .title:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.ProgramPicker .ProgramItem .exercises {
+    margin-left: auto;
+    font-size: 80%;
+}

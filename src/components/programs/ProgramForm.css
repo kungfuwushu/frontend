@@ -1,0 +1,48 @@
+.ProgramForm {
+    display: flex;
+    justify-content: center;
+}
+
+.ProgramForm .card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 500px;
+    padding: 16px;
+}
+
+.ProgramForm h1 {
+    text-align: center;
+    font-weight: 600;
+}
+
+.ProgramForm h2 {
+    margin-top: 20px;
+}
+
+.ProgramForm .infos-title {
+    margin-top: 0;
+}
+
+.ProgramForm .name {
+    margin-bottom: 8px;
+}
+
+.ProgramForm .actions {
+    display: flex;
+    margin-top: 30px;
+}
+
+.ProgramForm .save {
+    margin-left: auto;
+}
+
+.ProgramForm .exercises-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ProgramForm .exercises-title h2 {
+    margin-right: auto;
+}

@@ -1,0 +1,12 @@
+.Card {
+    -webkit-box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    box-shadow: 0 1px 2px 0 rgba(60,64,67,.3), 0 1px 3px 1px rgba(60,64,67,.15);
+    border-radius: 5px;
+    background-color: white;
+    overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	justify-self: center;
+	align-self: center;
+}

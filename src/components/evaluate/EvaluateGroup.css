@@ -1,0 +1,35 @@
+.EvaluateGroup {
+    flex-grow: 1;
+    flex-direction: row !important;
+}
+
+.EvaluateGroup .list,
+.EvaluateGroup .exercise-panel {
+    display: flex;
+    flex-direction: column;
+}
+
+.EvaluateGroup .ant-menu {
+    overflow-y: auto;
+    flex-grow: 1;
+    background-color: transparent;
+}
+
+.EvaluateGroup .list-header {
+    padding: 16px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0,0,0,.12);
+}
+
+.EvaluateGroup .list {
+    border-right: 1px solid rgba(0,0,0,.12);
+}
+
+.EvaluateGroup .next {
+    border-top: 1px solid rgba(0,0,0,.12);
+    padding: 16px;
+}
+
+.EvaluateGroup .next button {
+    float: right;
+}

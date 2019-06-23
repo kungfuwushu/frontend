@@ -1,7 +1,8 @@
 import { Group } from './Group';
-import { ExerciseScale } from './ExerciseScale';
+import { ExerciseResult } from './Exercise';
+import { Program } from './Program';
 
-export class Test {
+export type Test = {
     id?: number;
     type: string;
     date: any;
@@ -10,5 +11,15 @@ export class Test {
     city: string;
     postalCode: string;
     groups: Group[];
-    exercisesScales?: ExerciseScale[];
-}
+    program?: Program;
+};
+
+export type TestResult = {
+    id?: number;
+    type: string;
+    test: Test;
+    performerId: number;
+    performerGroupId: number;
+    exercisesResults: ExerciseResult[];
+    rankId?: number;
+};

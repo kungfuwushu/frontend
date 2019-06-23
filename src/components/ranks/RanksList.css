@@ -1,0 +1,56 @@
+.RanksList {
+    flex-grow: 1;
+	max-width: 916px;
+}
+
+.RanksList h1 {
+    margin: 0;
+}
+
+.RanksList .header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+}
+
+.RanksList .table-header,
+.RanksList .header {
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    background-color: #FCFCFC;
+}
+
+.RanksList .header button {
+    margin-left: auto;
+}
+
+.RanksList .table-header {
+    padding: 4px 32px;
+    text-transform: uppercase;
+    font-size: 80%;
+}
+
+.RanksList .empty {
+    align-self: center;
+    padding: 32px;
+}
+
+.RanksList .ranks {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.RanksList .table-header {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.4fr;
+}
+
+.RanksList .table-header .name {
+    padding-left: 48px;
+}
+
+.RanksList .item:hover,
+.RanksList .dragged .item {
+    background-color: #FCFCFC;
+}

@@ -1,0 +1,31 @@
+.TestsList {
+    flex-grow: 1;
+	max-width: 916px;
+}
+
+.TestsList .header {
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    padding: 16px;
+    background-color: #FCFCFC;
+}
+
+.TestsList .top{
+    display: flex;
+}
+
+.TestsList .top button {
+    margin-left: auto;
+}
+
+.TestsList .SearchInput {
+    width: 400px;
+    margin-left: 16px;
+}
+
+.TestsList .select {
+    width: 200px;
+}
+
+.TestsList .tests {
+    overflow: auto;
+}

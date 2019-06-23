@@ -1,0 +1,56 @@
+.ProgramsList {
+    flex-grow: 1;
+	max-width: 916px;
+}
+
+.ProgramsList h1 {
+    margin: 0;
+}
+
+.ProgramsList .header {
+    display: flex;
+    align-items: center;
+    padding: 16px;
+}
+
+.ProgramsList .table-header,
+.ProgramsList .header {
+    border-bottom: 1px solid rgba(0,0,0,.12);
+    background-color: #FCFCFC;
+}
+
+.ProgramsList .header button {
+    margin-left: auto;
+}
+
+.ProgramsList .table-header {
+    padding: 4px 32px;
+    text-transform: uppercase;
+    font-size: 80%;
+}
+
+.ProgramsList .empty {
+    align-self: center;
+    padding: 32px;
+}
+
+.ProgramsList .programs {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.ProgramsList .table-header {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 0.4fr;
+}
+
+.ProgramsList .table-header .name {
+    padding-left: 48px;
+}
+
+.ProgramsList .item:hover,
+.ProgramsList .dragged .item {
+    background-color: #FCFCFC;
+}
