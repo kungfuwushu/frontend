@@ -67,7 +67,7 @@ const ProgramForm = ({ title, program, onChange, onSave, history }) => {
                     <ExercisePicker onPicked={handleExercisesPicked} />
                 </div>
                 {exercisesScales.length === 0? 
-                    "Aucuns exercices sélectionnés." :
+                    "Aucun exercice sélectionné." :
                     <ExercisesScales
                         exercisesScales={exercisesScales}
                         onChange={handleExercisesScalesChange}
