@@ -201,7 +201,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/myrank' component={MyRank} />
                     <Route exact path='/mytests' component={MyTests} />
                     <Route path='/mytests/:id' component={TestDetails} />
-                    <Route path='/exercises-results/:id/:idTest' component={ExerciseResultDetails} />
+                    <Route path='/exercises-results/:id' component={ExerciseResultDetails} />
                     <Route path='/exercises-scales/:id' component={ExerciseScaleDetails} />
                 </main>
             </div>

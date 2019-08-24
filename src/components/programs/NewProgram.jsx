@@ -19,7 +19,8 @@ const NewProgram = ({ history }) => {
 		const newProgram = {
 			...program,
 			exercisesScales: program.exercisesScales.map(exerciseScale => ({
-				...exerciseScale
+				...exerciseScale,
+				id: undefined
 			}))
 		};
 		api.Programs.create(newProgram)

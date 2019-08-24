@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import ExerciseDetails from './ExerciseDetails';
-import { withRouter, match } from 'react-router';
 
+import { withRouter } from 'react-router';
 
 import * as api from './fake-api';
 
 import { Loading } from '../custom';
 
-const ExerciseResultDetails = ({ match, history }) => {
+const ExerciseResultDetails = ({ match }) => {
     const [ exerciseResult, setExerciseResult ] = useState(undefined);
 
     useEffect(() => {
@@ -17,21 +17,12 @@ const ExerciseResultDetails = ({ match, history }) => {
 			); 
     }, []);
 
-    const handleSave = () => {
-        api.ExerciseResults.update(exerciseResult)
-            .then(_ => 
-               history.goBack()
-            );
-    }
-
     if (!exerciseResult)
         return <Loading />;
     return (
         <ExerciseDetails 
 			exerciseScale={exerciseResult.exerciseScale}
-            exerciseResult={exerciseResult}
-            onChange={setExerciseResult}
-			onSave={handleSave}
+			exerciseResult={exerciseResult}
 		/>
     );
 }

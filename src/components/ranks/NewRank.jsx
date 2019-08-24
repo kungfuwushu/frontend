@@ -20,7 +20,8 @@ const NewRank = ({ history }) => {
 		const newRank = {
 			...rank,
 			exercisesScales: rank.exercisesScales.map(exerciseScale => ({
-				...exerciseScale
+				...exerciseScale,
+				id: undefined
 			}))
 		};
 		api.Ranks.create(newRank)

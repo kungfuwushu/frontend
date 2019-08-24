@@ -7,7 +7,6 @@ export type Exercise = {
     description: string;
     image: string;
     type: ExerciseType;
-    question?: String;
     rounds?: Round[];
     objective?: Objective;
     measurementUnit?: MeasurementUnit;
@@ -18,7 +17,6 @@ export enum ExerciseType {
     TAOLU = 'TAOLU',
     FIGHT = 'FIGHT',
     PHYSICAL = 'PHYSICAL',
-    THEORETICAL = 'THEORETICAL',
 }
 
 export enum Objective {
@@ -39,7 +37,6 @@ export type ExerciseScale = {
     newestVersion?: ExerciseScale;
     roundsScales?: RoundScale[];
     criterionScales?: CriteriaScale[];
-    scale? : number;
 };
 
 export type ExerciseResult = {
@@ -49,6 +46,5 @@ export type ExerciseResult = {
     roundsResults?: RoundResult[];
     criterionResults?: CriteriaResult[];
     score?: number;
-    answer? : String;
     modified?: boolean;
 }

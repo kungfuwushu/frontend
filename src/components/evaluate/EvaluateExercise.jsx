@@ -5,7 +5,6 @@ import './EvaluateExercise.css';
 import EvaluatePhysical from './EvaluatePhysical';
 import EvaluateFight from './EvaluateFight';
 import EvaluateTaolu from './EvaluateTaolu';
-import EvaluateTheoretical from './EvaluateTheoretical';
 
 const EvaluateExercise = ({ exerciseResult, onChange }) => {
 	if (!exerciseResult)
@@ -22,8 +21,6 @@ const EvaluateExercise = ({ exerciseResult, onChange }) => {
 				return <EvaluatePhysical exerciseResult={exerciseResult} onChange={onChange} />
 			case 'FIGHT':
 				return <EvaluateFight exerciseResult={exerciseResult} onChange={onChange} />
-			case 'THEORETICAL':
-				return <EvaluateTheoretical exerciseResult={exerciseResult} onChange={onChange} />
 			default:
 				return type + 'is not a supported type of exercise.';
 		}
