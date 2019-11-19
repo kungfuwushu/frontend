@@ -28,7 +28,7 @@ export const Programs = {
 	create: (program: Program) => post(`/programs`, program),
 	update: (program: Program) => put(`/programs`, program),
 	delete: (id: number) => del(`/programs/${id}`),
-}
+};
 
 export const Ranks = {
 	all: () => get(`/ranks`),
@@ -71,4 +71,4 @@ export const Files = {
 			}
 		})
 	},
-}
+};

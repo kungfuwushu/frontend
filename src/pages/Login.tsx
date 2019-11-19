@@ -1,9 +1,12 @@
 import * as React from 'react';
+import { Redirect } from 'react-router';
+import * as querystring from 'querystring';
+import Cookies from 'js-cookie';
+
 import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
-import * as querystring from 'querystring';
+
 import { User } from '../state/User';
-import { Redirect } from 'react-router';
 import * as api from '../api';
 
 interface ILoginProps {
@@ -37,7 +40,9 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
           Promise.all([
               api.Auth.login(this.state.email, this.state.password),
           ]).then(([ token ]) => {
-              console.log(token);
+              // Authentification success : token sent
+              this.props.login(this.state); // login into app : setting user
+              Cookies.set("token", 'Bearer ' + token.accessToken);
           });
     }
 
