@@ -1,6 +1,10 @@
 import { get, post, put, del } from './requests.config';
 import { Rank, Test, ExerciseResult, Program } from '../types';
 
+export const Auth = {
+	login: (usernameOrEmail: string, password: string) => post(`/auth/signin`, { usernameOrEmail, password }),
+};
+
 export const Members = {
 	byId: (id: number) => get(`/members/${id}`),
 	byAccountId: (id: number) => get(`/accounts/${id}/members`),

@@ -37,9 +37,14 @@ export const closeDrawer = (): IAppAction => {
 
 
 export const login = (data: any): IAppAction => {
-    return { type: ActionType.LOGIN_REQUEST, payload: data };
+    return {
+      type: ActionType.LOGIN_REQUEST,
+      payload: data
+    };
 };
 
 export const logout = (): IAppAction => {
-    return { type: ActionType.LOGOUT_REQUEST };
+    return {
+      type: ActionType.LOGOUT_REQUEST
+    };
 };

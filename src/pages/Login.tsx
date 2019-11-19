@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import * as querystring from 'querystring';
 import { User } from '../state/User';
 import { Redirect } from 'react-router';
+import * as api from '../api';
 
 interface ILoginProps {
     login?: (data: any) => void;
@@ -33,7 +34,11 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
     }
 
     private handleLogin = () => {
-        this.props.login(this.state);
+          Promise.all([
+              api.Auth.login(this.state.email, this.state.password),
+          ]).then(([ token ]) => {
+              console.log(token);
+          });
     }
 
     public render(): JSX.Element {
@@ -126,4 +131,3 @@ const styles = (theme: Theme) => ({
 });
 
 export default withStyles(styles, { withTheme: true })(LoginPage as any) as any;
-
