@@ -1,43 +1,38 @@
-//#region 
+//#region
 import * as React from 'react';
-
+import { FormattedMessage } from 'react-intl';
+import { Route, withRouter } from 'react-router-dom';
+import { bindActionCreators, Dispatch } from 'redux';
+import { connect } from 'react-redux';
 import { hot } from 'react-hot-loader';
-const classNames = require('classnames');
-import {withStyles} from '@material-ui/core/styles';
+import * as _ from 'lodash';
+
+import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuIcon from '@material-ui/icons/Menu';
-import * as _ from 'lodash';
-import {Menu, MenuItem} from '@material-ui/core';
-import {Route, withRouter} from 'react-router-dom';
+import { Menu, MenuItem } from '@material-ui/core';
 import Hidden from '@material-ui/core/Hidden';
-import {styles} from './styles';
-import {IApplicationProps} from '../actions/App.Actions';
-import * as AppActionCreators from '../actions/App.Actions';
-
-import {connect} from 'react-redux';
-
-import {bindActionCreators, Dispatch} from 'redux';
+const classNames = require('classnames');
+import { styles } from './styles';
 
 import AppDrawer from './App.Drawer';
 import Home from "../pages/Home";
-import {TrainingsList} from "../trainings";
-import {MemberDetails} from "../members";
-import {AccountPage} from "../pages/Account";
-import {isAuthenticated} from "../state/AppState";
-//import {ProfilePage} from "../pages/Profile";
-//import {isAuthenticated} from "../state/AppState";
-
-
-import { FormattedMessage } from 'react-intl';
+import { TrainingsList } from "../trainings";
+import { MemberDetails } from "../members";
+import { AccountPage } from "../pages/Account";
 import { EvaluateGroup } from "../components/evaluate";
 import { TestsList, NewTest, EditTest } from "../components/tests";
 import { RanksList, NewRank, EditRank } from "../components/ranks";
 import { MyRank, MyTests, TestDetails, ExerciseResultDetails, ExerciseScaleDetails } from "../components/member-space";
 import { ProgramsList, NewProgram, EditProgram } from "../components/programs";
+
+import { IApplicationProps } from '../actions/App.Actions';
+import * as AppActionCreators from '../actions/App.Actions';
+import { isAuthenticated, IAppState } from "../state/AppState";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -61,26 +56,23 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         //this.props.fetchMembers();
     }
 
+    private navigate = (path: string) => {
+        this.props.history.push(path);
+    };
 
     private handleMenu = (event: any) => {
         this.setState({ anchorEl: event.currentTarget });
     };
 
-    private handleMenuClose = (path?: string) => {
-        this.setState({anchorEl: null});
-        this.navigate(path);
+    private handleMenuClose = () => {
+        this.setState({ anchorEl: null });
     };
 
     public handleLogout = () => {
         this.props.logout();
         this.handleMenuClose();
+        this.navigate('/');
     };
-
-    private navigate = (path?: string) => {
-        if (path) {
-            this.props.history.push(path);
-        }
-    }
 
     public handleDrawerOpen = () => {
         this.props.openDrawer();
@@ -92,10 +84,9 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
 
     private renderAppBar() {
         if (this.props.authentication) {
-            const {classes, utility} = this.props;
-            const {anchorEl} = this.state;
+            const { classes, utility } = this.props;
+            const { anchorEl } = this.state;
             const open = Boolean(anchorEl);
-
 
             return (
                 <AppBar
@@ -154,8 +145,12 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
 
     private renderAccount = () => {
         return (
-            <AccountPage user={this.props.authentication} login={this.props.login} match={this.props.match}
-                         location={this.props.location}/>
+            <AccountPage
+              user={this.props.authentication}
+              login={this.props.login}
+              match={this.props.match}
+              location={this.props.location}
+            />
         );
     }
 
@@ -175,8 +170,6 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
     public render() {
         const {classes} = this.props;
 
-
-
         return (
             <div className={classes.root}>
                 {this.renderAppBar()}
@@ -188,28 +181,28 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/members' component={isAuthenticated(MemberDetails as any)}/>
                     <Route path='/trainings' component={isAuthenticated(TrainingsList as any)}/>
                     <Route path='/account' render={this.renderAccount} />
-                    <Route exact path='/programs' component={ProgramsList} />
-                    <Route path='/new-program' component={NewProgram} />
-                    <Route path='/programs/:id/edit' component={EditProgram} />
-                    <Route exact path='/ranks' component={RanksList} />
-                    <Route path='/new-rank' component={NewRank} />
-                    <Route path='/ranks/:id/edit' component={EditRank} />
-                    <Route exact path='/tests' component={TestsList} />
-                    <Route path='/new-test' component={NewTest} />
-                    <Route path='/tests/:id/edit' component={EditTest} />
-                    <Route path='/tests/:id/evaluate-group' component={EvaluateGroup} />
-                    <Route path='/myrank' component={MyRank} />
-                    <Route exact path='/mytests' component={MyTests} />
-                    <Route path='/mytests/:id' component={TestDetails} />
-                    <Route path='/exercises-results/:id' component={ExerciseResultDetails} />
-                    <Route path='/exercises-scales/:id' component={ExerciseScaleDetails} />
+                    <Route exact path='/programs' component={isAuthenticated(ProgramsList)} />
+                    <Route path='/new-program' component={isAuthenticated(NewProgram)} />
+                    <Route path='/programs/:id/edit' component={isAuthenticated(EditProgram)} />
+                    <Route exact path='/ranks' component={isAuthenticated(RanksList)} />
+                    <Route path='/new-rank' component={isAuthenticated(NewRank)} />
+                    <Route path='/ranks/:id/edit' component={isAuthenticated(EditRank)} />
+                    <Route exact path='/tests' component={isAuthenticated(TestsList)} />
+                    <Route path='/new-test' component={isAuthenticated(NewTest)} />
+                    <Route path='/tests/:id/edit' component={isAuthenticated(EditTest)} />
+                    <Route path='/tests/:id/evaluate-group' component={isAuthenticated(EvaluateGroup)} />
+                    <Route path='/myrank' component={isAuthenticated(MyRank)} />
+                    <Route exact path='/mytests' component={isAuthenticated(MyTests)} />
+                    <Route path='/mytests/:id' component={isAuthenticated(TestDetails)} />
+                    <Route path='/exercises-results/:id' component={isAuthenticated(ExerciseResultDetails)} />
+                    <Route path='/exercises-scales/:id' component={isAuthenticated(ExerciseScaleDetails)} />
                 </main>
             </div>
         );
     }
 }
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: IAppState) => ({
     utility: state.utility,
     authentication: state.authentication,
     users: state.users

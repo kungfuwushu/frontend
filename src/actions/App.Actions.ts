@@ -1,7 +1,7 @@
 import { IAppAction, ActionType } from './Helpers';
 import { match } from 'react-router';
 import { Utility } from '../state/Utility';
-import {User} from "../state/User";
+import { User } from "../state/User";
 
 export interface IApplicationProps {
     openDrawer: () => IAppAction;

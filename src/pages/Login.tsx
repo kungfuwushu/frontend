@@ -9,6 +9,9 @@ import Paper from '@material-ui/core/Paper';
 import { User } from '../state/User';
 import * as api from '../api';
 
+import { IApplicationProps, login } from '../actions/App.Actions';
+import { connect } from 'react-redux';
+
 interface ILoginProps {
     login?: (data: any) => void;
     match?: any;
@@ -23,10 +26,13 @@ interface ILoginState {
 }
 
 class LoginPage extends React.Component<ILoginProps, ILoginState> {
-    public state = {
-        email: "",
-        password: ""
-    };
+
+    componentWillMount() {
+      this.setState({
+        email: '',
+        password: ''
+      });
+    }
 
     private handleEmailAddressChange = (event: any) => {
         this.setState({ email: event.target.value })
@@ -135,4 +141,14 @@ const styles = (theme: Theme) => ({
     },
 });
 
-export default withStyles(styles, { withTheme: true })(LoginPage as any) as any;
+const mapStateToProps = (state: IApplicationProps) => ({
+  user: state.authentication
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  login: (data: any) => dispatch(login(data))
+});
+
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(LoginPage as any) as any);
+
+// export default withStyles(styles, { withTheme: true })(LoginPage as any) as any;
