@@ -20,6 +20,7 @@ export const Groups = {
 
 export const Exercises = {
 	all: () => get(`/exercises`),
+	delete: (id: number) => del(`/exercises/${id}`)
 };
 
 export const Programs = {

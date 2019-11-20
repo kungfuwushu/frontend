@@ -38,7 +38,7 @@ import { TestsList, NewTest, EditTest } from "../components/tests";
 import { RanksList, NewRank, EditRank } from "../components/ranks";
 import { MyRank, MyTests, TestDetails, ExerciseResultDetails, ExerciseScaleDetails } from "../components/member-space";
 import { ProgramsList, NewProgram, EditProgram } from "../components/programs";
-import { ExercisesList } from "../components/exercices";
+import { ExercisesList } from "../components/exercises";
 //#endregion
 
 interface IAppProps extends IApplicationProps {

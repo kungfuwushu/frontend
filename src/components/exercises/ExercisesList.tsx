@@ -8,6 +8,8 @@ import * as api from '../../api';
 
 import { Exercise } from '../../types';
 
+import ExerciseItem from './ExerciseItem';
+
 import './ExercisesList.css';
 
 const ExercisesList: FC<{
@@ -23,12 +25,12 @@ const ExercisesList: FC<{
 			);
 	}, []);
 
-	/*const handleDelete = (programId: number) => () => {
-		api.Programs.delete(programId);
-		setPrograms(
-			programs.filter(program => program.id !== programId)
+	const handleDelete = (exerciseId: number) => () => {
+		api.Exercises.delete(exerciseId);
+		setExercises(
+			exercises.filter(exercise => exercise.id !== exerciseId)
 		)
-	}*/
+	}
 
 	return (
 		<Card className="ExercisesList">
@@ -42,9 +44,23 @@ const ExercisesList: FC<{
 				</Button>
 			</div>
 			<div className="table-header">
+        <span className="image"></span>
 				<span className="name">Nom</span>
-				<span>Description</span>
+				<span className="description">Description</span>
 			</div>
+      {exercises.length < 1 ?
+				<span className="empty">Aucun résultat</span>
+				:
+				<div className="exercises">
+					{exercises.map(exercise => (
+            <ExerciseItem
+							exercise={exercise}
+							onDelete={handleDelete(exercise.id)}
+							className="item"
+						/>
+					))}
+				</div>
+			}
 		</Card>
 	);
 }
