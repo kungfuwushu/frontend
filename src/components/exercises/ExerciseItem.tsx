@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-//import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { ReactComponent as EditIcon } from '../../icons/edit.svg';
 import { ReactComponent as DeleteIcon } from '../../icons/delete.svg';
@@ -20,7 +20,9 @@ const ExerciseItem: FC<{
       <span className="name">{exercise.name}</span>
       <span className="description">{exercise.description}</span>
 			<div className="actions">
-        <EditIcon className="edit" />
+        <Link to={`/exercises/${exercise.id}/edit`}>
+          <EditIcon className="edit" />
+        </Link>
 				<DeleteIcon
 					className="delete"
 					onClick={onDelete}

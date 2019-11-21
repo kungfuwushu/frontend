@@ -38,26 +38,6 @@ const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
                     onChange={handleInputChange('description')}
                     value={description}
                 />
-                {program.type === 'RANK' &&
-                    <React.Fragment>
-                        <h2>Télécharger une image</h2>
-                        <ImagePicker
-                            imageUrl={image}
-                            onChange={handleImageChange}
-                        />
-                    </React.Fragment>
-                }
-                <div className="exercises-title">
-                    <h2>Exercices</h2>
-                    <ExercisePicker onPicked={handleExercisesPicked} />
-                </div>
-                {exercisesScales.length === 0?
-                    "Aucun exercice sélectionné." :
-                    <ExercisesScales
-                        exercisesScales={exercisesScales}
-                        onChange={handleExercisesScalesChange}
-                    />
-                }
                 <div className="actions">
                     <Button onClick={() => history.goBack()}>Annuler</Button>
                     <Button type="primary" onClick={onSave} className="save">Sauvegarder</Button>
@@ -67,4 +47,4 @@ const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
     );
 }
 
-export default withRouter(ProgramForm);
+export default withRouter(ExerciseForm);
