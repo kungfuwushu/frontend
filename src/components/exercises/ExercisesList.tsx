@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 
 import { Button } from 'antd';
 
-import { Card } from '../custom';
+import { Card, Loading } from '../custom';
 
 import * as api from '../../api';
 
@@ -31,6 +31,9 @@ const ExercisesList: FC<{
 			exercises.filter(exercise => exercise.id !== exerciseId)
 		)
 	}
+
+  if (!exercises)
+      return <Loading />;
 
 	return (
 		<Card className="ExercisesList">

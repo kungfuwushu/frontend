@@ -38,7 +38,7 @@ import { TestsList, NewTest, EditTest } from "../components/tests";
 import { RanksList, NewRank, EditRank } from "../components/ranks";
 import { MyRank, MyTests, TestDetails, ExerciseResultDetails, ExerciseScaleDetails } from "../components/member-space";
 import { ProgramsList, NewProgram, EditProgram } from "../components/programs";
-import { ExercisesList } from "../components/exercises";
+import { ExercisesList, NewExercise, EditExercise } from "../components/exercises";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -189,8 +189,10 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/members' component={isAuthenticated(MemberDetails as any)}/>
                     <Route path='/trainings' component={isAuthenticated(TrainingsList as any)}/>
                     <Route path='/account' render={this.renderAccount} />
-                    <Route exact path='/programs' component={ProgramsList} />
                     <Route exact path='/exercices' component={ExercisesList} />
+                    <Route path='/new-exercise' component={NewExercise} />
+                    <Route path='/exercises/:id/edit' component={EditExercise} />
+                    <Route exact path='/programs' component={ProgramsList} />
                     <Route path='/new-program' component={NewProgram} />
                     <Route path='/programs/:id/edit' component={EditProgram} />
                     <Route exact path='/ranks' component={RanksList} />

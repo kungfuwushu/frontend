@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withRouter } from 'react-router';
 
 import './ExerciseForm.css';
-import { Input, Button } from 'antd';
+import { Input, Modal, Radio, Button } from 'antd';
 
 import { ImagePicker, Card } from '../custom';
 
@@ -20,12 +20,43 @@ const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
         image
     });
 
+    const handleRadioChange = (e) => {
+      console.log('radio checked', e.target.value);
+    };
+
     const { name, description, image } = exercise;
+
+    const exerciseTypes = [
+        {
+            name: 'Théorique',
+            value: 'THEORETICAL'
+        },
+        {
+            name: 'Physique',
+            value: 'PHYSICAL'
+        },
+        {
+            name: 'Taolu',
+            value: 'TAOLU'
+        },
+        {
+            name: 'Combat',
+            value: 'FIGHT'
+        }
+    ];
+
     return (
         <div className="ExerciseForm">
             <Card className="card">
                 <h1>{title}</h1>
                 <h2 className="infos-title">Informations</h2>
+                <div className="exerciseType">
+                  <Radio.Group onChange={handleRadioChange}>
+                    {exerciseTypes.map((type, index) =>
+                      <Radio value={type.value}>{type.name}</Radio>
+                    )}
+                  </Radio.Group>
+                </div>
                 <Input
                     className="name"
                     placeholder="Nom de l'exercice"
@@ -38,6 +69,13 @@ const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
                     onChange={handleInputChange('description')}
                     value={description}
                 />
+                <React.Fragment>
+                    <h2>Télécharger une image</h2>
+                    <ImagePicker
+                        imageUrl={image}
+                        onChange={handleImageChange}
+                    />
+                </React.Fragment>
                 <div className="actions">
                     <Button onClick={() => history.goBack()}>Annuler</Button>
                     <Button type="primary" onClick={onSave} className="save">Sauvegarder</Button>
