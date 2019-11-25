@@ -1,7 +1,7 @@
 import { Model } from "./Helpers";
 
 export interface IUtility {
-    drawerOpen?: boolean;
+    drawerOpen: boolean;
 }
 
 export const UtilityModel = Model<IUtility>({

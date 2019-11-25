@@ -1,21 +1,22 @@
+import { connectedRouterRedirect } from "redux-auth-wrapper/history4/redirect";
 
 import { Utility } from './Utility';
 import { Model } from "./Helpers";
-import { connectedRouterRedirect } from "redux-auth-wrapper/history4/redirect";
 import { User } from "./User";
 
+export { Utility } from './Utility';
+export { User, UserRole } from './User';
 
 export interface IAppState {
     utility?: Utility;
-    authentication?: User;
-    users?: any;
+    user?: User;
+    // users?: any;
 }
 
 export const AppStateModel = Model<IAppState>({
     utility: new Utility(),
-    authentication: null,
-    users: null
-
+    user: null,
+    // users: null
 });
 
 export class AppState extends AppStateModel {
@@ -23,12 +24,12 @@ export class AppState extends AppStateModel {
     public static AUTHENTICATION = "authentication";
 
     public utility: Utility;
-    public authentication: User;
-    public users: any;
+    public user: User;
+    // public users: any;
 }
 
 export const isAuthenticated = connectedRouterRedirect({
     redirectPath: '/account/login',
-    authenticatedSelector: (state: AppState) => state.authentication !== null,
+    authenticatedSelector: (state: AppState) => state.user !== null,
     wrapperDisplayName: 'Authenticated'
 }) as any;
