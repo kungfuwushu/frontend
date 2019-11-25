@@ -1,5 +1,6 @@
-import { IAppAction, ActionType } from './Helpers';
 import { match } from 'react-router';
+
+import { IAppAction, ActionType } from './Helpers';
 import { Utility } from '../state/Utility';
 import { User } from "../state/User";
 
@@ -9,15 +10,16 @@ export interface IApplicationProps {
 
     login: (data: any) => IAppAction;
     logout: () => IAppAction;
+    setInfo: (data: any) => IAppAction;
 
 
-    match: match<any>,
-    location: any,
-    history: any,
+    match: match<any>;
+    location: any;
+    history: any;
+
     utility: Utility;
-
-    authentication: User;
-    users: any;
+    user: User;
+    // users: any;
     members: any;
     training: any;
     materialCharts: Array<{name: string, value: number, fill: string}>;
@@ -47,4 +49,11 @@ export const logout = (): IAppAction => {
     return {
       type: ActionType.LOGOUT_REQUEST
     };
+};
+
+export const setInfo = (data: any): IAppAction => {
+  return {
+    type: ActionType.SET_USER_INFO,
+    payload: data
+  }
 };
