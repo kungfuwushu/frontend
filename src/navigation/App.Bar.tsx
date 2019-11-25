@@ -29,6 +29,7 @@ import { TestsList, NewTest, EditTest } from "../components/tests";
 import { RanksList, NewRank, EditRank } from "../components/ranks";
 import { MyRank, MyTests, TestDetails, ExerciseResultDetails, ExerciseScaleDetails } from "../components/member-space";
 import { ProgramsList, NewProgram, EditProgram } from "../components/programs";
+import { ExercisesList, NewExercise, EditExercise } from "../components/exercises";
 
 import { IApplicationProps } from '../actions/App.Actions';
 import * as AppActionCreators from '../actions/App.Actions';
@@ -181,6 +182,8 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/members' component={isAuthenticated(MemberDetails as any)}/>
                     <Route path='/trainings' component={isAuthenticated(TrainingsList as any)}/>
                     <Route path='/account' render={this.renderAccount} />
+                    <Route path='/new-exercise' component={isAuthenticated(NewExercise)} />
+                    <Route path='/exercises/:id/edit' component={isAuthenticated(EditExercise)} />
                     <Route exact path='/programs' component={isAuthenticated(ProgramsList)} />
                     <Route path='/new-program' component={isAuthenticated(NewProgram)} />
                     <Route path='/programs/:id/edit' component={isAuthenticated(EditProgram)} />
@@ -196,6 +199,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/mytests/:id' component={isAuthenticated(TestDetails)} />
                     <Route path='/exercises-results/:id' component={isAuthenticated(ExerciseResultDetails)} />
                     <Route path='/exercises-scales/:id' component={isAuthenticated(ExerciseScaleDetails)} />
+                    <Route exact path='/exercices' component={ExercisesList} />
                 </main>
             </div>
         );

@@ -5,6 +5,7 @@ import BusinessIcon from '@material-ui/icons/BusinessCenter';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import Assignment from '@material-ui/icons/Assignment';
+import ListAssignment from '@material-ui/icons/List';
 import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
 import Assessment from '@material-ui/icons/Assessment';
 import Grade from '@material-ui/icons/Grade';
@@ -32,7 +33,8 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
         { path: '/account', title: 'Profile', icon: () => <AccountCircleIcon /> },
         { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
         { path: '/members', title: 'Members', icon: () => <FaceIcon /> },
-        { path: '/programs', title: 'Programmes', icon: () => <Assignment /> },
+        { path: '/programs', title: 'Programmes', icon: () => <ListAssignment /> },
+        { path: '/exercices', title: 'Exercices', icon: () => <Assignment /> },
         { path: '/ranks', title: 'Grades', icon: () => <Grade /> },
         { path: '/tests', title: 'Evaluations', icon: () => <AssignmentTurnedIn /> },
         { path: '/myrank', title: 'Mon grade', icon: () => <Grade /> },
