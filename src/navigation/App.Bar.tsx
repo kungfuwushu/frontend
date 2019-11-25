@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Route, withRouter } from 'react-router-dom';
-import { bindActionCreators, Dispatch } from 'redux';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import { hot } from 'react-hot-loader';
 import * as _ from 'lodash';
@@ -31,9 +31,8 @@ import { MyRank, MyTests, TestDetails, ExerciseResultDetails, ExerciseScaleDetai
 import { ProgramsList, NewProgram, EditProgram } from "../components/programs";
 import { ExercisesList, NewExercise, EditExercise } from "../components/exercises";
 
-import { IApplicationProps } from '../actions/App.Actions';
-import * as AppActionCreators from '../actions/App.Actions';
-import { isAuthenticated, IAppState } from "../state/AppState";
+import { IApplicationProps, openDrawer, closeDrawer, logout } from '../store/actions';
+import { isAuthenticated } from "../store/state";
 //#endregion
 
 interface IAppProps extends IApplicationProps {
@@ -53,14 +52,6 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         notificationEl: null
     };
 
-    public componentWillMount() {
-        //this.props.fetchMembers();
-    }
-
-    private navigate = (path: string) => {
-        this.props.history.push(path);
-    };
-
     private handleMenu = (event: any) => {
         this.setState({ anchorEl: event.currentTarget });
     };
@@ -72,7 +63,6 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
     public handleLogout = () => {
         this.props.logout();
         this.handleMenuClose();
-        this.navigate('/');
     };
 
     public handleDrawerOpen = () => {
@@ -84,7 +74,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
     };
 
     private renderAppBar() {
-        if (this.props.authentication) {
+        if (this.props.user) {
             const { classes, utility } = this.props;
             const { anchorEl } = this.state;
             const open = Boolean(anchorEl);
@@ -129,9 +119,9 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                                     horizontal: 'right',
                                 }}
                                 open={open}
-                                onClose={this.handleMenuClose.bind(this, undefined)}
+                                onClose={this.handleMenuClose}
                             >
-                                <MenuItem onClick={this.handleMenuClose.bind(this, '/account')}>{this.props.authentication.name}</MenuItem>
+                                <MenuItem onClick={this.handleMenuClose}>{this.props.user.username}</MenuItem>
                                 <MenuItem onClick={this.handleLogout}>Logout</MenuItem>
                             </Menu>
                         </div>
@@ -145,23 +135,15 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
 
 
     private renderAccount = () => {
-        return (
-            <AccountPage
-              user={this.props.authentication}
-              login={this.props.login}
-              match={this.props.match}
-              location={this.props.location}
-            />
-        );
+        return (<AccountPage />);
     }
 
     private renderDrawer() {
-        const {utility, authentication} = this.props;
         return (
-            <Hidden mdDown={!utility.drawerOpen && true}>
+            <Hidden mdDown={!this.props.utility.drawerOpen && true}>
                 <AppDrawer
-                    utility={utility}
-                    authentication={authentication}
+                    utility={this.props.utility}
+                    user={this.props.user}
                     handleDrawerClose={this.handleDrawerClose}
                 />
             </Hidden>
@@ -206,13 +188,15 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
     }
 }
 
-const mapStateToProps = (state: IAppState) => ({
+const mapStateToProps = (state: IAppProps) => ({
     utility: state.utility,
-    authentication: state.authentication,
-    users: state.users
+    user: state.user
 });
 
-const mapDispatchtoProps = (dispatch: Dispatch) =>
-    bindActionCreators(_.assign({}, AppActionCreators), dispatch);
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    openDrawer: () => dispatch(openDrawer()),
+    closeDrawer: () => dispatch(closeDrawer()),
+    logout: () => dispatch(logout())
+});
 
-export default hot(module)(withRouter(connect(mapStateToProps, mapDispatchtoProps)(withStyles(styles as any, {withTheme: true})(MiniDrawer as any)) as any));
+export default hot(module)(withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles as any, {withTheme: true})(MiniDrawer as any)) as any));
