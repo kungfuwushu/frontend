@@ -4,10 +4,8 @@ export interface IUtility {
     drawerOpen: boolean;
 }
 
-export const UtilityModel = Model<IUtility>({
+const UtilityModel = Model<IUtility>({
     drawerOpen: false
 });
 
-export class Utility extends UtilityModel {
-    public static DRAWER_OPEN = 'drawerOpen';
-}
+export class Utility extends UtilityModel {}

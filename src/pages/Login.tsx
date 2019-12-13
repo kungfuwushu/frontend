@@ -73,9 +73,9 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
         });
     }
 
-    private enterPress = (e: any) => {
+    private submitOnEnter = (e: any) => {
       // if enter is pressed
-      if(e.keyCode == 13){
+      if (e.keyCode == 13) {
         this.handleLogin();
       }
     }
@@ -97,7 +97,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                         <Input
                             value={this.state.email}
                             onChange={this.handleEmailAddressChange}
-                            onKeyDown={this.enterPress}
+                            onKeyDown={this.submitOnEnter}
                             id="email"
                             startAdornment={
                                 <InputAdornment position="start">
@@ -110,7 +110,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                         <Input
                             value={this.state.password}
                             onChange={this.handlePasswordChange}
-                            onKeyDown={this.enterPress}
+                            onKeyDown={this.submitOnEnter}
                             type="password"
                             id="password"
                             startAdornment={

@@ -19,7 +19,6 @@ export interface IApplicationProps {
 
     utility: Utility;
     user: User;
-    // users: any;
     members: any;
     training: any;
     materialCharts: Array<{name: string, value: number, fill: string}>;
