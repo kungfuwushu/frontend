@@ -9,23 +9,24 @@ export const UserReducer = (state: User = null, action: IAppAction): User => {
         case ActionType.LOGIN_REQUEST:
             Cookies.set('token', action.payload.token.tokenType + ' ' + action.payload.token.accessToken);
             return new User({
-              email: action.payload.email,
-              username: '',
-              firstName: '',
-              lastName: '',
-              roles: [ UserRole.ADMIN ]
+                id: null,
+                email: action.payload.email,
+                username: '',
+                firstName: '',
+                lastName: '',
+                roles: [ UserRole.ADMIN ]
             });
 
         case ActionType.LOGOUT_REQUEST:
             return null;
 
         case ActionType.SET_USER_INFO:
-            console.log(action.payload);
             return {
-              ...state,
-              username: 'static username',
-              firstName: action.payload.firstName,
-              lastName: action.payload.lastName
+                ...state,
+                id: action.payload.id,
+                username: action.payload.username,
+                firstName: action.payload.firstName,
+                lastName: action.payload.lastName
             };
 
         default:

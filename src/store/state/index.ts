@@ -10,13 +10,11 @@ export { User, UserRole } from './User';
 export interface IAppState {
     utility?: Utility;
     user?: User;
-    // users?: any;
 }
 
 export const AppStateModel = Model<IAppState>({
     utility: new Utility(),
     user: null,
-    // users: null
 });
 
 export class AppState extends AppStateModel {
@@ -25,7 +23,6 @@ export class AppState extends AppStateModel {
 
     public utility: Utility;
     public user: User;
-    // public users: any;
 }
 
 export const isAuthenticated = connectedRouterRedirect({

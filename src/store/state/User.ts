@@ -6,6 +6,7 @@ export enum UserRole {
 }
 
 export interface IUser {
+    id: number;
     email: string;
     username: string;
     firstName: string;
@@ -13,7 +14,8 @@ export interface IUser {
     roles: UserRole[];
 }
 
-const UserModel = Model<IUser>({
+export const UserModel = Model<IUser>({
+    id: null,
     email: null,
     username: null,
     firstName: null,
@@ -21,10 +23,4 @@ const UserModel = Model<IUser>({
     roles: null
 });
 
-export class User extends UserModel {
-    public static EMAIL = 'email';
-    public static USERNAME = 'username';
-    public static FIRST_NAME = 'firstName';
-    public static LAST_NAME = 'lastName';
-    public static ROLES = 'roles';
-}
+export class User extends UserModel {}

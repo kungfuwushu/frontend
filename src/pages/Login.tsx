@@ -51,19 +51,17 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
         }, () => {
           Promise.all([
               api.Auth.login(this.state.email, this.state.password),
-          ]).then(([ token ]) => {
+          ]).then(([{ user, token }]) => {
               // Authentification success
+              console.log("user : ", user);
+              console.log("token : ", token);
               // login into app : setting user and token
               this.props.login({
                 ...this.state,
                 token
-              });
-          }).then(() => {
-            // store user info
-            api.Members.byId(1)
-            .then((response) => {
-                this.props.setInfo(response);
             });
+            // store user info
+            this.props.setInfo(user);
           }).catch((err) => {
             // Error handler
             console.log("err ", err);
@@ -75,9 +73,9 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
         });
     }
 
-    private enterPress = (e: any) => {
+    private submitOnEnter = (e: any) => {
       // if enter is pressed
-      if(e.keyCode == 13){
+      if (e.keyCode == 13) {
         this.handleLogin();
       }
     }
@@ -99,7 +97,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                         <Input
                             value={this.state.email}
                             onChange={this.handleEmailAddressChange}
-                            onKeyDown={this.enterPress}
+                            onKeyDown={this.submitOnEnter}
                             id="email"
                             startAdornment={
                                 <InputAdornment position="start">
@@ -112,7 +110,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                         <Input
                             value={this.state.password}
                             onChange={this.handlePasswordChange}
-                            onKeyDown={this.enterPress}
+                            onKeyDown={this.submitOnEnter}
                             type="password"
                             id="password"
                             startAdornment={
