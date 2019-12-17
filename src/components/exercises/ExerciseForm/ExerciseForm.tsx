@@ -1,7 +1,9 @@
 import React from 'react';
 import './ExerciseForm.css';
 import { Form, Input, Radio, Button } from 'antd';
-import { ImagePicker, Card, DynamicFieldSet } from '../custom';
+import { ImagePicker, Card, DynamicFieldSet } from '../../custom';
+
+import PhysicalForm from './PhysicalForm';
 
 const { TextArea } = Input;
 
@@ -93,11 +95,6 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
               />
             </Form.Item>);
 
-        const PhysicalForm =
-            (<p>
-                Exercice Physique
-            </p>);
-
         const TaoluForm =
             (<p>
                 Exercice Taolu
@@ -117,7 +114,7 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                 ConditionnalForm = TheoricalForm;
                 break;
             case 'PHYSICAL':
-                ConditionnalForm = PhysicalForm;
+                ConditionnalForm = <PhysicalForm />;
                 break;
             case 'TAOLU':
                 ConditionnalForm = TaoluForm;
