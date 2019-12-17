@@ -6,10 +6,12 @@ import { FormComponentProps } from 'antd/lib/form';
 let id = 0;
 
 interface IDynamicFieldSetProps extends FormComponentProps {
-    form: any;
+    label: string;
 }
 
-class DynamicFieldSet extends React.Component<IDynamicFieldSetProps> {
+interface IDynamicFieldSetState {}
+
+class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFieldSetState> {
 
   remove = (k: any) => {
     const { form } = this.props;
@@ -51,14 +53,15 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps> {
 
   render() {
     const { getFieldDecorator, getFieldValue } = this.props.form;
+    const label = this.props.label;
     const formItemLayout = {
       labelCol: {
         xs: { span: 24 },
-        sm: { span: 4 },
+        sm: { span: 8 },
       },
       wrapperCol: {
         xs: { span: 24 },
-        sm: { span: 20 },
+        sm: { span: 16 },
       },
     };
     const formItemLayoutWithOutLabel = {
@@ -72,7 +75,7 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps> {
     const formItems = keys.map((k: any, index: number) => (
       <Form.Item
         {...formItemLayout}
-        label={`Réponse ${(index+1)}`}
+        label={`${label} ${(index+1)}`}
         required={false}
         key={k}
       >
@@ -82,10 +85,10 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps> {
             {
               required: true,
               whitespace: true,
-              message: "Veuillez entrer une réponse ici ou supprimer ce champ",
+              message: `Veuillez entrer une ${label.toLowerCase()} ici ou supprimer ce champ`,
             },
           ],
-      })(<Input placeholder={`Réponse ${(index+1)}`} style={{ width: '80%', marginRight: 8 }} />)}
+      })(<Input placeholder={`${label} ${(index+1)}`} style={{ width: '60%', marginRight: 8 }} />)}
         {keys.length > 1 ? (
           <Icon
             className="dynamic-delete-button"
@@ -99,8 +102,8 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps> {
       <Form onSubmit={this.handleSubmit}>
         {formItems}
         <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button type="dashed" onClick={this.add} style={{ width: '80%' }}>
-            <Icon type="plus" /> Ajouter une réponse
+          <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
+            <Icon type="plus" /> Ajouter '{label.toLowerCase()}'
           </Button>
         </Form.Item>
       </Form>
@@ -108,4 +111,4 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps> {
   }
 }
 
-export default Form.create()(DynamicFieldSet)
+export default (Form.create()(DynamicFieldSet as any) as any)

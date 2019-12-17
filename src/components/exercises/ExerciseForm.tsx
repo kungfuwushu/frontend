@@ -88,7 +88,9 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
         const TheoricalForm =
             (<Form.Item label="Question :">
               <Input type="text" />
-              <DynamicFieldSet />
+              <DynamicFieldSet
+                label="Réponse"
+              />
             </Form.Item>);
 
         const PhysicalForm =
@@ -99,6 +101,9 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
         const TaoluForm =
             (<p>
                 Exercice Taolu
+                <DynamicFieldSet
+                  label="Geste technique"
+                />
             </p>);
 
         const FightForm =
