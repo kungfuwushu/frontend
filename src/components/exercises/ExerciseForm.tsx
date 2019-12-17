@@ -1,7 +1,7 @@
 import React from 'react';
 import './ExerciseForm.css';
 import { Form, Input, Radio, Button } from 'antd';
-import { ImagePicker, Card } from '../custom';
+import { ImagePicker, Card, DynamicFieldSet } from '../custom';
 
 const { TextArea } = Input;
 
@@ -48,7 +48,7 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
             image: image,
             description: description,
             name: name,
-            exerciseType: null
+            exerciseType: null,
         });
     }
 
@@ -86,21 +86,25 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
     public render(): JSX.Element {
 
         const TheoricalForm =
-            (<Form.Item label="Titre de la question">
+            (<Form.Item label="Question :">
               <Input type="text" />
-            </Form.Item>
-            );
+              <DynamicFieldSet />
+            </Form.Item>);
+
         const PhysicalForm =
-            (<div>
-            </div>);
+            (<p>
+                Exercice Physique
+            </p>);
 
         const TaoluForm =
-            (<div>
-            </div>);
+            (<p>
+                Exercice Taolu
+            </p>);
 
         const FightForm =
-            (<div>
-            </div>);
+            (<p>
+                Exercice Combat
+            </p>);
 
         let ConditionnalForm;
         switch(this.state.exerciseType) {
@@ -116,13 +120,9 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
             case 'FIGHT':
                 ConditionnalForm = FightForm;
                 break;
+            default:
+                ConditionnalForm = (<p>Veuillez selectionner un type d'exercice</p>)
         }
-        if (this.state.exerciseType === 'THEORETICAL') {
-        } else {
-            ConditionnalForm = PhysicalForm;
-        }
-
-
 
         return (
             <div className="ExerciseForm">
@@ -132,7 +132,7 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                     <h2 className="infos-title">Type d'exercice</h2>
                     <div className="exerciseType">
                       <Radio.Group onChange={this.handleRadioChange}>
-                        {this.exerciseTypes.map((type, index) =>
+                        {this.exerciseTypes.map((type) =>
                           <Radio value={type.value}>{type.name}</Radio>
                         )}
                       </Radio.Group>
@@ -150,7 +150,10 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                         value={this.state.description}
                     />
 
-                    { ConditionnalForm /* depend on exercise type */}
+                    {/* custom form : depends on exercice type selected */}
+                    <div style={{ border: '1px solid #D9D9D9', padding: '10px', marginTop: '5px' }}>
+                        { ConditionnalForm /* depend on exercise type */}
+                    </div>
 
                     <React.Fragment>
                         <h2>Télécharger une image</h2>
@@ -159,6 +162,7 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                             onChange={this.handleImageChange}
                         />
                     </React.Fragment>
+
                     <div className="actions">
                         <Button onClick={() => this.props.history.goBack()}>Annuler</Button>
                         <Button type="primary" onClick={this.props.onSave} className="save">Sauvegarder</Button>
