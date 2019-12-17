@@ -86,10 +86,10 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
     public render(): JSX.Element {
 
         const TheoricalForm =
-            (<Form.Item label="questionOuverte">
+            (<Form.Item label="Titre de la question">
               <Input type="text" />
-            </Form.Item>);
-
+            </Form.Item>
+            );
         const PhysicalForm =
             (<div>
             </div>);
