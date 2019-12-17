@@ -7,12 +7,12 @@ import * as querystring from 'querystring';
 import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 
-import { User } from '../store/state/';
-import * as api from '../api';
+import { User } from '../../store/state/';
+import * as api from '../../api';
 
-import { IApplicationProps, login, setInfo } from '../store/actions';
+import { IApplicationProps, login, setInfo } from '../../store/actions';
 
-interface ILoginProps {
+interface ISignInProps {
     login: (data: any) => void;
     setInfo: (data: any) => void;
     match?: any;
@@ -21,18 +21,21 @@ interface ILoginProps {
     user: User;
 }
 
-interface ILoginState {
+interface ISignInState {
     email: string;
     password: string;
+    passwordConfirmation: string;
     error?: string;
 }
 
-class LoginPage extends React.Component<ILoginProps, ILoginState> {
+class SignInPage extends React.Component<ISignInProps, ISignInState> {
 
     componentWillMount() {
       this.setState({
         email: '',
-        password: ''
+        password: '',
+        passwordConfirmation: '',
+        error: null
       });
     }
 
@@ -179,4 +182,4 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   setInfo: (data: any) => dispatch(setInfo(data)),
 });
 
-export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(LoginPage as any) as any);
+export default withStyles(styles, { withTheme: true })(connect(mapStateToProps, mapDispatchToProps)(SignInPage as any) as any);
