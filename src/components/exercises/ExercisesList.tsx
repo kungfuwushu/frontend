@@ -45,7 +45,8 @@ const ExercisesList: FC<{
 			<div className="table-header">
         <span className="image"></span>
 				<span className="name">Nom</span>
-				<span className="description">Description</span>
+        <span className="description">Description</span>
+				<span className="category">Catégorie</span>
 			</div>
       {exercises.length < 1 ?
 				<span className="empty">Aucun résultat</span>

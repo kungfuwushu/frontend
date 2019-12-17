@@ -16,6 +16,7 @@ const ExerciseItem: FC<{
       <img className="image" src={exercise.image} alt="Upload"/>
       <span className="name">{exercise.name}</span>
       <span className="description">{exercise.description}</span>
+      <span className="category">{exercise.type}</span>
 			<div className="actions">
         <Link to={`/exercises/${exercise.id}/edit`}>
           <EditIcon className="edit" />
