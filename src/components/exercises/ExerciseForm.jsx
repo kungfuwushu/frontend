@@ -1,10 +1,12 @@
 import React from 'react';
 import { withRouter } from 'react-router';
 import './ExerciseForm.css';
-import { Input, Radio, Button } from 'antd';
+import { Form, Input, Radio, Button } from 'antd';
 import { ImagePicker, Card } from '../custom';
 
 const { TextArea } = Input;
+
+const { getFieldDecorator } = Form;
 
 const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
     const handleInputChange = (inputName) => ({target : {value}}) => {
@@ -19,7 +21,20 @@ const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
     });
 
     const handleRadioChange = (e) => {
-      console.log('radio checked', e.target.value);
+      switch(e.target.value) {
+        case "THEORETICAL":
+
+          break;
+        case "PHYSICAL":
+          break;
+        case "FIGHT":
+          break;
+        case "TAOLU":
+          break;
+        default:
+          break;
+      }
+
     };
 
     const { name, description, image } = exercise;
@@ -46,8 +61,9 @@ const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
     return (
         <div className="ExerciseForm">
             <Card className="card">
+              <Form>
                 <h1>{title}</h1>
-                <h2 className="infos-title">Informations</h2>
+                <h2 className="infos-title">Type d'exercice</h2>
                 <div className="exerciseType">
                   <Radio.Group onChange={handleRadioChange}>
                     {exerciseTypes.map((type, index) =>
@@ -67,6 +83,11 @@ const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
                     onChange={handleInputChange('description')}
                     value={description}
                 />
+                <Form.Item label="questionOuverte" style={{ display: "block" }}>
+                  {getFieldDecorator("question", {
+                    rules: [{ required: true, message: 'Vous devez remplir ce champ.' }],
+                  })(<Input type="text" />)}
+                </Form.Item>
                 <React.Fragment>
                     <h2>Télécharger une image</h2>
                     <ImagePicker
@@ -78,6 +99,7 @@ const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
                     <Button onClick={() => history.goBack()}>Annuler</Button>
                     <Button type="primary" onClick={onSave} className="save">Sauvegarder</Button>
                 </div>
+              </Form>
             </Card>
         </div>
     );
