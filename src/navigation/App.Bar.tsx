@@ -22,7 +22,7 @@ import { styles } from './styles';
 import AppDrawer from './App.Drawer';
 import { TrainingsList } from "../trainings";
 import { MemberDetails } from "../members";
-import { HomePage, AccountPage, SignInPage } from "../pages/";
+import { HomePage, AccountPage, SignUpPage } from "../pages/";
 import { EvaluateGroup } from "../components/evaluate";
 import { TestsList, NewTest, EditTest } from "../components/tests";
 import { RanksList, NewRank, EditRank } from "../components/ranks";
@@ -92,7 +92,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                         >
                             <MenuIcon/>
                         </IconButton>
-                        <Typography className={classes.fillSpace} variant="title" color="inherit" noWrap={true}>
+                        <Typography className={classes.fillSpace} color="inherit" noWrap={true}>
                             <FormattedMessage id="app.welcome"
                                               defaultMessage="Welcome to your kung fu APP"
                                               description="Welcome Message"/>
@@ -182,7 +182,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/exercises-scales/:id' component={isAuthenticated(ExerciseScaleDetails)} />
                     <Route exact path='/exercices' component={ExercisesList} />
 
-                    <Route exact path='/signin' component={SignInPage} />
+                    <Route exact path='/signup' component={SignUpPage} />
                 </main>
             </div>
         );

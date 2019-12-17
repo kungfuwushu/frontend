@@ -50,29 +50,28 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
           ...this.state,
           error: null // remove error message
         }, () => {
-          Promise.all([
-              api.Auth.login(this.state.email, this.state.password),
-          ]).then(([{ user, token }]) => {
+
+            api.Auth.login(this.state.email, this.state.password)
+            .then(({ user, token }) => {
               // Authentification success
-              console.log("user : ", user);
-              console.log("token : ", token);
               // login into app : setting user and token
               this.props.login({
-                ...this.state,
-                token
+                  ...this.state,
+                  token
+              });
+              // store user info
+              this.props.setInfo(user);
+            }).catch((err) => {
+              // Error handler
+              console.log("err ", err);
+              this.setState({
+                  ...this.state,
+                  error: "Une erreur est survenue, veuillez réessayer."
+              });
             });
-            // store user info
-            this.props.setInfo(user);
-          }).catch((err) => {
-            // Error handler
-            console.log("err ", err);
-            this.setState({
-                ...this.state,
-                error: "Une erreur est survenue, veuillez réessayer."
-            });
+
           });
-        });
-    }
+        }
 
     private submitOnEnter = (e: any) => {
       // if enter is pressed
@@ -121,12 +120,12 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                         />
                     </FormControl>
                     <div className={classes.actions}>
-                        <Button variant="raised" className={classes.button}>
+                        <Button variant="contained" className={classes.button}>
                             Cancel
                         </Button>
                         <Button
                             onClick={this.handleLogin}
-                            variant="raised"
+                            variant="contained"
                             color="primary"
                             className={classes.button}>
                             Submit
@@ -146,7 +145,7 @@ const styles = (theme: Theme) => ({
     paper: theme.mixins.gutters({
         paddingTop: 16,
         paddingBottom: 16,
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(3),
         width: '30%',
         display: 'flex',
         flexDirection: 'column',
@@ -156,18 +155,18 @@ const styles = (theme: Theme) => ({
         },
     }),
     field: {
-        marginTop: theme.spacing.unit * 3
+        marginTop: theme.spacing(3)
     },
     actions: theme.mixins.gutters({
         paddingTop: 16,
         paddingBottom: 16,
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(3),
         display: 'flex',
         flexDirection: 'row',
         alignContent: 'center'
     }),
     button: {
-        marginRight: theme.spacing.unit
+        marginRight: theme.spacing(1)
     },
 });
 
