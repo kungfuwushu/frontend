@@ -93,7 +93,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                         >
                             <MenuIcon/>
                         </IconButton>
-                        <Typography className={classes.fillSpace} variant="title" color="inherit" noWrap={true}>
+                        <Typography className={classes.fillSpace} color="inherit" noWrap={true}>
                             <FormattedMessage id="app.welcome"
                                               defaultMessage="Welcome to your kung fu APP"
                                               description="Welcome Message"/>

@@ -120,12 +120,12 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                         />
                     </FormControl>
                     <div className={classes.actions}>
-                        <Button variant="raised" className={classes.button}>
+                        <Button variant="contained" className={classes.button}>
                             Cancel
                         </Button>
                         <Button
                             onClick={this.handleLogin}
-                            variant="raised"
+                            variant="contained"
                             color="primary"
                             className={classes.button}>
                             Submit
@@ -145,7 +145,7 @@ const styles = (theme: Theme) => ({
     paper: theme.mixins.gutters({
         paddingTop: 16,
         paddingBottom: 16,
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(3),
         width: '30%',
         display: 'flex',
         flexDirection: 'column',
@@ -155,18 +155,18 @@ const styles = (theme: Theme) => ({
         },
     }),
     field: {
-        marginTop: theme.spacing.unit * 3
+        marginTop: theme.spacing(3)
     },
     actions: theme.mixins.gutters({
         paddingTop: 16,
         paddingBottom: 16,
-        marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing(3),
         display: 'flex',
         flexDirection: 'row',
         alignContent: 'center'
     }),
     button: {
-        marginRight: theme.spacing.unit
+        marginRight: theme.spacing()
     },
 });
 
