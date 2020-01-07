@@ -53,8 +53,6 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
               api.Auth.login(this.state.email, this.state.password),
           ]).then(([{ user, token }]) => {
               // Authentification success
-              console.log("user : ", user);
-              console.log("token : ", token);
               // login into app : setting user and token
               this.props.login({
                 ...this.state,
