@@ -1,0 +1,48 @@
+.ExerciseForm {
+    display: flex;
+    justify-content: center;
+}
+
+.ExerciseForm .card {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    max-width: 500px;
+    padding: 16px;
+}
+
+.ExerciseForm h1 {
+    text-align: center;
+    font-weight: 600;
+}
+
+.ExerciseForm h2 {
+    margin-top: 20px;
+}
+
+.ExerciseForm .infos-title {
+    margin-top: 0;
+}
+
+.ExerciseForm .name {
+    margin-bottom: 8px;
+}
+
+.ExerciseForm .actions {
+    display: flex;
+    margin-top: 30px;
+}
+
+.ExerciseForm .save {
+    margin-left: auto;
+}
+
+.ExerciseForm .exercises-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.ExerciseForm .exercises-title h2 {
+    margin-right: auto;
+}

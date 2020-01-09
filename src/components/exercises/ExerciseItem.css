@@ -1,0 +1,62 @@
+.ExerciseItem {
+    display: grid;
+    grid-template-columns: 0.4fr 0.8fr 1.5fr 0.4fr;
+}
+
+.ExerciseItem  {
+    flex-shrink: 0;
+    width: auto;
+    padding: 16px 32px;
+    position: relative;
+    align-items: center;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.ExerciseItem .name {
+    align-items: center;
+    display: flex;
+    font-weight: 600;
+}
+
+.ExerciseItem .exercises {
+    white-space: nowrap;
+}
+
+.ExerciseItem img {
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+}
+
+.ExerciseItem .actions {
+    display: grid;
+}
+
+.ExerciseItem a {
+    line-height: 0;
+}
+
+.ExerciseItem .edit,
+.ExerciseItem .delete {
+    fill: #585858;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.ExerciseItem .edit:hover,
+.ExerciseItem .delete:hover {
+    fill: black;
+}
+
+.ExerciseItem .actions {
+    opacity: 0;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: 1fr 1fr;
+    margin-left: auto;
+}
+
+.ExerciseItem:hover .actions {
+    opacity: 1;
+}

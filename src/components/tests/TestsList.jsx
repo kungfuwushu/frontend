@@ -30,7 +30,7 @@ const TestsList = ({history}) => {
 		setFilteredTests(tests.filter(test => {
 			if (filter.type && filter.type !== test.type)
 				return false;
-			if (filter.search && 
+			if (filter.search &&
 				!test.name.toLowerCase().includes(filter.search.toLowerCase()) &&
 				!test.address.toLowerCase().includes(filter.search.toLowerCase()) &&
 				!test.city.toLowerCase().includes(filter.search.toLowerCase()) &&
@@ -72,7 +72,7 @@ const TestsList = ({history}) => {
 						onClick={() => history.push('/new-test')}
 						type="primary"
 					>
-						Planifier une nouvelle test
+						Planifier un nouveau test
 					</Button>
 				</div>
 				<div className="filters">
