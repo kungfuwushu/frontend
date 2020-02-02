@@ -22,7 +22,7 @@ interface ILoginProps {
 }
 
 interface ILoginState {
-    email: string;
+    username: string;
     password: string;
     error?: string;
 }
@@ -31,14 +31,14 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     componentWillMount() {
       this.setState({
-        email: '',
+        username: '',
         password: '',
         error: null
       });
     }
 
-    private handleEmailAddressChange = (event: any) => {
-        this.setState({ email: event.target.value });
+    private handleUsernameChange = (event: any) => {
+        this.setState({ username: event.target.value });
     }
 
     private handlePasswordChange = (event: any) => {
@@ -51,7 +51,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
           error: null // remove error message
         }, () => {
 
-            api.Auth.login(this.state.email, this.state.password)
+            api.Auth.login(this.state.username, this.state.password)
             .then(({ user, token }) => {
               // Authentification success
               // login into app : setting user and token
@@ -93,15 +93,15 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                 <Paper className={classes.paper}>
                     <h2>{'Login'}</h2>
                     <FormControl required={true} fullWidth={true} className={classes.field}>
-                        <InputLabel htmlFor="email">Email Address</InputLabel>
+                        <InputLabel htmlFor="username">Username</InputLabel>
                         <Input
-                            value={this.state.email}
-                            onChange={this.handleEmailAddressChange}
+                            value={this.state.username}
+                            onChange={this.handleUsernameChange}
                             onKeyDown={this.submitOnEnter}
-                            id="email"
+                            id="username"
                             startAdornment={
                                 <InputAdornment position="start">
-                                    <Icon>email</Icon>
+                                    <Icon>account_circle</Icon>
                                 </InputAdornment>}
                         />
                     </FormControl>

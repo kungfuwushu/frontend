@@ -94,7 +94,7 @@ class SignUpPage extends React.Component<ISignUpProps, ISignUpState> {
                 api.Auth.signup(email, password, firstName, lastName, username)
                 .then(() => {
                     // Singin up success, logining in...
-                    api.Auth.login(email, password)
+                    api.Auth.login(username, password)
                     .then(({ user, token }) => {
                         this.props.login({
                             ...this.state,
