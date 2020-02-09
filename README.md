@@ -18,7 +18,7 @@ If you need to learn more about them, you can start here :
 # Installation / Running
 1.	git clone <repository-url> this repository
 2.	Enter into the new directory
-3.	Run the command “npm install” to get the dependencies
+3.	Run the command “npm ci” to get the dependencies
 4.	Run the command “npm start” to launch the app
 5.	Visit the app at http://localhost:3005 (you can change the port 3005 in the file package.json)
 
