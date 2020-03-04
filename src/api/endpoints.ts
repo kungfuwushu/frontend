@@ -2,7 +2,8 @@ import { get, post, put, del } from './requests.config';
 import { Rank, Test, ExerciseResult, Exercise, Program } from '../types';
 
 export const Auth = {
-	login: (usernameOrEmail: string, password: string) => post(`/auth/signin`, { usernameOrEmail, password }),
+	login: (email: string, password: string) => post(`/auth/signin`, { email, password }),
+	signup: (email: string, password: string, firstName: string, lastName: string, username: string) => post(`/auth/signup`, { firstName, lastName, username, email, password })
 };
 
 export const Members = {

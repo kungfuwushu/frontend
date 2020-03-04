@@ -20,10 +20,9 @@ const classNames = require('classnames');
 import { styles } from './styles';
 
 import AppDrawer from './App.Drawer';
-import Home from "../pages/Home";
 import { TrainingsList } from "../trainings";
 import { MemberDetails } from "../members";
-import { AccountPage } from "../pages/Account";
+import { HomePage, AccountPage, SignUpPage } from "../pages/";
 import { EvaluateGroup } from "../components/evaluate";
 import { TestsList, NewTest, EditTest } from "../components/tests";
 import { RanksList, NewRank, EditRank } from "../components/ranks";
@@ -160,7 +159,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
 
                 <main className={classes.content}>
                     <div className={classes.toolbar}/>
-                    <Route path='/' exact={true} component={isAuthenticated(Home as any)}/>
+                    <Route path='/' exact={true} component={isAuthenticated(HomePage as any)}/>
                     <Route path='/members' component={isAuthenticated(MemberDetails as any)}/>
                     <Route path='/trainings' component={isAuthenticated(TrainingsList as any)}/>
                     <Route path='/account' render={this.renderAccount} />
@@ -182,6 +181,8 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/exercises-results/:id' component={isAuthenticated(ExerciseResultDetails)} />
                     <Route path='/exercises-scales/:id' component={isAuthenticated(ExerciseScaleDetails)} />
                     <Route exact path='/exercices' component={ExercisesList} />
+
+                    <Route exact path='/signup' component={SignUpPage} />
                 </main>
             </div>
         );

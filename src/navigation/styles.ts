@@ -81,7 +81,7 @@ export const styles = (theme: Theme) => ({
       flexDirection: 'column',
     },
     button: {
-      margin: theme.spacing(),
+      margin: theme.spacing(1),
     },
     link: {
       textDecoration: 'none',
