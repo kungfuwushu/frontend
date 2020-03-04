@@ -74,7 +74,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     private submitOnEnter = (e: any) => {
       // if enter is pressed
-      if (e.keyCode == 13) {
+      if (e.keyCode === 13) {
         this.handleLogin();
       }
     }
