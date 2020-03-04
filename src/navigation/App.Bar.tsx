@@ -132,11 +132,6 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
         return null;
     }
 
-
-    private renderAccount = () => {
-        return (<AccountPage />);
-    }
-
     private renderDrawer() {
         return (
             <Hidden mdDown={!this.props.utility.drawerOpen && true}>
@@ -159,10 +154,10 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
 
                 <main className={classes.content}>
                     <div className={classes.toolbar}/>
-                    <Route path='/' exact={true} component={isAuthenticated(HomePage as any)}/>
-                    <Route path='/members' component={isAuthenticated(MemberDetails as any)}/>
-                    <Route path='/trainings' component={isAuthenticated(TrainingsList as any)}/>
-                    <Route path='/account' render={this.renderAccount} />
+                    <Route path='/' exact={true} component={isAuthenticated(HomePage as any)} />
+                    <Route path='/members' component={isAuthenticated(MemberDetails as any)} />
+                    <Route path='/trainings' component={isAuthenticated(TrainingsList as any)} />
+                    <Route path='/account' render={() => <AccountPage />} />
                     <Route path='/new-exercise' component={isAuthenticated(NewExercise)} />
                     <Route path='/exercises/:id/edit' component={isAuthenticated(EditExercise)} />
                     <Route exact path='/programs' component={isAuthenticated(ProgramsList)} />
@@ -182,7 +177,7 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route path='/exercises-scales/:id' component={isAuthenticated(ExerciseScaleDetails)} />
                     <Route exact path='/exercices' component={ExercisesList} />
 
-                    <Route exact path='/signup' component={SignUpPage} />
+                    <Route exact path='/signup' render={() => <SignUpPage />} />
                 </main>
             </div>
         );
