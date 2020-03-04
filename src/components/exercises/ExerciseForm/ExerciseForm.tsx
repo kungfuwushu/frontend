@@ -177,4 +177,4 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
 
 }
 
-export default ((ExerciseForm as any) as any);
+export default ExerciseForm;
