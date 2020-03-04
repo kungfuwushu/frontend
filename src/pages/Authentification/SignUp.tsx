@@ -88,12 +88,12 @@ class SignUpPage extends React.Component<ISignUpProps, ISignUpState> {
 
             let { email, password, passwordConfirmation, firstName, lastName, username } = this.state;
 
-            if (password != '' && passwordConfirmation != '' && password === passwordConfirmation) {
+            if (password != '' && password === passwordConfirmation) {
 
                 // Signing up...
                 api.Auth.signup(email, password, firstName, lastName, username)
                 .then(() => {
-                    // Singin up success, logining in...
+                    // Singup successful, log in...
                     api.Auth.login(username, password)
                     .then(({ user, token }) => {
                         this.props.login({
@@ -124,7 +124,7 @@ class SignUpPage extends React.Component<ISignUpProps, ISignUpState> {
 
     private submitOnEnter = (e: any) => {
         // if enter is pressed
-        if (e.keyCode == 13) {
+        if (e.keyCode === 13) {
             this.handleSignup();
         }
     }
@@ -241,7 +241,7 @@ class SignUpPage extends React.Component<ISignUpProps, ISignUpState> {
                             <KeyboardDatePicker
                               disableToolbar
                               variant="inline"
-                              format="MM/dd/yyyy"
+                              format="dd/MM/yyyy"
                               margin="normal"
                               id="date-picker-inline"
                               label="Date de naissance"

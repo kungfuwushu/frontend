@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import * as querystring from 'querystring';
 
-import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon } from '@material-ui/core';
-import Paper from '@material-ui/core/Paper';
+import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon, Paper } from '@material-ui/core';
 
 import { User } from '../../store/state/';
 import * as api from '../../api';
@@ -22,7 +21,7 @@ interface ILoginProps {
 }
 
 interface ILoginState {
-    username: string;
+    email: string;
     password: string;
     error?: string;
 }
@@ -31,14 +30,14 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     componentWillMount() {
       this.setState({
-        username: '',
+        email: '',
         password: '',
         error: null
       });
     }
 
-    private handleUsernameChange = (event: any) => {
-        this.setState({ username: event.target.value });
+    private handleEmailChange = (event: any) => {
+        this.setState({ email: event.target.value });
     }
 
     private handlePasswordChange = (event: any) => {
@@ -51,7 +50,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
           error: null // remove error message
         }, () => {
 
-            api.Auth.login(this.state.username, this.state.password)
+            api.Auth.login(this.state.email, this.state.password)
             .then(({ user, token }) => {
               // Authentification success
               // login into app : setting user and token
@@ -93,12 +92,12 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                 <Paper className={classes.paper}>
                     <h2>{'Login'}</h2>
                     <FormControl required={true} fullWidth={true} className={classes.field}>
-                        <InputLabel htmlFor="username">Username</InputLabel>
+                        <InputLabel htmlFor="email">email</InputLabel>
                         <Input
-                            value={this.state.username}
-                            onChange={this.handleUsernameChange}
+                            value={this.state.email}
+                            onChange={this.handleEmailChange}
                             onKeyDown={this.submitOnEnter}
-                            id="username"
+                            id="email"
                             startAdornment={
                                 <InputAdornment position="start">
                                     <Icon>account_circle</Icon>
