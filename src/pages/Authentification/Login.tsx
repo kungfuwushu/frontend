@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import * as querystring from 'querystring';
 
-import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon, Paper } from '@material-ui/core';
+import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon, Paper, Divider } from '@material-ui/core';
 
 import { User } from '../../store/state/';
 import * as api from '../../api';
@@ -18,6 +18,7 @@ interface ILoginProps {
     location?: any;
     classes?: any;
     user: User;
+    history?: any;
 }
 
 interface ILoginState {
@@ -81,6 +82,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     public render(): JSX.Element {
         const classes = this.props.classes;
+        const history = this.props.history;
 
         if (this.props.user) {
             const path: string = querystring.parse((this.props.location.search as string).substr(1)).redirect as any || '/members';
@@ -130,7 +132,23 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                             Submit
                         </Button>
                     </div>
+
+                    <Divider className={classes.divider}/>
+
+                    <div className={classes.buttonCenter}>
+                        <Button
+                            onClick={() => history.push('/signup')}
+                            variant="outlined"
+                            color="primary"
+                            className={classes.button}>
+                            Signup
+                        </Button>
+                    </div>
+
                 </Paper>
+
+
+
             </div>
         );
     }
@@ -167,6 +185,15 @@ const styles = (theme: Theme) => ({
     button: {
         marginRight: theme.spacing(1)
     },
+    buttonCenter: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    divider: {
+        marginTop: 20,
+        marginBottom: 30
+    }
 });
 
 const mapStateToProps = (state: IApplicationProps) => ({
