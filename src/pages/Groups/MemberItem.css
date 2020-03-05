@@ -1,0 +1,63 @@
+.MemberItem {
+    display: grid;
+    grid-template-columns: 0.4fr 0.8fr 0.5fr 1.2fr 0.5fr;
+}
+
+.MemberItem  {
+    flex-shrink: 0;
+    width: auto;
+    padding: 16px 32px;
+    position: relative;
+    align-items: center;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.MemberItem > div,
+.MemberItem > span {
+    flex: 1;
+}
+
+.MemberItem .name {
+    align-items: center;
+    display: flex;
+    font-weight: 600;
+}
+
+.MemberItem .groups {
+    white-space: nowrap;
+}
+
+.MemberItem img {
+    width: 32px;
+    height: 32px;
+    margin-right: 16px;
+}
+
+.MemberItem a {
+    line-height: 0;
+}
+
+.MemberItem .edit,
+.MemberItem .delete {
+    fill: #585858;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+
+.MemberItem .edit:hover,
+.MemberItem .delete:hover {
+    fill: black;
+}
+
+.MemberItem .actions {
+    opacity: 0;
+    display: grid;
+    grid-gap: 16px;
+    grid-template-columns: 0.5fr 0.5fr;
+    margin-left: auto;
+}
+
+.MemberItem:hover .actions {
+    opacity: 1;
+}

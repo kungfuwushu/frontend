@@ -17,6 +17,7 @@ export const Groups = {
 	all: () => get(`/groups`),
 	byId: (id: number) => get(`/groups/${id}`),
 	byTestId: (id: number) => get(`/tests/${id}/groups`),
+	delete: (id: number) => del(`/group/${id}`)
 };
 
 export const Exercises = {

@@ -46,7 +46,7 @@ const EvaluateGroup: FC<{
                 api.Ranks.byTestId(test.id)
                     .then((ranks: Rank[]) => {
                         initExercisesScales(
-                            ranks.reduce((exercisesScales: ExerciseScale[], rank: Rank) => 
+                            ranks.reduce((exercisesScales: ExerciseScale[], rank: Rank) =>
                                 exercisesScales.concat(rank.exercisesScales)
                             , [])
                         );
@@ -115,7 +115,7 @@ const EvaluateGroup: FC<{
         if (exerciseResult && exerciseResult.base !== exerciseResult.modified) {
             if (exerciseResult.modified.id)
                 api.ExerciseResults.update(exerciseResult.modified);
-            else 
+            else
                 api.ExerciseResults.create(testResult.id, exerciseResult.modified);
         }
     }
@@ -127,7 +127,7 @@ const EvaluateGroup: FC<{
             <Col className="list" xs={5} sm={5} md={5} lg={5} xl={5}>
                 <div className="list-header">Exercices</div>
                 <Menu selectedKeys={exerciseScale ? [exerciseScale.id+''] : []}>
-                    {exercisesScales.map(exerciseScale => 
+                    {exercisesScales.map(exerciseScale =>
                         <Menu.Item
                             key={exerciseScale.id}
                             onClick={() => setExerciseScale(exerciseScale)}
@@ -145,7 +145,7 @@ const EvaluateGroup: FC<{
                             key={performer.id}
                             onClick={() => setPerformer(performer)}
                         >
-                            <span>{performer.firstName + " " + performer.lastName}</span>
+                            <span>{performer.id}</span>
                         </Menu.Item>
                     )}
                 </Menu>

@@ -22,7 +22,7 @@ import { styles } from './styles';
 import AppDrawer from './App.Drawer';
 import { TrainingsList } from "../trainings";
 import { MemberDetails } from "../members";
-import { HomePage, AccountPage, SignUpPage } from "../pages/";
+import { HomePage, AccountPage, SignUpPage, GroupsListPage, GroupPage } from "../pages/";
 import { EvaluateGroup } from "../components/evaluate";
 import { TestsList, NewTest, EditTest } from "../components/tests";
 import { RanksList, NewRank, EditRank } from "../components/ranks";
@@ -183,6 +183,8 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route exact path='/exercices' component={ExercisesList} />
 
                     <Route exact path='/signup' component={SignUpPage} />
+                    <Route exact path='/groups' component={GroupsListPage} />
+                    <Route exact path='/group/:id/edit' component={GroupPage} />
                 </main>
             </div>
         );
