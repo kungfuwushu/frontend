@@ -28,7 +28,6 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
         }, () => {
             api.Groups.byId(this.props.match.params.id)
             .then((group: Group) => {
-                console.log(group);
                 this.setGroup(group);
                 this.setMembers(group.members);
             });

@@ -50,3 +50,14 @@
 .GroupsList .dragged .item {
     background-color: #FCFCFC;
 }
+
+
+.NewGroup {
+    display: flex;
+    padding: 16px 32px;
+    background-color: #e6f9ff;
+}
+
+.NewGroup .name {
+    margin-right: 16px;
+}
