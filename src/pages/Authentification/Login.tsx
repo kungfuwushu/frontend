@@ -1,8 +1,6 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import * as querystring from 'querystring';
 
 import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
@@ -82,11 +80,6 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     public render(): JSX.Element {
         const classes = this.props.classes;
-
-        if (this.props.user) {
-            const path: string = querystring.parse((this.props.location.search as string).substr(1)).redirect as any || '/members';
-            return <Redirect to={path} />
-        }
 
         return (
             <div className={classes.container}>
