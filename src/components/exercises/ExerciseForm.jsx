@@ -18,9 +18,7 @@ const ExerciseForm = ({ title, exercise, onChange, onSave, history }) => {
         image
     });
 
-    const handleRadioChange = (e) => {
-      console.log('radio checked', e.target.value);
-    };
+    const handleRadioChange = (e) => {};
 
     const { name, description, image } = exercise;
 

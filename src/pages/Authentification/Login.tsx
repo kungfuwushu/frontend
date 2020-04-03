@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon } from '@material-ui/core';
+import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon, Divider } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 
 import { User } from '../../store/state/';
@@ -17,6 +17,7 @@ interface ILoginProps {
     location?: any;
     classes?: any;
     user: User;
+    history?: any;
 }
 
 interface ILoginState {
@@ -80,6 +81,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     public render(): JSX.Element {
         const classes = this.props.classes;
+        const history = this.props.history;
 
         return (
             <div className={classes.container}>
@@ -124,6 +126,19 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                             Submit
                         </Button>
                     </div>
+
+                    <Divider className={classes.divider}/>
+
+                    <div className={classes.buttonCenter}>
+                        <Button
+                            onClick={() => history.push('/signup')}
+                            variant="outlined"
+                            color="primary"
+                            className={classes.button}>
+                            Signup
+                        </Button>
+                    </div>
+
                 </Paper>
             </div>
         );
@@ -161,6 +176,15 @@ const styles = (theme: Theme) => ({
     button: {
         marginRight: theme.spacing(1)
     },
+    buttonCenter: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    divider: {
+        marginTop: 20,
+        marginBottom: 30
+    }
 });
 
 const mapStateToProps = (state: IApplicationProps) => ({
