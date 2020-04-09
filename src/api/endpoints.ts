@@ -11,6 +11,8 @@ export const Members = {
 	byAccountId: (id: number) => get(`/accounts/${id}/members`),
 	byGroupId: (id: number) => get(`/groups/${id}/members`),
 	byTestId: (id: number) => get(`/tests/${id}/members`),
+	updateGroup: (memberId: number, groupId: number) => put(`/member/${memberId}/update-group/${groupId}`),
+	deleteGroup: (memberId: number) => put(`/member/${memberId}/delete-group`),
 };
 
 export const Groups = {

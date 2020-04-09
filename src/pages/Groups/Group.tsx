@@ -50,7 +50,7 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
     }
 
     private handleDelete = (memberId: number) => () => {
-    	api.Groups.delete(memberId)
+    	api.Members.deleteGroup(memberId)
             .then(() => {
                 this.setMembers(this.state.members.filter(member => member.id !== memberId))
             })
@@ -73,10 +73,10 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
     			<div className="header">
     				<h2>Membres du groupe "{group.name}"</h2>
     				<Button
-    					onClick={() => console.log("ajout d'un pratiquant au groupe")}
+    					onClick={() => console.log("ajout d'un membre au groupe")}
     					type="primary"
     				>
-    					Ajouter un pratiquant
+    					Ajouter un membre
     				</Button>
     			</div>
     			<div className="table-header">
