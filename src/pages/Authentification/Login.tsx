@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import * as querystring from 'querystring';
 
-import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon, Paper } from '@material-ui/core';
+import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon, Divider } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 
 import { User } from '../../store/state/';
 import * as api from '../../api';
@@ -18,10 +17,11 @@ interface ILoginProps {
     location?: any;
     classes?: any;
     user: User;
+    history?: any;
 }
 
 interface ILoginState {
-    email: string;
+    username: string;
     password: string;
     error?: string;
 }
@@ -30,14 +30,14 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     componentWillMount() {
       this.setState({
-        email: '',
+        username: '',
         password: '',
         error: null
       });
     }
 
-    private handleEmailChange = (event: any) => {
-        this.setState({ email: event.target.value });
+    private handleUsernameChange = (event: any) => {
+        this.setState({ username: event.target.value });
     }
 
     private handlePasswordChange = (event: any) => {
@@ -50,7 +50,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
           error: null // remove error message
         }, () => {
 
-            api.Auth.login(this.state.email, this.state.password)
+            api.Auth.login(this.state.username, this.state.password)
             .then(({ user, token }) => {
               // Authentification success
               // login into app : setting user and token
@@ -81,23 +81,19 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     public render(): JSX.Element {
         const classes = this.props.classes;
-
-        if (this.props.user) {
-            const path: string = querystring.parse((this.props.location.search as string).substr(1)).redirect as any || '/members';
-            return <Redirect to={path} />
-        }
+        const history = this.props.history;
 
         return (
             <div className={classes.container}>
                 <Paper className={classes.paper}>
                     <h2>{'Login'}</h2>
                     <FormControl required={true} fullWidth={true} className={classes.field}>
-                        <InputLabel htmlFor="email">email</InputLabel>
+                        <InputLabel htmlFor="username">Username</InputLabel>
                         <Input
-                            value={this.state.email}
-                            onChange={this.handleEmailChange}
+                            value={this.state.username}
+                            onChange={this.handleUsernameChange}
                             onKeyDown={this.submitOnEnter}
-                            id="email"
+                            id="username"
                             startAdornment={
                                 <InputAdornment position="start">
                                     <Icon>account_circle</Icon>
@@ -130,6 +126,19 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                             Submit
                         </Button>
                     </div>
+
+                    <Divider className={classes.divider}/>
+
+                    <div className={classes.buttonCenter}>
+                        <Button
+                            onClick={() => history.push('/signup')}
+                            variant="outlined"
+                            color="primary"
+                            className={classes.button}>
+                            Signup
+                        </Button>
+                    </div>
+
                 </Paper>
             </div>
         );
@@ -167,6 +176,15 @@ const styles = (theme: Theme) => ({
     button: {
         marginRight: theme.spacing(1)
     },
+    buttonCenter: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    divider: {
+        marginTop: 20,
+        marginBottom: 30
+    }
 });
 
 const mapStateToProps = (state: IApplicationProps) => ({
