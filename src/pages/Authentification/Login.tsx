@@ -1,10 +1,9 @@
 import * as React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router';
-import * as querystring from 'querystring';
 
-import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon, Paper, Divider } from '@material-ui/core';
+import { Theme, withStyles, FormControl, InputLabel, Input, InputAdornment, Button, Icon, Divider } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 
 import { User } from '../../store/state/';
 import * as api from '../../api';
@@ -22,7 +21,7 @@ interface ILoginProps {
 }
 
 interface ILoginState {
-    email: string;
+    username: string;
     password: string;
     error?: string;
 }
@@ -31,14 +30,14 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     componentWillMount() {
       this.setState({
-        email: '',
+        username: '',
         password: '',
         error: null
       });
     }
 
-    private handleEmailChange = (event: any) => {
-        this.setState({ email: event.target.value });
+    private handleUsernameChange = (event: any) => {
+        this.setState({ username: event.target.value });
     }
 
     private handlePasswordChange = (event: any) => {
@@ -51,7 +50,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
           error: null // remove error message
         }, () => {
 
-            api.Auth.login(this.state.email, this.state.password)
+            api.Auth.login(this.state.username, this.state.password)
             .then(({ user, token }) => {
               // Authentification success
               // login into app : setting user and token
@@ -75,7 +74,7 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
 
     private submitOnEnter = (e: any) => {
       // if enter is pressed
-      if (e.keyCode === 13) {
+      if (e.keyCode == 13) {
         this.handleLogin();
       }
     }
@@ -84,22 +83,17 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
         const classes = this.props.classes;
         const history = this.props.history;
 
-        if (this.props.user) {
-            const path: string = querystring.parse((this.props.location.search as string).substr(1)).redirect as any || '/members';
-            return <Redirect to={path} />
-        }
-
         return (
             <div className={classes.container}>
                 <Paper className={classes.paper}>
                     <h2>{'Login'}</h2>
                     <FormControl required={true} fullWidth={true} className={classes.field}>
-                        <InputLabel htmlFor="email">email</InputLabel>
+                        <InputLabel htmlFor="username">Username</InputLabel>
                         <Input
-                            value={this.state.email}
-                            onChange={this.handleEmailChange}
+                            value={this.state.username}
+                            onChange={this.handleUsernameChange}
                             onKeyDown={this.submitOnEnter}
-                            id="email"
+                            id="username"
                             startAdornment={
                                 <InputAdornment position="start">
                                     <Icon>account_circle</Icon>
@@ -146,9 +140,6 @@ class LoginPage extends React.Component<ILoginProps, ILoginState> {
                     </div>
 
                 </Paper>
-
-
-
             </div>
         );
     }
