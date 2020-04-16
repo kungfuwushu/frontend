@@ -1,11 +1,11 @@
 import * as React from 'react';
 import { Route, Switch } from 'react-router';
-import { ProfilePage } from './Profile';
-import LoginPage from './Login';
+import { default as ProfilePage } from './Profile';
+import LoginPage from './Authentification/Login';
 
 import { isAuthenticated } from '../store/state';
 
-export class AccountPage extends React.Component<{}, {}> {
+export default class AccountPage extends React.Component<{}, {}> {
 
     public render(): JSX.Element {
         return (<Switch>
