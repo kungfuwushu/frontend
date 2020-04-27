@@ -256,9 +256,6 @@ class SignUpPage extends React.Component<ISignUpProps, ISignUpState> {
 
                     {/* Buttons */}
                     <div className={classes.actions}>
-                        <Button variant="contained" className={classes.button}>
-                            Annuler
-                        </Button>
                         <Button
                             onClick={this.handleSignup}
                             variant="contained"
