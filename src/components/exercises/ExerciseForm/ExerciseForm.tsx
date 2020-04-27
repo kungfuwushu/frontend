@@ -19,7 +19,7 @@ interface IExerciseFormState {
     image?: any;
     description: string;
     name: string;
-    exerciseType: any;//todo: exercicetype (typescript) ?
+    exerciseType: any;
 }
 
 class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormState> {

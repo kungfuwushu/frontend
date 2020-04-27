@@ -3,15 +3,6 @@ import React, { FC } from 'react';
 import { Form, Input, Select } from 'antd';
 const { Option } = Select;
 
-// interface IPhysicalFormState {
-//     measure: string;
-//
-// }
-//
-// interface IPhysicalFormProps {
-//
-// }
-
 const PhysicalForm: FC = () => {
 
 
