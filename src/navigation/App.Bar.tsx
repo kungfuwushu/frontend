@@ -180,8 +180,8 @@ class MiniDrawer extends React.Component<IAppProps, IState> {
                     <Route exact path='/exercices' component={ExercisesList} />
 
                     <Route exact path='/signup' component={isNotAuthenticated(SignUpPage as any)} />
-                    <Route exact path='/groups' component={GroupsListPage} />
-                    <Route exact path='/group/:id/edit' component={GroupPage} />
+                    <Route exact path='/groups' component={isAuthenticated(GroupsListPage)} />
+                    <Route exact path='/group/:id/edit' component={isAuthenticated(GroupPage)} />
                 </main>
             </div>
         );

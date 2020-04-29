@@ -4,9 +4,11 @@ import * as api from '../../api';
 import { Member, Group } from '../../types';
 
 import MemberItem from './MemberItem'
-import { Button } from 'antd';
 import { Card, Loading } from '../../components/custom';
 import './Group.css';
+
+import MemberPicker from './MemberPicker.jsx';
+
 
 interface IGroupProps {
     match?: any;
@@ -27,10 +29,11 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
             members: null
         }, () => {
             api.Groups.byId(this.props.match.params.id)
-            .then((group: Group) => {
-                this.setGroup(group);
-                this.setMembers(group.members);
-            });
+                .then((group: Group) => {
+                    this.setGroup(group);
+                    this.setMembers(group.members);
+                });
+
         });
     }
 
@@ -41,11 +44,27 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
         });
     }
 
-
     private setMembers(members: Member[]) {
         this.setState({
             ...this.state,
             members
+        });
+    }
+
+    private handleMembersPicked(pickedMembers: any[]) {
+        // add members picked to group
+        pickedMembers.forEach(pickedMember => {
+            var member = pickedMember.member;
+            api.Members.updateGroup(member.id, this.state.group.id)
+                .then(() => {
+                    // local update
+                    member.groupId = this.state.group.id;
+                    var updatedMembers = this.state.members.concat(member);
+                    this.setMembers(updatedMembers);
+                })
+                .catch((err) => {
+                    alert("Impossible d'ajouter le membre au groupe...")
+                });
         });
     }
 
@@ -72,12 +91,7 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
     		<Card className="Group">
     			<div className="header">
     				<h2>Membres du groupe "{group.name}"</h2>
-    				<Button
-    					onClick={() => console.log("ajout d'un membre au groupe")}
-    					type="primary"
-    				>
-    					Ajouter un membre
-    				</Button>
+                    <MemberPicker onPicked={(members: any[]) => this.handleMembersPicked(members)} />
     			</div>
     			<div className="table-header">
                     <span className="image"></span>

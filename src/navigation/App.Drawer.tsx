@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { NavLink } from 'react-router-dom';
 
-import FaceIcon from '@material-ui/icons/Face';
 import BusinessIcon from '@material-ui/icons/BusinessCenter';
 import DashboardIcon from '@material-ui/icons/Dashboard';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -10,8 +9,10 @@ import ListAssignment from '@material-ui/icons/List';
 import AssignmentTurnedIn from '@material-ui/icons/AssignmentTurnedIn';
 import Assessment from '@material-ui/icons/Assessment';
 import Grade from '@material-ui/icons/Grade';
-import { Drawer, IconButton, Divider, Theme, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
+import GroupIcon from '@material-ui/icons/Group';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+
+import { Drawer, IconButton, Divider, Theme, ListItem, ListItemIcon, ListItemText, withStyles } from '@material-ui/core';
 const classNames = require('classnames');
 import { styles } from './styles';
 
@@ -30,7 +31,7 @@ class AppDrawer extends React.Component<IAppDrawer, {}> {
         { path: '/', title: 'Dashboard', icon: () => <DashboardIcon /> },
         { path: '/account', title: 'Profile', icon: () => <AccountCircleIcon /> },
         { path: '/trainings', title: 'Trainings', icon: () => <BusinessIcon /> },
-        { path: '/members', title: 'Members', icon: () => <FaceIcon /> },
+        { path: '/groups', title: 'Groupes', icon: () => <GroupIcon /> },
         { path: '/programs', title: 'Programmes', icon: () => <ListAssignment /> },
         { path: '/exercices', title: 'Exercices', icon: () => <Assignment /> },
         { path: '/ranks', title: 'Grades', icon: () => <Grade /> },

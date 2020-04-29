@@ -41,9 +41,15 @@ export default class GroupsListPage extends React.Component<IGroupsListProps, IG
     }
 
     private handleDelete = (groupId: number) => () => {
-    	api.Groups.delete(groupId)
+        api.Members.removeAllMembersOfGroup(groupId)
             .then(() => {
-                this.updateState();
+                api.Groups.delete(groupId)
+                    .then(() => {
+                        this.updateState();
+                    })
+                    .catch(() => {
+                        alert("La suppression a échoué");
+                    });
             })
             .catch(() => {
                 alert("La suppression a échoué");
@@ -57,17 +63,19 @@ export default class GroupsListPage extends React.Component<IGroupsListProps, IG
     }
 
     private handleCreateGroup = (event: any) => {
-        let group: Group = {
-            name: this.state.newGroupName,
-            members: []
-        };
-        api.Groups.create(group)
-        .then(() => {
-            this.updateState();
-        })
-        .catch(() => {
-            alert("L'ajout du groupe a échoué. Veuillez réessayer plus tard.");
-        });
+        if (this.state.newGroupName) {
+            let group: Group = {
+                name: this.state.newGroupName,
+                members: []
+            };
+            api.Groups.create(group)
+                .then(() => {
+                    this.updateState();
+                })
+                .catch(() => {
+                    alert("L'ajout du groupe a échoué.");
+                });
+        }
     }
 
     public render(): JSX.Element {
