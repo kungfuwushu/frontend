@@ -9,17 +9,19 @@ import './MemberPicker.css';
 
 const Option = Select.Option;
 
-const MemberPickerContainer = ({ onPicked }) => {
+const MemberPickerContainer = ({ availableMembers, onPicked }) => {
     const [ isVisible, setVisibility ] = useState(false);
     const toggle = () => setVisibility(!isVisible);
     const handlePicked = (memberPicked) => {
         toggle();
         onPicked(memberPicked);
     }
+
     return (
         <React.Fragment>
             <Button type="primary" onClick={toggle}>Ajouter des membres</Button>
             <MemberPicker
+                availableMembers={availableMembers}
                 visible={isVisible}
                 onClose={toggle}
                 onPicked={handlePicked}
@@ -28,7 +30,7 @@ const MemberPickerContainer = ({ onPicked }) => {
     );
 }
 
-const MemberPicker = ({ visible, onClose, onPicked }) => {
+const MemberPicker = ({ availableMembers, visible, onClose, onPicked }) => {
     const [ count, setCount ] = useState(0);
     const [ checkedMembers, setCheckedMembers ] = useState([]);
     const [ members, setMembers ] = useState([]);
@@ -40,12 +42,6 @@ const MemberPicker = ({ visible, onClose, onPicked }) => {
     const [ ranks, setRanks ] = useState([]);
 
     useEffect(() => {
-        api.Members.all()
-            .then(members => {
-                var freeMembers = members.filter(member => !member.groupId);
-                setMembers(freeMembers);
-                setFilteredMembers(freeMembers);
-            });
         api.Ranks.all()
             .then(ranks => {
                 ranks.unshift({
@@ -55,6 +51,11 @@ const MemberPicker = ({ visible, onClose, onPicked }) => {
                 setRanks(ranks);
             });
     }, []);
+
+    useEffect(() => {
+        setMembers(availableMembers);
+        setFilteredMembers(availableMembers);
+    });
 
     useEffect(() => {
         setFilteredMembers(members.filter(member => {

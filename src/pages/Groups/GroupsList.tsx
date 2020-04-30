@@ -5,7 +5,7 @@ import { Group } from '../../types';
 
 import GroupItem from './GroupItem'
 import { Input, Button } from 'antd';
-import { Card, Loading } from '../../components/custom';
+import { Card } from '../../components/custom';
 import './GroupsList.css';
 
 interface IGroupsListProps {
@@ -24,32 +24,24 @@ export default class GroupsListPage extends React.Component<IGroupsListProps, IG
 
     componentWillMount() {
         this.setState({
-            groups: null,
+            groups: [],
             newGroupName: null
         }, () => {
-            this.updateState();
+            api.Groups.all()
+                .then((groups: Group[]) => {
+                    this.setState({
+                      groups: groups,
+                    })
+                });
         });
     }
 
-    private updateState() {
-        api.Groups.all()
-            .then((groups: Group[]) => {
-                this.setState({
-                  groups: groups,
-                })
-            });
-    }
-
-    private handleDelete = (groupId: number) => () => {
-        api.Members.removeAllMembersOfGroup(groupId)
+    private handleDelete(group: Group) {
+        api.Groups.delete(group.id)
             .then(() => {
-                api.Groups.delete(groupId)
-                    .then(() => {
-                        this.updateState();
-                    })
-                    .catch(() => {
-                        alert("La suppression a échoué");
-                    });
+                this.setState({
+                    groups: this.state.groups.filter(currentGroup => currentGroup.id !== group.id)
+                });
             })
             .catch(() => {
                 alert("La suppression a échoué");
@@ -69,8 +61,10 @@ export default class GroupsListPage extends React.Component<IGroupsListProps, IG
                 members: []
             };
             api.Groups.create(group)
-                .then(() => {
-                    this.updateState();
+                .then((res) => {
+                    this.setState({
+                        groups: this.state.groups.concat(res)
+                    });
                 })
                 .catch(() => {
                     alert("L'ajout du groupe a échoué.");
@@ -82,9 +76,6 @@ export default class GroupsListPage extends React.Component<IGroupsListProps, IG
 
         const groups = this.state.groups;
         const newGroupName = this.state.newGroupName;
-
-        if (!groups)
-            return <Loading />;
 
         return (
     		<Card className="GroupsList">
@@ -118,11 +109,11 @@ export default class GroupsListPage extends React.Component<IGroupsListProps, IG
     				<span className="empty">Aucun résultat</span>
     				:
     				<div className="groups">
-    					{groups.map(group => (
+    					{groups.map((group, index) => (
                             <GroupItem
-                                key={group.id}
+                                key={index}
     							group={group}
-    							onDelete={this.handleDelete(group.id)}
+    							onDelete={() => this.handleDelete(group)}
     							className="item"
     						/>
     					))}

@@ -1,6 +1,6 @@
 .GroupItem {
     display: grid;
-    grid-template-columns: 0.8fr 0.4fr;
+    grid-template-columns: 0.8fr 0.4fr 0.4fr;
 }
 
 .GroupItem  {

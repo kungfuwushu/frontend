@@ -15,7 +15,8 @@ const GroupItem: FC<{
 }> = ({ group, onDelete, className }) => {
 	return (
     	<div className={classNames("GroupItem", className)}>
-          <span className="name">{group.name}</span>
+            <span className="name">{group.name}</span>
+            <span className="name">{`${group.members.length} membre${group.members.length > 1 ? 's' : '' }`}</span>
     		<div className="actions">
                 <Link to={`/group/${group.id}/edit`}>
                   <EditIcon className="edit" />

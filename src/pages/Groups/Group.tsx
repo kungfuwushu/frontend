@@ -19,6 +19,7 @@ interface IGroupProps {
 
 interface IGroupState {
     members: Member[];
+    availableMembers: Member[];
     group: Group;
 }
 
@@ -26,12 +27,21 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
 
     componentWillMount() {
         this.setState({
-            members: null
+            members: null,
+            availableMembers: []
         }, () => {
             api.Groups.byId(this.props.match.params.id)
                 .then((group: Group) => {
                     this.setGroup(group);
                     this.setMembers(group.members);
+                });
+
+            api.Members.all()
+                .then((members: Member[]) => {
+                    this.setState({
+                        ...this.state,
+                        availableMembers: members.filter(member => !member.groupId)
+                    });
                 });
 
         });
@@ -51,6 +61,13 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
         });
     }
 
+    private setAvailableMembers(availableMembers: Member[]) {
+        this.setState({
+            ...this.state,
+            availableMembers
+        });
+    }
+
     private handleMembersPicked(pickedMembers: any[]) {
         // add members picked to group
         pickedMembers.forEach(pickedMember => {
@@ -59,8 +76,8 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
                 .then(() => {
                     // local update
                     member.groupId = this.state.group.id;
-                    var updatedMembers = this.state.members.concat(member);
-                    this.setMembers(updatedMembers);
+                    this.setMembers(this.state.members.concat(member));
+                    this.setAvailableMembers(this.state.availableMembers.filter(member => !member.groupId));
                 })
                 .catch((err) => {
                     alert("Impossible d'ajouter le membre au groupe...")
@@ -68,10 +85,11 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
         });
     }
 
-    private handleDelete = (memberId: number) => () => {
-    	api.Members.deleteGroup(memberId)
+    private handleDelete = (member: Member) => () => {
+    	api.Members.deleteGroup(member.id)
             .then(() => {
-                this.setMembers(this.state.members.filter(member => member.id !== memberId))
+                this.setMembers(this.state.members.filter(currentMember => currentMember.id !== member.id));
+                this.setAvailableMembers(this.state.availableMembers.concat(member));
             })
             .catch(() => {
                 alert("La suppression a échoué");
@@ -91,7 +109,10 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
     		<Card className="Group">
     			<div className="header">
     				<h2>Membres du groupe "{group.name}"</h2>
-                    <MemberPicker onPicked={(members: any[]) => this.handleMembersPicked(members)} />
+                    <MemberPicker
+                        availableMembers={this.state.availableMembers}
+                        onPicked={(members: any[]) => this.handleMembersPicked(members)}
+                    />
     			</div>
     			<div className="table-header">
                     <span className="image"></span>
@@ -107,7 +128,7 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
                             <MemberItem
                                 key={member.id}
     							member={member}
-    							onDelete={this.handleDelete(member.id)}
+    							onDelete={this.handleDelete(member)}
     							className="item"
     						/>
     					))}
