@@ -44,7 +44,7 @@ export default class GroupsListPage extends React.Component<IGroupsListProps, IG
                 });
             })
             .catch(() => {
-                alert("La suppression a échoué");
+                alert("La suppression du groupe a échoué");
             });
 	}
 
@@ -67,7 +67,7 @@ export default class GroupsListPage extends React.Component<IGroupsListProps, IG
                     });
                 })
                 .catch(() => {
-                    alert("L'ajout du groupe a échoué.");
+                    alert("L'ajout du groupe a échoué");
                 });
         }
     }

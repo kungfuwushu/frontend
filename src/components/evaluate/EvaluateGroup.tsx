@@ -145,7 +145,7 @@ const EvaluateGroup: FC<{
                             key={performer.id}
                             onClick={() => setPerformer(performer)}
                         >
-                            <span>{performer.id}</span>
+                            <span>{`${performer.profile.firstName} ${performer.profile.lastName}`}</span>
                         </Menu.Item>
                     )}
                 </Menu>

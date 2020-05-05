@@ -54,18 +54,17 @@ const MemberPicker = ({ availableMembers, visible, onClose, onPicked }) => {
 
     useEffect(() => {
         setMembers(availableMembers);
-        setFilteredMembers(availableMembers);
     });
 
     useEffect(() => {
         setFilteredMembers(members.filter(member => {
-            if (filter.search && (! (`${member.profile.firstName} ${member.profile.lastName}`).toLowerCase().includes(filter.search.toLowerCase())))
+            if (filter.search && !((`${member.profile.firstName} ${member.profile.lastName}`).toLowerCase().includes(filter.search.toLowerCase())))
                 return false;
             if (filter.rank && filter.rank !== member.rank.id)
                 return false;
             return true;
         }));
-    }, [filter]);
+    }, [members, filter]);
 
     const handlePicked = () => {
         const memberPicked = checkedMembers.map((member, index) => {

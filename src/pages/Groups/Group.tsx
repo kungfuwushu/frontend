@@ -80,7 +80,7 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
                     this.setAvailableMembers(this.state.availableMembers.filter(member => !member.groupId));
                 })
                 .catch((err) => {
-                    alert("Impossible d'ajouter le membre au groupe...")
+                    alert("L'ajout du membre a échoué")
                 });
         });
     }
