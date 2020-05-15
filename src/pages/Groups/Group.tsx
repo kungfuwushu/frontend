@@ -27,7 +27,7 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
 
     componentWillMount() {
         this.setState({
-            members: null,
+            members: [],
             availableMembers: []
         }, () => {
             api.Groups.byId(this.props.match.params.id)
@@ -37,11 +37,8 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
                 });
 
             api.Members.all()
-                .then((members: Member[]) => {
-                    this.setState({
-                        ...this.state,
-                        availableMembers: members.filter(member => !member.groupId)
-                    });
+                .then((allMembers: Member[]) => {
+                    this.setAvailableMembers(allMembers.filter(member => !this.state.members.map(groupMember => groupMember.id).includes(member.id)));
                 });
 
         });
@@ -72,12 +69,12 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
         // add members picked to group
         pickedMembers.forEach(pickedMember => {
             var member = pickedMember.member;
-            api.Members.updateGroup(member.id, this.state.group.id)
+            api.Groups.addMember(this.state.group.id, member.id)
                 .then(() => {
                     // local update
                     member.groupId = this.state.group.id;
                     this.setMembers(this.state.members.concat(member));
-                    this.setAvailableMembers(this.state.availableMembers.filter(member => !member.groupId));
+                    this.setAvailableMembers(this.state.availableMembers.filter(m => m.id !== member.id));
                 })
                 .catch((err) => {
                     alert("L'ajout du membre a échoué")
@@ -86,7 +83,7 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
     }
 
     private handleDelete = (member: Member) => () => {
-    	api.Members.deleteGroup(member.id)
+    	api.Groups.removeMember(this.state.group.id, member.id)
             .then(() => {
                 this.setMembers(this.state.members.filter(currentMember => currentMember.id !== member.id));
                 this.setAvailableMembers(this.state.availableMembers.concat(member));
@@ -108,7 +105,7 @@ export default class GroupPage extends React.Component<IGroupProps, IGroupState>
         return (
     		<Card className="Group">
     			<div className="header">
-    				<h2>Membres du groupe "{group.name}"</h2>
+    				<h2>Membres du groupe "{group ? group.name : ''}"</h2>
                     <MemberPicker
                         availableMembers={this.state.availableMembers}
                         onPicked={(members: any[]) => this.handleMembersPicked(members)}

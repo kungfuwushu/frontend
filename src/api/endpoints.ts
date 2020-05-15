@@ -12,9 +12,6 @@ export const Members = {
 	byAccountId: (id: number) => get(`/accounts/${id}/members`),
 	byGroupId: (id: number) => get(`/groups/${id}/members`),
 	byTestId: (id: number) => get(`/tests/${id}/members`),
-	updateGroup: (memberId: number, groupId: number) => put(`/member/${memberId}/group-update/${groupId}`),
-	deleteGroup: (memberId: number) => put(`/member/${memberId}/delete-group`),
-	removeAllMembersOfGroup: (groupId: number) => put(`/members/remove-group/${groupId}`)
 };
 
 export const Groups = {
@@ -22,7 +19,9 @@ export const Groups = {
 	byId: (id: number) => get(`/groups/${id}`),
 	byTestId: (id: number) => get(`/tests/${id}/groups`),
 	delete: (id: number) => del(`/group/${id}`),
-	create: (group: Group) => post(`/groups`, group)
+	create: (group: Group) => post(`/groups`, group),
+	addMember: (groupId: number, memberId: number) => put(`/group/${groupId}/add-member/${memberId}`),
+	removeMember: (groupId: number, memberId: number) => del(`/group/${groupId}/remove-member/${memberId}`),
 };
 
 export const Exercises = {
