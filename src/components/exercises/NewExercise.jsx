@@ -3,7 +3,7 @@ import { withRouter } from 'react-router';
 
 import * as api from '../../api';
 
-import ExerciseForm from './ExerciseForm';
+import { ExerciseForm } from './ExerciseForm';
 
 import { Loading } from '../custom';
 
