@@ -1,8 +1,10 @@
 import React from 'react';
 import './ExerciseForm.css';
+import { Link, Redirect } from 'react-router-dom';
 import { Form, Input, Radio, Button } from 'antd';
 import { ImagePicker, Card, DynamicFieldSet } from '../../custom';
-
+import * as api from '../../../api';
+import { Exercise } from '../../../types';
 import PhysicalForm from './PhysicalForm';
 
 const { TextArea } = Input;
@@ -11,15 +13,21 @@ interface IExerciseFormProps {
     title: string;
     exercise: any;
     onChange: (data: any) => void;
-    onSave: (data: any) => void;
     history: any;
 }
 
 interface IExerciseFormState {
+    submitted: any;
     image?: any;
     description: string;
     name: string;
     exerciseType: any;
+    question?: any;
+    objective?: any;
+    measurementUnit?: any;
+    criterion?: any;
+    rounds?: any;
+    reponse?: string
 }
 
 class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormState> {
@@ -44,13 +52,14 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
     ];
 
     componentWillMount() {
-        let { name, description, image } = this.props.exercise;
+        let { name, description, image} = this.props.exercise;
+        console.log(this.props.exercise);
 
         this.setState({
+            submitted: false,
             image: image,
             description: description,
-            name: name,
-            exerciseType: null,
+            name: name
         });
     }
 
@@ -58,15 +67,8 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
         this.setState({
             description: event.target.value
         });
-        // TODO
-        // this.setState({ email: event.target.value });
-        // console.log('event ; ', event);
-        // const modifiedExercise = {...this.props.exercise};
-        // modifiedExercise[0] = 0;
-        // this.setState({
-        //     modifiedExercise
-        // });
     }
+
     private handleNameChange = (event: any) => {
         this.setState({
             name: event.target.value
@@ -85,12 +87,83 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
         });
     };
 
+    private handleQuestionChange = (event: any) => {
+        this.setState({
+            question: event.target.value
+        });
+    };
+
+    private handleReponseChange = (val: any) => {
+        this.setState({
+            reponse: val
+        });
+    };
+
+    private createExercise = (event: any) => {
+        if (this.state.name) {
+          let exercise: Exercise = null;
+          switch(this.state.exerciseType) {
+              case 'THEORETICAL':
+                exercise = {
+                  name: this.state.name,
+                  description: this.state.description,
+                  image: this.state.image,
+                  type: this.state.exerciseType,
+                  question: this.state.question,
+                  reponse: this.state.reponse
+                };
+                break;
+              case 'PHYSICAL':
+              console.log("Création d'un exercice physique...");
+                exercise = {
+                  name: this.state.name,
+                  description: this.state.description,
+                  image: this.state.image,
+                  type: this.state.exerciseType,
+                  objective: this.state.objective,
+                  measurementUnit: this.state.measurementUnit
+                };
+              break;
+              case 'TAOLU':
+              console.log("Création d'un exercice taolu...");
+                exercise = {
+                  name: this.state.name,
+                  description: this.state.description,
+                  image: this.state.image,
+                  type: this.state.exerciseType,
+                  criterion: this.state.criterion
+                };
+              case 'FIGHT':
+              console.log("Création d'un exercice combat...");
+                exercise = {
+                  name: this.state.name,
+                  description: this.state.description,
+                  image: this.state.image,
+                  type: this.state.exerciseType,
+                  rounds: this.state.rounds
+                }
+                break;
+              default:
+                break;
+          }
+          console.log(exercise)
+          api.Exercises.create(exercise)
+            .then(() => this.setState({ submitted: true }))
+            .catch(() => {
+              alert("L'ajout de l'exercice a échoué.");
+            });
+        } else {
+          alert("Veuillez compléter les champs du formulaire.");
+        }
+    }
+
     public render(): JSX.Element {
 
         const TheoricalForm =
             (<Form.Item label="Question :">
-              <Input type="text" />
+              <Input onChange={this.handleQuestionChange} type="text" />
               <DynamicFieldSet
+                onChange={this.handleReponseChange.bind(this)}
                 label="Réponse"
               />
             </Form.Item>);
@@ -126,6 +199,11 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                 ConditionnalForm = (<p>Veuillez selectionner un type d'exercice</p>)
         }
 
+        const {submitted} = this.state;
+        if (submitted) {
+          return <Redirect to='/exercices' />;
+        }
+
         return (
             <div className="ExerciseForm">
                 <Card className="card">
@@ -134,8 +212,8 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                     <h2 className="infos-title">Type d'exercice</h2>
                     <div className="exerciseType">
                       <Radio.Group onChange={this.handleRadioChange}>
-                        {this.exerciseTypes.map((type) =>
-                          <Radio value={type.value}>{type.name}</Radio>
+                        {this.exerciseTypes.map((type, index) =>
+                          <Radio key={index} value={type.value}>{type.name}</Radio>
                         )}
                       </Radio.Group>
                     </div>
@@ -166,8 +244,8 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                     </React.Fragment>
 
                     <div className="actions">
-                        <Button onClick={() => this.props.history.goBack()}>Annuler</Button>
-                        <Button type="primary" onClick={this.props.onSave} className="save">Sauvegarder</Button>
+                        <Link to="/exercices" className="btn btn-primary">Annuler</Link>
+                        <Button type="primary" onClick={this.createExercise} className="save">Sauvegarder</Button>
                     </div>
                   </Form>
                 </Card>

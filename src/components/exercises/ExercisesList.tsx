@@ -52,8 +52,9 @@ const ExercisesList: FC<{
 				<span className="empty">Aucun résultat</span>
 				:
 				<div className="exercises">
-					{exercises.map(exercise => (
+					{exercises.map((exercise, index) => (
             <ExerciseItem
+              key={index}
 							exercise={exercise}
 							onDelete={handleDelete(exercise.id)}
 							className="item"

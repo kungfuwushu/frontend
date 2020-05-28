@@ -38,15 +38,18 @@
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-    overflow-y: auto;
 }
 
 .ExercisesList .table-header {
     display: grid;
-    grid-template-columns: 0.4fr 0.8fr 1.5fr 0.4fr 0.4fr;
+    grid-template-columns: 0.25fr 0.5fr 0.9fr 0.3fr 0.25fr;
 }
 
 .ExercisesList .item:hover,
 .ExercisesList .dragged .item {
     background-color: #FCFCFC;
+}
+
+.exercises {
+  overflow-y: scroll;
 }

@@ -7,6 +7,7 @@ let id = 0;
 
 interface IDynamicFieldSetProps extends FormComponentProps {
     label: string;
+    onChange: any;
 }
 
 interface IDynamicFieldSetState {}
@@ -17,10 +18,6 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
     const { form } = this.props;
     // can use data-binding to get
     const keys = form.getFieldValue('keys');
-    // We need at least one passenger
-    if (keys.length === 1) {
-      return;
-    }
 
     // can use data-binding to set
     form.setFieldsValue({
@@ -40,16 +37,9 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
     });
   };
 
-  handleSubmit = (e: any) => {
-    e.preventDefault();
-    this.props.form.validateFields((err: any, values: any) => {
-      if (!err) {
-        const { keys, names } = values;
-        console.log('Received values of form: ', values);
-        console.log('Merged values:', keys.map((key: any) => names[key]));
-      }
-    });
-  };
+  onChange = (event: any) => {
+    this.props.onChange(event.target.value);
+  }
 
   render() {
     const { getFieldDecorator, getFieldValue } = this.props.form;
@@ -75,7 +65,7 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
     const formItems = keys.map((k: any, index: number) => (
       <Form.Item
         {...formItemLayout}
-        label={`${label} ${(index+1)}`}
+        label={`${label}`}
         required={false}
         key={k}
       >
@@ -88,25 +78,26 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
               message: `Veuillez entrer une ${label.toLowerCase()} ici ou supprimer ce champ`,
             },
           ],
-      })(<Input placeholder={`${label} ${(index+1)}`} style={{ width: '60%', marginRight: 8 }} />)}
-        {keys.length > 1 ? (
+      })(<Input onChange={this.onChange.bind(this)}  placeholder={`${label}`} style={{ width: '60%', marginRight: 8 }} />)}
+        {
           <Icon
             className="dynamic-delete-button"
             type="minus-circle-o"
             onClick={() => this.remove(k)}
           />
-        ) : null}
+        }
       </Form.Item>
     ));
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <div>
         {formItems}
         <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-            <Icon type="plus" /> Ajouter '{label.toLowerCase()}'
-          </Button>
+          {keys.length < 1 ? (<Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
+            <Icon type="plus" /> {"Ajouter une " + label.toLowerCase()}
+          </Button>)
+          : null}
         </Form.Item>
-      </Form>
+      </div>
     );
   }
 }

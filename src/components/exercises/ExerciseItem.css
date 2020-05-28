@@ -1,6 +1,7 @@
 .ExerciseItem {
     display: grid;
     grid-template-columns: 0.4fr 0.8fr 1.5fr 0.4fr 0.4fr;
+    column-gap: 1%;
 }
 
 .ExerciseItem  {

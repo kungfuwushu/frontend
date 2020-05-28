@@ -13,7 +13,7 @@ const ExerciseItem: FC<{
 }> = ({ exercise, onDelete, className }) => {
 	return (
 		<div className={classNames("ExerciseItem", className)}>
-      <img className="image" src={exercise.image} alt="Upload"/>
+      <img className="image" src={exercise.image} alt=""/>
       <span className="name">{exercise.name}</span>
       <span className="description">{exercise.description}</span>
       <span className="category">{exercise.type}</span>
