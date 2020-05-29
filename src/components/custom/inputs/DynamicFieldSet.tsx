@@ -82,7 +82,7 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
               message: `Veuillez entrer le champ ${label.toLowerCase()} ici ou supprimer ce champ`,
             },
           ],
-      })(<Input onChange={this.onChange.bind(this)}  placeholder={`${label}  ${(index+1)}`} style={{ width: '60%', marginRight: 8 }} />)}
+      })(<Input placeholder={`${label}  ${(index+1)}`} onChange={this.onChange.bind(this)} style={{ width: '60%', marginRight: 8 }} />)}
         {keys.length > 1 ? (
           <Icon
             className="dynamic-delete-button"

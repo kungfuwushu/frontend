@@ -19,8 +19,8 @@
     background-color: #FCFCFC;
 }
 
-.ExercisesList .header button {
-    margin-left: auto;
+.ExercisesList .top button {
+    margin-left: 15px;
 }
 
 .ExercisesList .table-header {
@@ -48,6 +48,11 @@
 .ExercisesList .item:hover,
 .ExercisesList .dragged .item {
     background-color: #FCFCFC;
+}
+
+.ExercisesList .SearchInput {
+    width: 500px;
+    margin-left: 16px;
 }
 
 .exercises {

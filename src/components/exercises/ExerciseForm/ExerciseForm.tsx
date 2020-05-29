@@ -25,10 +25,14 @@ interface IExerciseFormState {
     question?: any;
     objective?: any;
     measurementUnit?: any;
+    criteria?: string;
     criterion?: any;
     rounds?: any;
     reponse?: string
 }
+
+let storedCritLength = 0;
+let storedCrit = "";
 
 class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormState> {
 
@@ -59,7 +63,8 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
             submitted: false,
             image: image,
             description: description,
-            name: name
+            name: name,
+            criterion: []
         });
     }
 
@@ -99,8 +104,29 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
         });
     };
 
-    private handleCriterionChange = (val: any) => {
-        console.log(val)
+    private handleCriterionChange = (crit: any) => {
+        console.log(storedCritLength+" > "+ crit.length);
+        if(storedCritLength > crit.length) {
+          console.log("on sauvegarde");
+          let crits = this.state.criterion.concat(storedCrit);
+          this.setState({
+              criterion: crits
+          });
+          storedCritLength = crit.length - 1;
+          storedCrit = crit;
+          console.log(storedCritLength +" new "+ storedCrit);
+        }
+        storedCritLength += 1;
+        storedCrit = crit;
+        console.log(crit);
+        console.log(storedCritLength);
+    }
+
+    private handleCriteriaChange = (val: any) => {
+        this.setState({
+            criteria: val
+        });
+        this.handleCriterionChange(val);
     };
 
     private handleObjectiveMeasurementChange = (val: any) => {
@@ -138,8 +164,6 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
             measurementUnit: val.toUpperCase()
         });
       }
-
-
     };
 
     private createExercise = (event: any) => {
@@ -157,34 +181,34 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                 };
                 break;
               case 'PHYSICAL':
-              console.log("Création d'un exercice physique...");
-                exercise = {
-                  name: this.state.name,
-                  description: this.state.description,
-                  image: this.state.image,
-                  type: this.state.exerciseType,
-                  objective: this.state.objective,
-                  measurementUnit: this.state.measurementUnit
-                };
-              break;
+                  exercise = {
+                    name: this.state.name,
+                    description: this.state.description,
+                    image: this.state.image,
+                    type: this.state.exerciseType,
+                    objective: this.state.objective,
+                    measurementUnit: this.state.measurementUnit
+                  };
+                break;
               case 'TAOLU':
-              console.log("Création d'un exercice taolu...");
-                exercise = {
-                  name: this.state.name,
-                  description: this.state.description,
-                  image: this.state.image,
-                  type: this.state.exerciseType,
-                  criterion: this.state.criterion
-                };
+                console.log("Création d'un exercice taolu...");
+                  exercise = {
+                    name: this.state.name,
+                    description: this.state.description,
+                    image: this.state.image,
+                    type: this.state.exerciseType,
+                    criterion: this.state.criterion
+                  };
+                break;
               case 'FIGHT':
-              console.log("Création d'un exercice combat...");
-                exercise = {
-                  name: this.state.name,
-                  description: this.state.description,
-                  image: this.state.image,
-                  type: this.state.exerciseType,
-                  rounds: this.state.rounds
-                }
+                console.log("Création d'un exercice combat...");
+                  exercise = {
+                    name: this.state.name,
+                    description: this.state.description,
+                    image: this.state.image,
+                    type: this.state.exerciseType,
+                    rounds: this.state.rounds
+                  }
                 break;
               default:
                 break;
@@ -213,7 +237,7 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
 
         const TaoluForm =
             (<DynamicFieldSet
-                onChange={this.handleCriterionChange.bind(this)}
+                onChange={this.handleCriteriaChange.bind(this)}
                 label="critère"
             />);
 
