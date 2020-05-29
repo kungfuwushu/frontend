@@ -2,7 +2,7 @@ import React from 'react';
 import './ExerciseForm.css';
 import { Link, Redirect } from 'react-router-dom';
 import { Form, Input, Radio, Button } from 'antd';
-import { ImagePicker, Card, DynamicFieldSet } from '../../custom';
+import { ImagePicker, Card, DynamicFieldSet, FieldSet } from '../../custom';
 import * as api from '../../../api';
 import { Exercise } from '../../../types';
 import PhysicalForm from './PhysicalForm';
@@ -97,6 +97,10 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
         this.setState({
             reponse: val
         });
+    };
+
+    private handleCriterionChange = (val: any) => {
+        console.log(val)
     };
 
     private handleObjectiveMeasurementChange = (val: any) => {
@@ -201,19 +205,17 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
         const TheoricalForm =
             (<Form.Item label="Question :">
               <Input onChange={this.handleQuestionChange} type="text" />
-              <DynamicFieldSet
+              <FieldSet
                 onChange={this.handleReponseChange.bind(this)}
                 label="Réponse"
               />
             </Form.Item>);
 
         const TaoluForm =
-            (<p>
-                Exercice Taolu
-                <DynamicFieldSet
-                  label="Geste technique"
-                />
-            </p>);
+            (<DynamicFieldSet
+                onChange={this.handleCriterionChange.bind(this)}
+                label="critère"
+            />);
 
         const FightForm =
             (<p>

@@ -5,23 +5,19 @@ import { FormComponentProps } from 'antd/lib/form';
 
 let id = 0;
 
-interface IDynamicFieldSetProps extends FormComponentProps {
+interface IFieldSetProps extends FormComponentProps {
     label: string;
     onChange: any;
 }
 
-interface IDynamicFieldSetState {}
+interface IFieldSetState {}
 
-class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFieldSetState> {
+class FieldSet extends React.Component<IFieldSetProps, IFieldSetState> {
 
   remove = (k: any) => {
     const { form } = this.props;
     // can use data-binding to get
     const keys = form.getFieldValue('keys');
-    // We need at least one passenger
-    if (keys.length === 1) {
-      return;
-    }
 
     // can use data-binding to set
     form.setFieldsValue({
@@ -69,7 +65,7 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
     const formItems = keys.map((k: any, index: number) => (
       <Form.Item
         {...formItemLayout}
-        label={`${label}  ${(index+1)}`}
+        label={`${label}`}
         required={false}
         key={k}
       >
@@ -82,27 +78,28 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
               message: `Veuillez entrer le champ ${label.toLowerCase()} ici ou supprimer ce champ`,
             },
           ],
-      })(<Input onChange={this.onChange.bind(this)}  placeholder={`${label}  ${(index+1)}`} style={{ width: '60%', marginRight: 8 }} />)}
-        {keys.length > 1 ? (
+      })(<Input onChange={this.onChange.bind(this)}  placeholder={`${label}`} style={{ width: '60%', marginRight: 8 }} />)}
+        {
           <Icon
             className="dynamic-delete-button"
             type="minus-circle-o"
             onClick={() => this.remove(k)}
           />
-        ) : null}
+        }
       </Form.Item>
     ));
     return (
       <div>
         {formItems}
         <Form.Item {...formItemLayoutWithOutLabel}>
-          <Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
+          {keys.length < 1 ? (<Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
             <Icon type="plus" /> {"Ajouter un champ " + label.toLowerCase()}
-          </Button>
+          </Button>)
+          : null}
         </Form.Item>
       </div>
     );
   }
 }
 
-export default (Form.create()(DynamicFieldSet as any) as any)
+export default (Form.create()(FieldSet as any) as any)
