@@ -75,7 +75,7 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
             {
               required: true,
               whitespace: true,
-              message: `Veuillez entrer une ${label.toLowerCase()} ici ou supprimer ce champ`,
+              message: `Veuillez entrer le champ ${label.toLowerCase()} ici ou supprimer ce champ`,
             },
           ],
       })(<Input onChange={this.onChange.bind(this)}  placeholder={`${label}`} style={{ width: '60%', marginRight: 8 }} />)}
@@ -93,7 +93,7 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
         {formItems}
         <Form.Item {...formItemLayoutWithOutLabel}>
           {keys.length < 1 ? (<Button type="dashed" onClick={this.add} style={{ width: '60%' }}>
-            <Icon type="plus" /> {"Ajouter une " + label.toLowerCase()}
+            <Icon type="plus" /> {"Ajouter un champ " + label.toLowerCase()}
           </Button>)
           : null}
         </Form.Item>

@@ -1,41 +1,55 @@
-import React, { FC } from 'react';
+import React from 'react';
 
 import { Form, Input, Select } from 'antd';
 const { Option } = Select;
 
-const PhysicalForm: FC = () => {
+interface IPhysicalFormProps {
+    onChange: any;
+}
 
+interface IPhysicalFormState {}
 
-	return (
-        <Form.Item>
-            <p>Exercice Physique</p>
+class PhysicalForm extends React.Component<IPhysicalFormProps, IPhysicalFormState> {
 
-            <p>Le but est de</p>
+	onChange = (event: any) => {
+		if(event.target) {
+			this.props.onChange(event.target.value);
+		} else {
+			this.props.onChange(event);
+		}
+	}
 
-            <Select
-              value={"close"}
-              size={"small"}
-              onChange={()=>{}}
-            >
-              <Option value="close">se rapprocher de</Option>
-              <Option value="far">s'eloigner de</Option>
-              <Option value="less">faire moins que</Option>
-              <Option value="more">faire plus que</Option>
+	render() {
 
-            </Select>
-            <Input type="number" />
-            <Select
-              value={"meters"}
-              size={"small"}
-              onChange={()=>{}}
-            >
-              <Option value="meters">metres</Option>
-              <Option value="centimeters">centimetres</Option>
-              <Option value="seconds">secondes</Option>
-              <Option value="minutes">minutes</Option>
-            </Select>
-        </Form.Item>
-	);
+		return (
+	        <Form.Item>
+	            <p>Le but est de</p>
+
+	            <Select
+								defaultValue="Veuillez sélectionner un objectif"
+	              size={"small"}
+								onChange={this.onChange.bind(this)}
+	            >
+	              <Option value="se rapprocher de">se rapprocher de</Option>
+	              <Option value="s'eloigner de">s'éloigner de</Option>
+	              <Option value="faire moins de">faire moins de</Option>
+	              <Option value="faire plus de">faire plus de</Option>
+
+	            </Select>
+	            <Input type="number" onChange={this.onChange.bind(this)} min="0"/>
+	            <Select
+	              defaultValue={"Veuillez sélectionner une unité de mesure"}
+	              size={"small"}
+								onChange={this.onChange.bind(this)}
+	            >
+	              <Option value="meter">mètres</Option>
+	              <Option value="centimeter">centimètres</Option>
+	              <Option value="second">secondes</Option>
+	              <Option value="minute">minutes</Option>
+	            </Select>
+	        </Form.Item>
+		);
+	}
 }
 
 export default PhysicalForm;

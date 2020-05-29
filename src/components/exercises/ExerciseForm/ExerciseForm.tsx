@@ -99,6 +99,45 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
         });
     };
 
+    private handleObjectiveMeasurementChange = (val: any) => {
+      if(val.search("s'") >= 0 || val.search("se ") >= 0 || val.search("faire ") >= 0) {
+        let obj = this.state.objective;
+        if(obj) {
+          let endObj = obj.substring(obj.search(/[0-9]/), obj.length)
+          obj = val + " " + endObj
+          this.setState({
+              objective: obj
+          });
+        } else {
+          this.setState({
+              objective: val
+          });
+        }
+      } else if(val.search(/[^0-9]/) < 0) {
+        let obj = this.state.objective;
+        if(obj) {
+          if(obj.search(/[0-9]/) <= 0) {
+            obj = obj + " " + val;
+          } else {
+            obj = obj.substring(0, obj.search(/[0-9]/)) + val
+          }
+          this.setState({
+              objective: obj
+          });
+        } else {
+          this.setState({
+              objective: obj
+          });
+        }
+      } else {
+        this.setState({
+            measurementUnit: val.toUpperCase()
+        });
+      }
+
+
+    };
+
     private createExercise = (event: any) => {
         if (this.state.name) {
           let exercise: Exercise = null;
@@ -187,7 +226,7 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                 ConditionnalForm = TheoricalForm;
                 break;
             case 'PHYSICAL':
-                ConditionnalForm = <PhysicalForm />;
+                ConditionnalForm = <PhysicalForm onChange={this.handleObjectiveMeasurementChange.bind(this)} />;
                 break;
             case 'TAOLU':
                 ConditionnalForm = TaoluForm;
