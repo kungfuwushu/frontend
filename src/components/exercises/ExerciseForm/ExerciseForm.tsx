@@ -258,6 +258,7 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
 
         const TaoluForm =
             (<DynamicFieldSet
+                onChange={this.handleCriteriaChange.bind(this)}
                 label="critère"
             />);
 
@@ -265,7 +266,6 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
             (<Form.Item label="Nombre de rounds :">
               <Input onChange={this.handleNumberRoundsChange} type="number" min="0"/>
               <DynamicFieldSet
-                onChange={this.handleRoundCriteriaChange.bind(this)}
                 label="Critère"
               />
             </Form.Item>
