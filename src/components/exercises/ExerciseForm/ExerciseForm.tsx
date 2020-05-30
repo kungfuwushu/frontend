@@ -271,22 +271,22 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
             </Form.Item>
           );
 
-        let ConditionnalForm;
+        let ConditionalForm;
         switch(this.state.exerciseType) {
             case 'THEORETICAL':
-                ConditionnalForm = TheoricalForm;
+                ConditionalForm = TheoricalForm;
                 break;
             case 'PHYSICAL':
-                ConditionnalForm = <PhysicalForm onChange={this.handleObjectiveMeasurementChange.bind(this)} />;
+                ConditionalForm = <PhysicalForm onChange={this.handleObjectiveMeasurementChange.bind(this)} />;
                 break;
             case 'TAOLU':
-                ConditionnalForm = TaoluForm;
+                ConditionalForm = TaoluForm;
                 break;
             case 'FIGHT':
-                ConditionnalForm = FightForm;
+                ConditionalForm = FightForm;
                 break;
             default:
-                ConditionnalForm = (<p>Veuillez selectionner un type d'exercice</p>)
+                ConditionalForm = (<p>Veuillez selectionner un type d'exercice</p>)
         }
 
         const {submitted} = this.state;
@@ -320,9 +320,9 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
                         value={this.state.description}
                     />
 
-                    {/* custom form : depends on exercice type selected */}
+                    {/* custom form : depends on selected exercise type */}
                     <div style={{ border: '1px solid #D9D9D9', padding: '10px', marginTop: '5px' }}>
-                        { ConditionnalForm /* depend on exercise type */}
+                        { ConditionalForm /* depend on exercise type */}
                     </div>
 
                     <React.Fragment>
