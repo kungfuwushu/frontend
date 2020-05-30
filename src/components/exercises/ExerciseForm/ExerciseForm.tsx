@@ -95,9 +95,15 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
     };
 
     private handleReponseChange = (val: any) => {
-        this.setState({
-            reponse: val
-        });
+        if(Number.isInteger(val)) {
+            this.setState({
+                reponse: null
+            });
+        } else {
+            this.setState({
+                reponse: val
+            });
+        }
     };
 
     private handleNumberRoundsChange = (event: any) => {
@@ -112,56 +118,56 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
     };
 
     private handleCriteriaChange = (event: any) => {
-      if(Number.isInteger(event)) {
-        let crits = this.state.criterion;
-        crits.splice(event, 1);
-        this.setState({
-          criterion: crits
-        })
-      } else {
-        let crits = this.state.criterion;
-        crits[parseInt(event.target.name, 10)] = event.target.value;
-        this.setState({
-          criterion: crits
-        })
-      }
+        if(Number.isInteger(event)) {
+            let crits = this.state.criterion;
+            crits.splice(event, 1);
+            this.setState({
+              criterion: crits
+            })
+        } else {
+            let crits = this.state.criterion;
+            crits[parseInt(event.target.name, 10)] = event.target.value;
+            this.setState({
+                criterion: crits
+            })
+        }
     };
 
     private handleObjectiveMeasurementChange = (val: any) => {
-      if(val.search("s'") >= 0 || val.search("se ") >= 0 || val.search("faire ") >= 0) {
-        let obj = this.state.objective;
-        if(obj) {
-          let endObj = obj.substring(obj.search(/[0-9]/), obj.length)
-          obj = val + " " + endObj
-          this.setState({
-              objective: obj
-          });
-        } else {
-          this.setState({
-              objective: val
-          });
-        }
-      } else if(val.search(/[^0-9]/) < 0) {
-        let obj = this.state.objective;
-        if(obj) {
-          if(obj.search(/[0-9]/) <= 0) {
-            obj = obj + " " + val;
+        if(val.search("s'") >= 0 || val.search("se ") >= 0 || val.search("faire ") >= 0) {
+          let obj = this.state.objective;
+          if(obj) {
+            let endObj = obj.substring(obj.search(/[0-9]/), obj.length)
+            obj = val + " " + endObj
+            this.setState({
+                objective: obj
+            });
           } else {
-            obj = obj.substring(0, obj.search(/[0-9]/)) + val
+            this.setState({
+                objective: val
+            });
           }
-          this.setState({
-              objective: obj
-          });
+        } else if(val.search(/[^0-9]/) < 0) {
+            let obj = this.state.objective;
+            if(obj) {
+                if(obj.search(/[0-9]/) <= 0) {
+                    obj = obj + " " + val;
+                } else {
+                    obj = obj.substring(0, obj.search(/[0-9]/)) + val
+                }
+                this.setState({
+                    objective: obj
+                });
+            } else {
+                this.setState({
+                    objective: obj
+                });
+            }
         } else {
-          this.setState({
-              objective: obj
-          });
+            this.setState({
+                measurementUnit: val.toUpperCase()
+            });
         }
-      } else {
-        this.setState({
-            measurementUnit: val.toUpperCase()
-        });
-      }
     };
 
     private createExercise = (event: any) => {

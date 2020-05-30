@@ -14,7 +14,7 @@ interface IFieldSetState {}
 
 class FieldSet extends React.Component<IFieldSetProps, IFieldSetState> {
 
-  remove = (k: any) => {
+  remove = (k: any, index: any) => {
     const { form } = this.props;
     // can use data-binding to get
     const keys = form.getFieldValue('keys');
@@ -23,6 +23,7 @@ class FieldSet extends React.Component<IFieldSetProps, IFieldSetState> {
     form.setFieldsValue({
       keys: keys.filter((key:any) => (key !== k)),
     });
+    this.props.onChange(index);
   };
 
   add = () => {
@@ -83,7 +84,7 @@ class FieldSet extends React.Component<IFieldSetProps, IFieldSetState> {
           <Icon
             className="dynamic-delete-button"
             type="minus-circle-o"
-            onClick={() => this.remove(k)}
+            onClick={() => this.remove(k, index)}
           />
         }
       </Form.Item>
