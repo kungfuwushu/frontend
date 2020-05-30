@@ -4,7 +4,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { Form, Input, Radio, Button } from 'antd';
 import { ImagePicker, Card, DynamicFieldSet, FieldSet } from '../../custom';
 import * as api from '../../../api';
-import { Exercise } from '../../../types';
+import { Exercise, Criteria } from '../../../types';
 import PhysicalForm from './PhysicalForm';
 
 const { TextArea } = Input;
@@ -25,14 +25,11 @@ interface IExerciseFormState {
     question?: any;
     objective?: any;
     measurementUnit?: any;
-    criteria?: string;
     criterion?: any;
     rounds?: any;
+    numberRounds?: any;
     reponse?: string
 }
-
-let storedCritLength = 0;
-let storedCrit = "";
 
 class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormState> {
 
@@ -57,7 +54,6 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
 
     componentWillMount() {
         let { name, description, image} = this.props.exercise;
-        console.log(this.props.exercise);
 
         this.setState({
             submitted: false,
@@ -104,29 +100,31 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
         });
     };
 
-    private handleCriterionChange = (crit: any) => {
-        console.log(storedCritLength+" > "+ crit.length);
-        if(storedCritLength > crit.length) {
-          console.log("on sauvegarde");
-          let crits = this.state.criterion.concat(storedCrit);
-          this.setState({
-              criterion: crits
-          });
-          storedCritLength = crit.length - 1;
-          storedCrit = crit;
-          console.log(storedCritLength +" new "+ storedCrit);
+    private handleNumberRoundsChange = (event: any) => {
+        let roundsIndex = [];
+        for(let i=1; i<=event.target.value; i++) {
+          roundsIndex.push(i)
         }
-        storedCritLength += 1;
-        storedCrit = crit;
-        console.log(crit);
-        console.log(storedCritLength);
-    }
-
-    private handleCriteriaChange = (val: any) => {
         this.setState({
-            criteria: val
+            numberRounds: roundsIndex,
+            rounds: event.target.value
         });
-        this.handleCriterionChange(val);
+    };
+
+    private handleCriteriaChange = (event: any) => {
+      if(Number.isInteger(event)) {
+        let crits = this.state.criterion;
+        crits.splice(event, 1);
+        this.setState({
+          criterion: crits
+        })
+      } else {
+        let crits = this.state.criterion;
+        crits[parseInt(event.target.name, 10)] = event.target.value;
+        this.setState({
+          criterion: crits
+        })
+      }
     };
 
     private handleObjectiveMeasurementChange = (val: any) => {
@@ -167,60 +165,83 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
     };
 
     private createExercise = (event: any) => {
-        if (this.state.name) {
-          let exercise: Exercise = null;
-          switch(this.state.exerciseType) {
-              case 'THEORETICAL':
-                exercise = {
-                  name: this.state.name,
-                  description: this.state.description,
-                  image: this.state.image,
-                  type: this.state.exerciseType,
-                  question: this.state.question,
-                  reponse: this.state.reponse
-                };
-                break;
-              case 'PHYSICAL':
-                  exercise = {
-                    name: this.state.name,
-                    description: this.state.description,
-                    image: this.state.image,
-                    type: this.state.exerciseType,
-                    objective: this.state.objective,
-                    measurementUnit: this.state.measurementUnit
-                  };
-                break;
-              case 'TAOLU':
-                console.log("Création d'un exercice taolu...");
-                  exercise = {
-                    name: this.state.name,
-                    description: this.state.description,
-                    image: this.state.image,
-                    type: this.state.exerciseType,
-                    criterion: this.state.criterion
-                  };
-                break;
-              case 'FIGHT':
-                console.log("Création d'un exercice combat...");
-                  exercise = {
-                    name: this.state.name,
-                    description: this.state.description,
-                    image: this.state.image,
-                    type: this.state.exerciseType,
-                    rounds: this.state.rounds
-                  }
-                break;
-              default:
-                break;
-          }
-          console.log(exercise)
-          api.Exercises.create(exercise)
-            .then(() => this.setState({ submitted: true }))
-            .catch(() => {
-              alert("L'ajout de l'exercice a échoué.");
-            });
+        if (this.state.name && this.state.description) {
+            let exercise: Exercise = null;
+            switch(this.state.exerciseType) {
+                case 'THEORETICAL':
+                    if (this.state.question) {
+                        exercise = {
+                          name: this.state.name,
+                          description: this.state.description,
+                          image: this.state.image,
+                          type: this.state.exerciseType,
+                          question: this.state.question,
+                          reponse: this.state.reponse
+                        };
+                    } else {
+                        alert("Veuillez compléter le champ question du formulaire.");
+                        return;
+                    }
+                    break;
+                case 'PHYSICAL':
+                    if (this.state.objective && this.state.measurementUnit) {
+                        exercise = {
+                            name: this.state.name,
+                            description: this.state.description,
+                            image: this.state.image,
+                            type: this.state.exerciseType,
+                            objective: this.state.objective,
+                            measurementUnit: this.state.measurementUnit
+                        };
+                    } else {
+                        alert("Veuillez compléter les champs objectifs et unité de mesure du formulaire.");
+                        return;
+                    }
+                    break;
+                case 'TAOLU':
+                    this.state.criterion.map((crit: any) => {
+                    let criteria: Criteria = null;
+                    criteria = {
+                        name: crit
+                    }
+                    api.Criterion.create(criteria)
+                        .then(() => {})
+                        .catch(() => {
+                            alert("L'ajout du critère a échoué.");
+                        });
+                    });
+                    exercise = {
+                        name: this.state.name,
+                        description: this.state.description,
+                        image: this.state.image,
+                        type: this.state.exerciseType,
+                        criterion: this.state.criterion
+                    };
+                    break;
+                case 'FIGHT':
+                    if (this.state.rounds) {
+                        exercise = {
+                            name: this.state.name,
+                            description: this.state.description,
+                            image: this.state.image,
+                            type: this.state.exerciseType,
+                            rounds: this.state.rounds
+                        }
+                    } else {
+                        alert("Veuillez compléter le champ round.");
+                        return;
+                    }
+                    break;
+                default:
+                    break;
+            }
+            api.Exercises.create(exercise)
+                .then(() => this.setState({ submitted: true }))
+                .catch(() => {
+                  alert("L'ajout de l'exercice a échoué.");
+                });
         } else {
-          alert("Veuillez compléter les champs du formulaire.");
+            alert("Veuillez compléter les champs nom et description du formulaire.");
         }
     }
 
@@ -237,14 +258,18 @@ class ExerciseForm extends React.Component<IExerciseFormProps, IExerciseFormStat
 
         const TaoluForm =
             (<DynamicFieldSet
-                onChange={this.handleCriteriaChange.bind(this)}
                 label="critère"
             />);
 
         const FightForm =
-            (<p>
-                Exercice Combat
-            </p>);
+            (<Form.Item label="Nombre de rounds :">
+              <Input onChange={this.handleNumberRoundsChange} type="number" min="0"/>
+              <DynamicFieldSet
+                onChange={this.handleRoundCriteriaChange.bind(this)}
+                label="Critère"
+              />
+            </Form.Item>
+          );
 
         let ConditionnalForm;
         switch(this.state.exerciseType) {

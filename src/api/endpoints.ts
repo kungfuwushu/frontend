@@ -1,5 +1,5 @@
 import { get, post, put, del } from './requests.config';
-import { Rank, Test, ExerciseResult, Exercise, Program } from '../types';
+import { Rank, Test, ExerciseResult, Exercise, Program, Criteria } from '../types';
 
 export const Auth = {
 	login: (username: string, password: string) => post(`/auth/login`, { username, password }),
@@ -25,6 +25,14 @@ export const Exercises = {
 	create: (exercise: Exercise) => post(`/exercises`, exercise),
 	update: (exercise: Exercise) => put(`/exercises`, exercise),
 	delete: (id: number) => del(`/exercises/${id}`)
+};
+
+export const Criterion = {
+	all: () => get(`/criterion`),
+	byId: (id: number) => get(`/criterion/${id}`),
+	create: (criteria: Criteria) => post(`/criterion`, criteria),
+	update: (criteria: Criteria) => put(`/criterion`, criteria),
+	delete: (id: number) => del(`/criterion/${id}`)
 };
 
 export const Programs = {

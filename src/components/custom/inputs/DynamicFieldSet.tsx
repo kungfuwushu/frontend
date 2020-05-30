@@ -14,19 +14,16 @@ interface IDynamicFieldSetState {}
 
 class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFieldSetState> {
 
-  remove = (k: any) => {
+  remove = (k: any, index: any) => {
     const { form } = this.props;
     // can use data-binding to get
     const keys = form.getFieldValue('keys');
-    // We need at least one passenger
-    if (keys.length === 1) {
-      return;
-    }
 
     // can use data-binding to set
     form.setFieldsValue({
       keys: keys.filter((key:any) => (key !== k)),
     });
+    this.props.onChange(index);
   };
 
   add = () => {
@@ -42,7 +39,7 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
   };
 
   onChange = (event: any) => {
-    this.props.onChange(event.target.value);
+    this.props.onChange(event);
   }
 
   render() {
@@ -82,14 +79,12 @@ class DynamicFieldSet extends React.Component<IDynamicFieldSetProps, IDynamicFie
               message: `Veuillez entrer le champ ${label.toLowerCase()} ici ou supprimer ce champ`,
             },
           ],
-      })(<Input placeholder={`${label}  ${(index+1)}`} onChange={this.onChange.bind(this)} style={{ width: '60%', marginRight: 8 }} />)}
-        {keys.length > 1 ? (
+      })(<Input name={`${(index)}`} placeholder={`${label} ${(index+1)}`} onChange={this.onChange.bind(this)} style={{ width: '60%', marginRight: 8 }} />)}
           <Icon
             className="dynamic-delete-button"
             type="minus-circle-o"
-            onClick={() => this.remove(k)}
+            onClick={() => this.remove(k, index)}
           />
-        ) : null}
       </Form.Item>
     ));
     return (
